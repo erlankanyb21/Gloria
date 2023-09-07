@@ -1,11 +1,13 @@
 plugins {
     id("com.android.application")
+    id("org.jetbrains.compose")
     kotlin("android")
 }
 
 android {
     namespace = "org.tbm.gloria.android"
     compileSdk = 33
+    buildToolsVersion = "30.0.3"
     defaultConfig {
         applicationId = "org.tbm.gloria.android"
         minSdk = 24
@@ -17,33 +19,37 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        kotlinCompilerExtensionVersion = "1.4.6"
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            multiDexEnabled = false
+        }
+        getByName("debug") {
+            multiDexEnabled = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "11"
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
 dependencies {
-    implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    implementation("androidx.compose.foundation:foundation:1.4.3")
-    implementation("androidx.compose.material:material:1.4.3")
-    implementation("androidx.activity:activity-compose:1.7.1")
+    implementation(project(":common:umbrella-compose"))
+    implementation(project(":common:core"))
+    implementation(project(":common:umbrella-core"))
+    implementation(Dependencies.Android.kotlinStdlib)
+    implementation(Dependencies.Android.Compose.runtime)
+    implementation(Dependencies.Android.Compose.icons)
+    implementation(Dependencies.Android.Compose.ui)
+    implementation(Dependencies.Android.Compose.tooling)
+    implementation(Dependencies.Android.Compose.toolingPreview)
+    implementation(Dependencies.Android.Compose.foundation)
+    implementation(Dependencies.Android.Compose.material)
+    implementation(Dependencies.Android.Compose.activityCompose)
 }

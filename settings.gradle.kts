@@ -6,13 +6,14 @@ pluginManagement {
     }
 }
 
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
 rootProject.name = "Gloria"
 include(":androidApp")
-include(":shared")
+include(":common:core")
+include(":common:umbrella-ios")
+include(":common:umbrella-compose")
+include(":common:umbrella-core")
+include(":common:core-compose")
+include(":common:core-utils")
+include(":common:main:compose")
+
+
