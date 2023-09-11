@@ -23,6 +23,8 @@ kotlin{
                 implementation(Dependencies.Android.Compose.toolingPreview)
                 implementation(Dependencies.Android.Compose.foundation)
                 implementation(Dependencies.Android.Compose.material)
+                implementation(Dependencies.Android.Compose.materialThree)
+                implementation(Dependencies.Android.Compose.materialWindow)
                 implementation(Dependencies.Android.Compose.activityCompose)
                 implementation(Dependencies.Android.Compose.iconsExtended)
                 implementation(Dependencies.Android.Compose.navigation)

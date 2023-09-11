@@ -5,6 +5,10 @@ object NavigationTree {
         SplashScreen
     }
 
+    enum class Auth{
+        AuthFlow,SignIn, SignUp, NumberConfirmation
+    }
+
     enum class Main{
         MainScreen
     }

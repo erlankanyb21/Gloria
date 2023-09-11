@@ -15,5 +15,10 @@ include(":common:umbrella-core")
 include(":common:core-compose")
 include(":common:core-utils")
 include(":common:main:compose")
+include(":common:auth:api")
+include(":common:auth:compose")
+include(":common:auth:data")
+include(":common:auth:presentation")
+
 
 
