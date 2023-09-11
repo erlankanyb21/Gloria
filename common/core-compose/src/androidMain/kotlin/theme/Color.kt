@@ -33,6 +33,7 @@ data class GloriaColor(
     val pink: Color,
     val deeperPink: Color,
     val deeepPink: Color,
+    val transient: Color
 )
 
 val gloriaGradient = Brush.linearGradient(
@@ -54,7 +55,8 @@ val color = GloriaColor(
     mediumPink = Color(0xFFFFA1D4),
     pink = Color(0xFFFF71BE),
     deeperPink = Color(0xFFFF42A9),
-    deeepPink = Color(0xFFFF1393)
+    deeepPink = Color(0xFFFF1393),
+    transient = Color(0x0)
 )
 val LocalColorProvider =
     staticCompositionLocalOf<GloriaColor> { error("No default implementation") }
