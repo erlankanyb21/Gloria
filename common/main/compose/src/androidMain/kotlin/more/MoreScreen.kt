@@ -1,18 +1,22 @@
 package more
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import companent.ToolBar
+import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun MoreScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+    val rootController = LocalRootController.current
+    Column(
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Text(text = "More Screen")
+        ToolBar(
+            title = "Eще"
+        )
     }
+
+
 }
