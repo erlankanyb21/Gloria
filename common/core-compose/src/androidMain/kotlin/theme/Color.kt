@@ -1,26 +1,9 @@
 package theme
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 data class GloriaColor(
     val black: Color,
@@ -33,6 +16,8 @@ data class GloriaColor(
     val pink: Color,
     val deeperPink: Color,
     val deeepPink: Color,
+    val purple500: Color,
+    val purple200: Color,
 )
 
 val gloriaGradient = Brush.linearGradient(
@@ -54,7 +39,9 @@ val color = GloriaColor(
     mediumPink = Color(0xFFFFA1D4),
     pink = Color(0xFFFF71BE),
     deeperPink = Color(0xFFFF42A9),
-    deeepPink = Color(0xFFFF1393)
+    deeepPink = Color(0xFFFF1393),
+    purple500 = Color(0xFF552180),
+    purple200 = Color(0xFFA4128C)
 )
 val LocalColorProvider =
     staticCompositionLocalOf<GloriaColor> { error("No default implementation") }
