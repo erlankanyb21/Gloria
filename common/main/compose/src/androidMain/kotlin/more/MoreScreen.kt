@@ -1,5 +1,6 @@
 package more
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,40 +11,44 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import companent.ExpandedCard
-import companent.GradientButton
-import companent.ToolBar
+import components.ExpandableCard
+import components.GradientButton
+import components.ToolBar
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.gloriaGradient
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MoreScreen() {
     val rootController = LocalRootController.current
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
+
+    Scaffold(
+        topBar = {
+            ToolBar(
+                title = "Eще"
+            )
+        }
     ) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.height(10.dp))
 
-        ToolBar(
-            title = "Eще"
-        )
+            ExpandableCard(title = "Личные данные")
 
-        Spacer(modifier = Modifier.height(20.dp))
+            OutlinedButtons()
 
-        ExpandedCard()
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        OutlinedButtons()
-
-        FilledButtons()
+            FilledButtons()
+        }
     }
 }
 
