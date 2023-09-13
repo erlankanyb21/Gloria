@@ -26,6 +26,10 @@ kotlin{
                 implementation(project(":common:core-compose"))
 
                 implementation(Dependencies.Android.composeActivity)
+
+                implementation(Dependencies.SplashApi.core)
+                implementation(Dependencies.Image.Coil.core)
+                implementation(Dependencies.Image.Coil.compose)
             }
         }
     }
