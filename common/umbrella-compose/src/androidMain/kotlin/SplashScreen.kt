@@ -29,7 +29,7 @@ fun SplashScreen(){
         LaunchedEffect(key1 = true) {
             delay(3000L)
 
-            rootController.present(NavigationTree.Main.MainScreen.name)
+            rootController.present(NavigationTree.Auth.SignUp.name)
         }
     }
 }

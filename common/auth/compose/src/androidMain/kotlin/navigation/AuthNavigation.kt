@@ -4,11 +4,10 @@ import ru.alexgladkov.odyssey.compose.extensions.flow
 import ru.alexgladkov.odyssey.compose.extensions.screen
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 import signin.SignIn
+import signup.SignUp
 
 fun RootComposeBuilder.authFlow(){
-    flow(name = NavigationTree.Auth.AuthFlow.name){
-       screen(name = NavigationTree.Auth.SignIn.name){
-           SignIn()
-       }
+    screen(name = NavigationTree.Auth.SignUp.name){
+        SignUp()
     }
 }
