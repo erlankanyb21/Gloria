@@ -28,6 +28,9 @@ kotlin{
             dependencies {
                 implementation(Dependencies.Ktor.android)
 //                implementation(Dependencies.SqlDelight.android)
+                implementation(Dependencies.SplashApi.core)
+                implementation(Dependencies.Image.Coil.core)
+                implementation(Dependencies.Image.Coil.compose)
             }
         }
 

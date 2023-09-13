@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile">Eще</string>
+    <string name="profile_data">Личные данные</string>
+    <string name="change_password">Сменить пароль</string>
+    <string name="order_history">История заказов</string>
+    <string name="favorites">Избранное</string>
+    <string name="contacts_and_address">Контакты и адреса</string>
+    <string name="questions_answers">Вопросы-ответы</string>
+    <string name="sign_in_or_sign_up">Войти / Зарегистрироваться</string>
+</resources>

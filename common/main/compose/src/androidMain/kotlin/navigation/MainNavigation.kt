@@ -1,15 +1,10 @@
 package navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import cart.CartScreen
 import catalog.CatalogScreen
 import main.MainScreen
 import more.MoreScreen
+import more.faq.FAQScreen
 import navigation.tabs.BottomConfiguration
 import navigation.tabs.CartTab
 import navigation.tabs.CatalogTab
@@ -43,6 +38,10 @@ fun RootComposeBuilder.mainFlow() {
         tab(MoreTab()) {
             screen(name = NavigationTree.Main.Tab.name) {
                 MoreScreen()
+            }
+
+            screen(NavigationTree.Main.FAQScreen.name) {
+                FAQScreen()
             }
         }
     }
