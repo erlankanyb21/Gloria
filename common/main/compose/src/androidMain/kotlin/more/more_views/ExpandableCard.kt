@@ -1,4 +1,4 @@
-package components
+package more.more_views
 
 import android.widget.Toast
 import androidx.compose.animation.animateContentSize
@@ -57,6 +57,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
+import components.GradientButton
 import theme.gloriaGradient
 
 
@@ -90,7 +91,7 @@ fun ExpandableCard(title: String) {
             .background(Color.White)
             .fillMaxWidth()
             .animateContentSize(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy))
-            .padding(10.dp),
+            .padding(horizontal = 20.dp ,10.dp),
         border = BorderStroke(1.dp, color = Color.Black)
     ) {
         Column(modifier = Modifier.background(Color.White)) {

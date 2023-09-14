@@ -46,8 +46,7 @@ fun ToolBar(
         title = {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(),
+                    .fillMaxWidth(),
                 text = title,
                 style = TextStyle(
                     fontSize = 18.sp,

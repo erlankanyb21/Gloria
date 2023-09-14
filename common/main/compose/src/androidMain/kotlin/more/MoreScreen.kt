@@ -19,13 +19,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import components.ExpandableCard
+import more.more_views.ExpandableCard
 import components.GradientButton
 import components.ToolBar
 import navigation.NavigationTree
 import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
-import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.gloriaGradient
 
@@ -119,7 +118,10 @@ fun FilledButtons() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 7.dp)
-            .height(50.dp)
+            .height(50.dp),
+        onClick = {
+            rootController.present(screen = NavigationTree.Main.ContactsAndAddress.name)
+        }
     )
     GradientButton(
         text = stringResource(R.string.questions_answers),

@@ -22,7 +22,7 @@ kotlin{
                 implementation(Dependencies.Android.Compose.tooling)
                 implementation(Dependencies.Android.Compose.toolingPreview)
                 implementation(Dependencies.Android.Compose.foundation)
-                implementation(Dependencies.Android.Compose.material)
+                implementation(Dependencies.Android.Compose.material3)
                 implementation(Dependencies.Android.Compose.activityCompose)
                 implementation(Dependencies.Android.Compose.iconsExtended)
                 implementation(Dependencies.Android.Compose.navigation)
