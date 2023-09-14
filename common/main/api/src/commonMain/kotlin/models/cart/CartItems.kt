@@ -23,5 +23,6 @@ data class CartItems(
     val user: Int? = null,
     val balls: Int? = null,
     val postcard: Int? = null,
-    val name: String? = null
+    val name: String? = null,
+    val productCount: Int = 1
 )

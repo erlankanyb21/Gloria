@@ -15,7 +15,7 @@ class KtorCartDataSource(
         return httpClient.get {
             url {
                 path("cart-items")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0NTIyOTE5LCJpYXQiOjE2OTQ1MDc2NTMsImp0aSI6IjZkYmJlMjJkNmNmNjRkZTg4NjkwMDZhNDllZjBlYjcxIiwidXNlcl9pZCI6OX0.SRwl_eUAfTVNb33WhxACnzzPH47DweQQ1tRUdg02Yno")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0NjExMDI2LCJpYXQiOjE2OTQ2MDM4MjYsImp0aSI6IjkxNDliMDJhZWY2ZTQ4ZmU4NWJmNWU1ZjdiZTI4ZTc5IiwidXNlcl9pZCI6MX0.prsW13Fj-DMydbb83Txaa8oNVpXsqE3K06t9z7FXSKQ")
             }
         }.body()
     }

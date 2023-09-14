@@ -8,35 +8,60 @@ import di.Inject
 import kotlinx.coroutines.launch
 import repositories.CartRepository
 
-class CartViewModel(): BaseSharedViewModel<CartViewState, CartAction, CartEvent>(
-    initialState = CartViewState(1, false)
+class CartViewModel : BaseSharedViewModel<CartViewState, CartAction, CartEvent>(
+    initialState = CartViewState()
 ) {
 
     private val cartRepository: CartRepository = Inject.instance()
 
     override fun obtainEvent(viewEvent: CartEvent) {
         when(viewEvent) {
-            CartEvent.ClearCart -> { println("ClearCart") }
-            CartEvent.RemoveItem -> { println("RemoveItem") }
-            CartEvent.PlusProduct -> { println("PlusProduct") }
-            CartEvent.MinusProduct -> { println("MinusProduct") }
+            is CartEvent.ClearCart -> {
+
+            }
+            is CartEvent.RemoveItem -> {
+
+            }
+            is CartEvent.IncrementProductCount -> {
+                incrementProductCount(viewEvent.value)
+            }
+            is CartEvent.DecrementProductCount -> {
+                decrementProductCount(viewEvent.value)
+            }
+            is CartEvent.OpenCatalogClick -> {
+                openCatalog()
+            }
         }
     }
 
+    private fun openCatalog() {
+        viewAction = CartAction.OpenCatalog
+    }
+
+    private fun decrementProductCount(position: Int) {
+        viewState.cartItems[position].productCount.plus(1)
+    }
+
+    private fun incrementProductCount(position: Int) {
+
+    }
+
     init {
+    }
+
+    private fun fetchUserCart() {
         viewModelScope.launch {
             viewState = try {
                 val res = cartRepository.fetchUserCart()
                 viewState.copy(
-                    productCount = 1,
-                    isEmptyCart = false,
-                    cartItems = res.cartItems)
+                    isNotEmptyCart = res.cartItems.isNotEmpty(),
+                    cartItems = res.cartItems
+                )
             } catch (e: Exception) {
                 e.printStackTrace()
                 viewState.copy(
-                    productCount = 0,
-                    isEmptyCart = true,
-                    cartItems = emptyList())
+                    cartItems = emptyList()
+                )
             }
         }
     }

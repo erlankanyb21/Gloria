@@ -26,5 +26,9 @@ android{
     dependencies {
         implementation(Dependencies.Android.Compose.runtime)
 
+        implementation(Dependencies.SplashApi.core)
+        implementation(Dependencies.Image.Coil.core)
+        implementation(Dependencies.Image.Coil.compose)
+
     }
 }

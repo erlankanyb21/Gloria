@@ -8,11 +8,14 @@
         android:name=".App"
         android:allowBackup="false"
         android:supportsRtl="true"
+        android:icon="@drawable/splash"
         android:forceDarkAllowed = "false"
-        android:theme="@style/AppTheme"
+        android:theme="@style/App.Starting.Theme"
         tools:targetApi="q">
         <activity
             android:name=".MainActivity"
+            android:label="Глория"
+            android:theme="@style/App.Starting.Theme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

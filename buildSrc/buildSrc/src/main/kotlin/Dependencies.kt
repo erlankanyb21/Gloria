@@ -8,6 +8,11 @@ object Dependencies {
         const val noargs = "com.russhwolf:multiplatform-settings-no-arg:1.0.0-RC"
     }
 
+    object SplashApi {
+        private const val version = "1.0.1"
+        const val core = "androidx.core:core-splashscreen:$version"
+    }
+
     object Image {
         object Coil {
             const val version = "2.2.2"
@@ -72,7 +77,7 @@ object Dependencies {
             const val tooling = "androidx.compose.ui:ui-tooling:$version"
             const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
             const val foundation = "androidx.compose.foundation:foundation:$version"
-            const val material = "androidx.compose.material:material:$version"
+            const val material3 = "androidx.compose.material3:material3:1.1.1"
             const val activityCompose = "androidx.activity:activity-compose:1.7.1"
             const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
             const val navigation = "androidx.navigation:navigation-compose:2.6.0"
