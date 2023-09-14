@@ -15,5 +15,9 @@ include(":common:umbrella-core")
 include(":common:core-compose")
 include(":common:core-utils")
 include(":common:main:compose")
+include(":common:home:api")
+include(":common:home:presentation")
+include(":common:home:compose")
+include(":common:home:data")
 
 

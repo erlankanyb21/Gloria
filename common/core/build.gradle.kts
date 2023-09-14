@@ -27,6 +27,7 @@ kotlin{
         androidMain{
             dependencies {
                 implementation(Dependencies.Ktor.android)
+                    implementation(Dependencies.Kotlin.Coroutines.android)
 //                implementation(Dependencies.SqlDelight.android)
             }
         }
