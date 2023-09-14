@@ -20,6 +20,7 @@ object PlatformSDK {
                 importAll(
                     umbrellaModule,
                     coreModule,
+                    mainModule
                 )
             }.direct
         )
