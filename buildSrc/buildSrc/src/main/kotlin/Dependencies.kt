@@ -8,6 +8,11 @@ object Dependencies {
         const val noargs = "com.russhwolf:multiplatform-settings-no-arg:1.0.0-RC"
     }
 
+    object SplashApi {
+        private const val version = "1.0.1"
+        const val core = "androidx.core:core-splashscreen:$version"
+    }
+
     object Image {
         object Coil {
             const val version = "2.2.2"

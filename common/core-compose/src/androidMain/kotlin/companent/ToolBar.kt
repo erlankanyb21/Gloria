@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -42,12 +43,12 @@ fun ToolBar(
             .clip(RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp))
             .background(gloriaGradient)
             .fillMaxWidth()
-            .height(118.dp),
+            .statusBarsPadding(),
         title = {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 60.dp, top = 40.dp),
+                    .padding(end = 60.dp),
                 text = title,
                 style = TextStyle(
                     fontSize = 18.sp,
@@ -73,8 +74,7 @@ fun DetailsTopBarPreview() {
     ToolBar(backIcon = {
         IconButton(
             modifier = Modifier
-                .size(50.dp)
-                .padding(top = 40.dp),
+                .size(50.dp),
             onClick = {},
         ) {
             Icon(

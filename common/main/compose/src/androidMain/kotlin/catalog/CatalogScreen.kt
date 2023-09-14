@@ -1,5 +1,6 @@
 package catalog
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,47 +31,55 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import companent.ToolBarWithSearch
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Preview
 @Composable
 fun CatalogScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        ToolBarWithSearch(title = "Каталог", painter = null, onClick = Unit)
-        Spacer(modifier = Modifier.height(16.dp))
-        LazyVerticalGrid(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 5.dp),
-            columns = GridCells.Fixed(count = 2),
-            verticalArrangement = Arrangement.spacedBy(space = 5.dp),
-            horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
-            contentPadding = PaddingValues(all = 5.dp)
+    Scaffold (
+        topBar = {
+            ToolBarWithSearch(title = "Каталог", painter = null, onClick = Unit)
+        }
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
         ) {
-            items(count = 6) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(180.dp)
-                        .clip(RoundedCornerShape(size = 4.dp)),
-                    contentAlignment = Alignment.BottomEnd
-                ) {
-                    Image(
-                        painter = painterResource(
-                            id = org.tbm.gloria.core_compose.R.drawable.balls,
-                        ),
-                        modifier = Modifier.fillMaxSize(),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop
-                    )
-                    Text(
+            Spacer(modifier = Modifier.height(10.dp))
+            LazyVerticalGrid(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 5.dp),
+                columns = GridCells.Fixed(count = 2),
+                verticalArrangement = Arrangement.spacedBy(space = 5.dp),
+                horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
+                contentPadding = PaddingValues(all = 5.dp)
+            ) {
+                items(count = 6) {
+                    Box(
                         modifier = Modifier
-                            .padding(end = 10.dp, bottom = 10.dp),
-                        text = "Шары",
-                        style = TextStyle(Color.Black,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold)
-                    )
+                            .fillMaxWidth()
+                            .height(180.dp)
+                            .clip(RoundedCornerShape(size = 4.dp)),
+                        contentAlignment = Alignment.BottomEnd
+                    ) {
+                        Image(
+                            painter = painterResource(
+                                id = org.tbm.gloria.core_compose.R.drawable.balls,
+                            ),
+                            modifier = Modifier.fillMaxSize(),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+                        )
+                        Text(
+                            modifier = Modifier
+                                .padding(end = 10.dp, bottom = 10.dp),
+                            text = "Шары",
+                            style = TextStyle(Color.Black,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold)
+                        )
+                    }
                 }
             }
         }
