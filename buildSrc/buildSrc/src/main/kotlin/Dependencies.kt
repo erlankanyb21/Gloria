@@ -78,7 +78,7 @@ object Dependencies {
             const val tooling = "androidx.compose.ui:ui-tooling:$version"
             const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
             const val foundation = "androidx.compose.foundation:foundation:$version"
-            const val material = "androidx.compose.material3:material3:1.1.1"
+            const val material3 = "androidx.compose.material3:material3:1.1.1"
             const val activityCompose = "androidx.activity:activity-compose:1.7.1"
             const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
             const val navigation = "androidx.navigation:navigation-compose:2.6.0"

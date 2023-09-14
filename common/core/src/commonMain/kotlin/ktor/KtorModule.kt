@@ -41,7 +41,7 @@ internal val ktorModule = DI.Module("ktorModule"){
             }
 
             defaultRequest {
-                url("your url")
+                url("https://gloria.geeks.kg/api/v1/")
                 header("Content-Type", "application/json")
             }
         }

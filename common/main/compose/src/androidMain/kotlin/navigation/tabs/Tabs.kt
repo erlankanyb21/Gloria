@@ -20,7 +20,7 @@ class MainTab : TabItem() {
                 title = "Главная",
                 selectedIcon = painterResource(id = R.drawable.ic_home),
                 unselectedIcon = painterResource(id = R.drawable.ic_home),
-                selectedColor = color.deeepPink,
+                selectedColor = color.purple200,
                 unselectedColor = Color.Gray,
                 titleStyle = TextStyle(
                     fontSize = 14.sp,
@@ -38,7 +38,7 @@ class CatalogTab : TabItem() {
                 title = "Каталог",
                 selectedIcon = painterResource(id = R.drawable.ic_basket),
                 unselectedIcon = painterResource(id = R.drawable.ic_basket),
-                selectedColor = color.deeepPink,
+                selectedColor = color.purple200,
                 unselectedColor = Color.Gray,
                 titleStyle = TextStyle(
                     fontSize = 14.sp,
@@ -57,7 +57,7 @@ class CartTab : TabItem() {
                 title = "Корзина",
                 selectedIcon = painterResource(id = R.drawable.ic_cart),
                 unselectedIcon = painterResource(id = R.drawable.ic_cart),
-                selectedColor = color.deeepPink,
+                selectedColor = color.purple200,
                 unselectedColor = Color.Gray,
                 titleStyle = TextStyle(
                     fontSize = 14.sp,
@@ -76,7 +76,7 @@ class MoreTab : TabItem() {
                 title = "Ещё",
                 selectedIcon = painterResource(id = R.drawable.ic_menu),
                 unselectedIcon = painterResource(id = R.drawable.ic_menu),
-                selectedColor = color.deeepPink,
+                selectedColor = color.purple200,
                 unselectedColor = Color.Gray,
                 titleStyle = TextStyle(
                     fontSize = 14.sp,
