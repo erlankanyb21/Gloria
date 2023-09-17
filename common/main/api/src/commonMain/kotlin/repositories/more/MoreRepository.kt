@@ -15,5 +15,5 @@ interface MoreRepository {
 
     suspend fun updateProfile(updateProfileBody: UpdateProfileBody): GetProfileResponse
 
-    suspend fun uploadImage(editImage:ByteArray): GetProfileResponse
+    suspend fun uploadImage(editImage:ByteArray?): GetProfileResponse
 }

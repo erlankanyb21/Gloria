@@ -8,5 +8,6 @@ data class ProfileViewState(
     var surname: String? = null,
     var date: String? = null,
     var gender: String? = null,
-    var phone: String? = null
+    var phone: String? = null,
+    var image: ByteArray? = null
 )

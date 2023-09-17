@@ -16,7 +16,20 @@ class ProfileViewModel : BaseSharedViewModel<ProfileViewState, ProfileAction, Pr
         when (viewEvent) {
             is ProfileEvent.OpenFAQClick -> openFAQScreen()
             is ProfileEvent.UpdateData -> sendProfile()
+            is ProfileEvent.UploadAvatar -> uploadAvatar()
             else -> {}
+        }
+    }
+
+    private fun uploadAvatar() = viewModelScope.launch {
+        viewState = try {
+            viewState.image?.let {
+                moreRepository.uploadImage(viewState.image)
+            }
+            viewState.copy(image = viewState.image)
+        } catch (e:Exception){
+            e.printStackTrace()
+            viewState.copy(image = null)
         }
     }
 

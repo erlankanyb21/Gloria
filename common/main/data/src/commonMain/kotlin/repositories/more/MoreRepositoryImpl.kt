@@ -25,7 +25,7 @@ class MoreRepositoryImpl(
         return moreDataSource.updateProfile(updateProfileBody)
     }
 
-    override suspend fun uploadImage(editImage: ByteArray): GetProfileResponse {
+    override suspend fun uploadImage(editImage: ByteArray?): GetProfileResponse {
         return moreDataSource.editImage(editImage)
     }
 }

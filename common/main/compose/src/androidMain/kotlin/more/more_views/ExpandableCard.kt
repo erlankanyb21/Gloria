@@ -1,8 +1,10 @@
 package more.more_views
 
+import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -69,10 +71,13 @@ import coil.compose.SubcomposeAsyncImage
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.GradientButton
+import models.more.profile.GetProfileResponse
 import more.profile.ProfileEvent
 import more.profile.ProfileViewModel
 import org.tbm.gloria.main.compose.R
 import theme.gloriaGradient
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 
 
 @Preview
@@ -108,9 +113,10 @@ fun ExpandableCard(title: String) {
         }
 
         val imagePickLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.PickVisualMedia(),
+            contract = ActivityResultContracts.GetContent(),
             onResult = {
                 selectedImageUri = it
+                viewState.image = uriToByteArray(context,it!!)
             }
         )
 
@@ -175,9 +181,7 @@ fun ExpandableCard(title: String) {
                                 }
 
                                 if (context.checkSelfPermission(permissionToCheck) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                                    imagePickLauncher.launch(
-                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                                    )
+                                    imagePickLauncher.launch("image/jpeg")
                                 } else {
                                     requestPermissionLauncher.launch(permissionToCheck)
                                 }
@@ -389,12 +393,31 @@ fun ExpandableCard(title: String) {
                             onClick = {
                                 viewModel.obtainEvent(ProfileEvent.UpdateData)
                                 expanded = !expanded
+                                viewModel.obtainEvent(ProfileEvent.UploadAvatar)
                             }
                         )
                     }
                 }
             }
         }
+    }
+}
+
+private fun uriToByteArray(context: Context, uri: Uri): ByteArray? {
+    return try {
+        context.contentResolver.openInputStream(uri)?.use { inputStream ->
+            ByteArrayOutputStream().use { byteArrayOutputStream ->
+                val buffer = ByteArray(1024)
+                var bytesRead: Int
+                while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                    byteArrayOutputStream.write(buffer, 0, bytesRead)
+                }
+                byteArrayOutputStream.toByteArray()
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
     }
 }
 
