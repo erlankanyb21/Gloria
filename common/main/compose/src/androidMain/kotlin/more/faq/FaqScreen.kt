@@ -33,8 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.ToolBar
-import more.MoreViewModel
-import more.more_views.BasicExpandableCard
+import more.more_views.SimpleExpandableCard
 import org.tbm.gloria.core_compose.R
 import org.tbm.gloria.main.compose.R.string.questions_answers
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -44,9 +43,8 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 fun FAQScreen() {
     val rootController = LocalRootController.current
 
-    StoredViewModel(factory = { MoreViewModel() }) { viewModel ->
+    StoredViewModel(factory = { FAQViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
-        val viewAction = viewModel.viewActions().observeAsState()
 
         Scaffold(
             topBar = {
@@ -72,7 +70,7 @@ fun FAQScreen() {
                 modifier = Modifier.padding(it),
             ) {
                 items(items = viewState.value.faqItems) { items ->
-                    BasicExpandableCard(title = items.title) {
+                    SimpleExpandableCard(title = items.title) {
                         Text(
                             modifier = Modifier.padding(horizontal = 15.dp, vertical = 15.dp),
                             text = items.description,

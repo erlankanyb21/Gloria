@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -27,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import org.tbm.gloria.core_compose.R.drawable.location
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -81,7 +83,9 @@ fun ContactsAndAddressScreen() {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                modifier = Modifier.padding(vertical = 14.dp),
+                modifier = Modifier
+                    .padding(18.dp)
+                    .clip(RoundedCornerShape(8.dp)),
                 painter = painterResource(id = location),
                 contentDescription = ""
             )
@@ -100,7 +104,7 @@ fun ContactsAndAddressScreen() {
                 if (context.checkSelfPermission(android.Manifest.permission.CALL_PHONE)
                     == android.content.pm.PackageManager.PERMISSION_GRANTED
                 ) {
-                    context.startActivity(intent)
+                    if (permissionState) context.startActivity(intent)
                 } else {
                     requestPermissionLauncher.launch(android.Manifest.permission.CALL_PHONE)
                 }

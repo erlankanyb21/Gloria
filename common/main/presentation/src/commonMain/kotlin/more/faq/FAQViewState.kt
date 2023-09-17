@@ -1,9 +1,9 @@
-package more.models
+package more.faq
 
 import models.more.faq.FAQItems
 import models.more.faq.WhatsAppResponse
 
-data class MoreViewState(
+data class FAQViewState(
     val faqItems: List<FAQItems> = emptyList(),
-    val openWhatsApp: WhatsAppResponse? = null
+    val openWhatsApp: WhatsAppResponse? = null,
 )
