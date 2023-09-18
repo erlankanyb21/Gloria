@@ -42,7 +42,7 @@ object Dependencies {
     }
 
     object Ktor {
-        private const val version = "2.1.0"
+        private const val version = "2.3.0"
         const val core = "io.ktor:ktor-client-core:$version"
         const val json = "io.ktor:ktor-client-json:$version"
         const val ios = "io.ktor:ktor-client-ios:$version"
@@ -52,6 +52,7 @@ object Dependencies {
         const val logging = "io.ktor:ktor-client-logging:$version"
         const val android = "io.ktor:ktor-client-android:$version"
         const val okhttp = "io.ktor:ktor-client-okhttp:$version"
+        const val auth = "io.ktor:ktor-client-auth:$version"
     }
 
     object SqlDelight {
@@ -93,7 +94,7 @@ object Dependencies {
         }
 
         object Navigation {
-            private const val version = "1.0.0-beta15"
+            private const val version = "1.3.0"
             const val core = "io.github.alexgladkov:odyssey-core:$version"
             const val compose = "io.github.alexgladkov:odyssey-compose:$version"
         }

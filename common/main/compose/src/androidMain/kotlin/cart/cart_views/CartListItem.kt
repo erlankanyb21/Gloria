@@ -20,26 +20,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cart.models.CartEvent
 import cart.models.CartViewState
+import coil.compose.AsyncImage
 import extensions.textBrush
 import models.cart.CartItems
 import org.tbm.gloria.core_compose.R
+import ru.alexgladkov.odyssey.compose.controllers.ModalController
+import ru.alexgladkov.odyssey.compose.extensions.present
+import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.AlertConfiguration
 import theme.color
 import theme.gloriaGradient
 
 @Composable
-fun CartListItem(item: CartItems, viewState: State<CartViewState>, eventHandler: () -> Unit) {
+fun CartListItem(
+    modifier: Modifier = Modifier,
+    item: CartItems,
+    viewState: State<CartViewState>,
+    index: Int,
+    modalController: ModalController,
+    eventHandler: (CartEvent) -> Unit
+) {
+    val productImage = item.productImages[0].image
+    val image = if (!productImage.contains("https")) {
+        productImage.replace("http", "https")
+    } else {
+        productImage
+    }
     Box(
-        modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .padding(bottom = 12.dp)
+        modifier = modifier
             .border(1.dp, color.purple200, RoundedCornerShape(8.dp)),
         contentAlignment = Alignment.TopEnd
     ) {
@@ -49,13 +64,12 @@ fun CartListItem(item: CartItems, viewState: State<CartViewState>, eventHandler:
                 .fillMaxWidth()
                 .padding(20.dp)
         ) {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .size(100.dp)
                     .clip(RoundedCornerShape(8.dp)),
-                painter = painterResource(id = coil.base.R.drawable.notify_panel_notification_icon_bg),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
+                model = image,
+                contentDescription = null
             )
             Column(
                 modifier = Modifier
@@ -63,7 +77,7 @@ fun CartListItem(item: CartItems, viewState: State<CartViewState>, eventHandler:
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = item.name ?: stringResource(id = R.string.cart),
+                    text = item.name ?: stringResource(id = R.string.unknown),
                     style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -72,7 +86,7 @@ fun CartListItem(item: CartItems, viewState: State<CartViewState>, eventHandler:
                 )
 
                 Text(
-                    text = item.description ?: stringResource(id = R.string.cart),
+                    text = item.description ?: stringResource(id = R.string.unknown),
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = color.black,
@@ -93,13 +107,15 @@ fun CartListItem(item: CartItems, viewState: State<CartViewState>, eventHandler:
                     ) {
                         Image(
                             painter = painterResource(
-                                id = R.drawable.ic_minus),
-                            contentDescription = null)
+                                id = R.drawable.ic_minus
+                            ),
+                            contentDescription = null
+                        )
                     }
 
                     Text(
                         modifier = Modifier.textBrush(gloriaGradient),
-                        text = item.productCount.toString(),
+                        text = item.quantity.toString(),
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
@@ -108,23 +124,43 @@ fun CartListItem(item: CartItems, viewState: State<CartViewState>, eventHandler:
 
                     IconButton(
                         onClick = {
-                            eventHandler()
+                            eventHandler(CartEvent.IncrementProductCount(index))
                         }
                     ) {
                         Image(
                             painter = painterResource(
-                                id = R.drawable.ic_plus),
-                            contentDescription = null)
+                                id = R.drawable.ic_plus
+                            ),
+                            contentDescription = null
+                        )
                     }
                 }
             }
         }
         IconButton(
-            onClick = {  }
+            onClick = {
+                val alertConfiguration = AlertConfiguration(
+                    maxHeight = 0.3f,
+                    maxWidth = 0.8f,
+                    cornerRadius = 8
+                )
+                modalController.present(alertConfiguration) { key ->
+                    AlertDialogScreen(
+                        text = stringResource(id = R.string.un_cart),
+                        positiveButtonText = stringResource(id = R.string.delete),
+                        onPositiveClick = {
+                            eventHandler.invoke(CartEvent.RemoveItem(item.id))
+                        }
+                    ) {
+                        modalController.popBackStack(key)
+                    }
+                }
+            }
         ) {
             Image(
                 painter = painterResource(
-                    id = R.drawable.ic_remove),
+                    id = R.drawable.ic_remove
+                ),
                 contentDescription = null,
             )
         }

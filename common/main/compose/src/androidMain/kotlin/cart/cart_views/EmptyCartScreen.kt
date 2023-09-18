@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,9 +39,8 @@ fun EmptyCartScreen(
 ) {
     Column(
         modifier = Modifier
-            .padding(padding)
-            .fillMaxHeight()
-            .fillMaxWidth(),
+            .padding(top = padding.calculateTopPadding())
+            .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

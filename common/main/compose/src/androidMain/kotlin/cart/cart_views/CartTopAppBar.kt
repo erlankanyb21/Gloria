@@ -18,13 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cart.models.CartEvent
 import cart.models.CartViewState
 import extensions.bottomBorder
 import org.tbm.gloria.core_compose.R
+import ru.alexgladkov.odyssey.compose.controllers.ModalController
+import ru.alexgladkov.odyssey.compose.extensions.present
+import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.AlertConfiguration
 import theme.color
 import theme.gloriaGradient
 
@@ -32,7 +37,9 @@ import theme.gloriaGradient
 @Composable
 fun CartTopAppBar(
     title: String,
-    viewState: State<CartViewState>
+    viewState: State<CartViewState>,
+    modalController: ModalController,
+    handleEvent: (CartEvent) -> Unit
 ) {
 
     CenterAlignedTopAppBar(
@@ -52,9 +59,11 @@ fun CartTopAppBar(
             )
         },
         navigationIcon = {
-            if (viewState.value.isNotEmptyCart) {
+            if (viewState.value.cartItems.isNotEmpty()) {
                 IconButton(
-                    onClick = { },
+                    onClick = {
+                        handleEvent(CartEvent.OnBackClick)
+                    },
                 ) {
                     Icon(
                         painter = painterResource(
@@ -67,15 +76,30 @@ fun CartTopAppBar(
             }
         },
         actions = {
-            if (viewState.value.isNotEmptyCart)
+            if (viewState.value.cartItems.isNotEmpty())
                 Text(
                     modifier = Modifier
                         .padding(end = 20.dp)
                         .bottomBorder(1.dp, color.white)
                         .clickable {
-
+                            val alertConfiguration = AlertConfiguration(
+                                maxHeight = 0.3f,
+                                maxWidth = 0.8f,
+                                cornerRadius = 8
+                            )
+                            modalController.present(alertConfiguration) { key ->
+                                AlertDialogScreen(
+                                    text = stringResource(id = R.string.clear_cart),
+                                    positiveButtonText = stringResource(id = R.string.clear),
+                                    onPositiveClick = {
+                                        handleEvent.invoke(CartEvent.ClearCart)
+                                    }
+                                ) {
+                                    modalController.popBackStack(key)
+                                }
+                            }
                         },
-                    text = "Очистить",
+                    text = stringResource(id = R.string.clear),
                     color = color.white
                 )
         },

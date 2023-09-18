@@ -5,4 +5,8 @@
     <string name="your_cart_is_empty">Ваша корзина пуста.</string>
     <string name="empty_cart_desc">Загляните в наш каталог и наполните ее радостью!</string>
     <string name="to_catalog">В каталог</string>
+    <string name="clear">Очистить</string>
+    <string name="clear_cart">Очистить корзину?</string>
+    <string name="un_cart">Удалить с корзины?</string>
+    <string name="delete">Удалить</string>
 </resources>

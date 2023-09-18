@@ -15,6 +15,7 @@ kotlin{
                 implementation(Dependencies.Ktor.negotiation)
                 implementation(Dependencies.Ktor.kotlin_json)
                 implementation(Dependencies.Ktor.logging)
+                implementation(Dependencies.Ktor.auth)
 
                 implementation(Dependencies.Settings.core)
                 implementation(Dependencies.Settings.noargs)

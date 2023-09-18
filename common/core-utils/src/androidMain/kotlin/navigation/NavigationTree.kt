@@ -6,6 +6,6 @@ object NavigationTree {
     }
 
     enum class Main{
-        MainScreen, Tab
+        MainScreen, Main, Catalog, Cart, More
     }
 }

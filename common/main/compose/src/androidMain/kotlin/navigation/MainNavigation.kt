@@ -1,12 +1,6 @@
 package navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import cart.CartScreen
+import cart.cart_screen.CartScreen
 import catalog.CatalogScreen
 import main.MainScreen
 import more.MoreScreen
@@ -26,22 +20,22 @@ fun RootComposeBuilder.mainFlow() {
         tabsNavModel = BottomConfiguration(),
     ) {
         tab(MainTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.Main.name) {
                 MainScreen()
             }
         }
         tab(CatalogTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.Catalog.name) {
                 CatalogScreen()
             }
         }
         tab(CartTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.Cart.name) {
                 CartScreen()
             }
         }
         tab(MoreTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.More.name) {
                 MoreScreen()
             }
         }
