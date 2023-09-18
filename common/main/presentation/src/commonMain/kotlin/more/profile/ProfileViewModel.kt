@@ -55,7 +55,7 @@ class ProfileViewModel : BaseSharedViewModel<ProfileViewState, ProfileAction, Pr
     }
 
     private fun openFAQScreen() {
-
+        viewAction = ProfileAction.OpenFAQ
     }
 
     init {

@@ -1,12 +1,14 @@
 package more.contactAndAddress
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,6 +37,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import components.GradientButton
 import components.ToolBar
 import org.tbm.gloria.main.compose.R
@@ -85,6 +88,9 @@ fun ContactsAndAddressScreen() {
             Image(
                 modifier = Modifier
                     .padding(18.dp)
+                    .clickable {
+                        open2GISWithAddress(context)
+                    }
                     .clip(RoundedCornerShape(8.dp)),
                 painter = painterResource(id = location),
                 contentDescription = ""
@@ -110,5 +116,15 @@ fun ContactsAndAddressScreen() {
                 }
             }
         }
+    }
+}
+
+private fun open2GISWithAddress(context: Context) {
+    val address = "https://2gis.kg/bishkek/geo/70000001027484401"
+
+    Intent(Intent.ACTION_VIEW).also { intent ->
+        intent.data =
+            Uri.parse(address)
+        context.startActivity(intent)
     }
 }

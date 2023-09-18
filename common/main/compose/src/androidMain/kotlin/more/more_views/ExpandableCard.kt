@@ -1,6 +1,5 @@
 package more.more_views
 
-import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.util.Log
@@ -32,6 +31,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -41,13 +41,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -71,13 +70,11 @@ import coil.compose.SubcomposeAsyncImage
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.GradientButton
-import models.more.profile.GetProfileResponse
 import more.profile.ProfileEvent
 import more.profile.ProfileViewModel
 import org.tbm.gloria.main.compose.R
 import theme.gloriaGradient
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
+import utils.uriToByteArray
 
 
 @Preview
@@ -101,6 +98,8 @@ fun ExpandableCard(title: String) {
             )
         }
         var chosenGender by remember { mutableStateOf("") }
+        var showAlert by remember { mutableStateOf(false) }
+        var openedFirst by remember { mutableStateOf(false) }
         var phoneNumber by remember {
             mutableStateOf(
                 viewState.getProfileResponse?.phoneNumber ?: ""
@@ -113,10 +112,10 @@ fun ExpandableCard(title: String) {
         }
 
         val imagePickLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.GetContent(),
+            contract = ActivityResultContracts.PickVisualMedia(),
             onResult = {
                 selectedImageUri = it
-                viewState.image = uriToByteArray(context,it!!)
+                if (it != null) viewState.image = uriToByteArray(context, it)
             }
         )
 
@@ -159,7 +158,15 @@ fun ExpandableCard(title: String) {
                         .clip(RoundedCornerShape(28.dp))
                         .fillMaxWidth()
                         .size(54.dp)
-                        .clickable { expanded = !expanded }
+                        .clickable {
+                            if (openedFirst) {
+                                showAlert = true
+                                openedFirst = false
+                            }
+
+                            expanded = true
+                            openedFirst = true
+                        }
                         .background(gloriaGradient)
                         .padding(horizontal = 16.dp),
                     contentAlignment = Alignment.Center
@@ -181,13 +188,51 @@ fun ExpandableCard(title: String) {
                                 }
 
                                 if (context.checkSelfPermission(permissionToCheck) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                                    imagePickLauncher.launch("image/jpeg")
+                                    imagePickLauncher.launch(
+                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                    )
                                 } else {
                                     requestPermissionLauncher.launch(permissionToCheck)
                                 }
                             }
                             .clip(CircleShape)
                     )
+
+                    if (showAlert) {
+                        AlertDialog(
+                            onDismissRequest = {},
+                            title = {
+                                Text(text = "Внимание!")
+                            },
+                            text = {
+                                Text(
+                                    "Вы действительно хотите закрыть форму? " +
+                                            "При закрытии формы ваши данные не сохранятся"
+                                )
+                            },
+                            confirmButton = {
+                                TextButton(
+                                    onClick = {
+                                        showAlert = false
+                                        expanded = false
+                                        openedFirst = false
+                                    }
+                                ) {
+                                    Text("ДА")
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(
+                                    onClick = {
+                                        showAlert = false
+                                        openedFirst = false
+                                    }
+                                ) {
+                                    Text("НЕТ")
+                                }
+                            }
+                        )
+                    }
 
                     Text(
                         modifier = Modifier
@@ -207,7 +252,15 @@ fun ExpandableCard(title: String) {
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .rotate(rotateCardIcon)
-                            .clickable { expanded = !expanded },
+                            .clickable {
+                                if (openedFirst) {
+                                    showAlert = true
+                                    openedFirst = false
+                                }
+
+                                expanded = true
+                                openedFirst = true
+                            },
                         imageVector = Icons.Default.KeyboardArrowDown,
                         contentDescription = "",
                         tint = Color.White
@@ -392,6 +445,8 @@ fun ExpandableCard(title: String) {
                                 .height(40.dp),
                             onClick = {
                                 viewModel.obtainEvent(ProfileEvent.UpdateData)
+                                Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT)
+                                    .show()
                                 expanded = !expanded
                                 viewModel.obtainEvent(ProfileEvent.UploadAvatar)
                             }
@@ -400,24 +455,6 @@ fun ExpandableCard(title: String) {
                 }
             }
         }
-    }
-}
-
-private fun uriToByteArray(context: Context, uri: Uri): ByteArray? {
-    return try {
-        context.contentResolver.openInputStream(uri)?.use { inputStream ->
-            ByteArrayOutputStream().use { byteArrayOutputStream ->
-                val buffer = ByteArray(1024)
-                var bytesRead: Int
-                while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                    byteArrayOutputStream.write(buffer, 0, bytesRead)
-                }
-                byteArrayOutputStream.toByteArray()
-            }
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
     }
 }
 

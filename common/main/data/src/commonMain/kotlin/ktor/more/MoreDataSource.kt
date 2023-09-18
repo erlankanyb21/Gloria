@@ -39,7 +39,7 @@ class MoreDataSource(
         return httpClient.get {
             url {
                 path("profile/5")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0OTc5ODE3LCJpYXQiOjE2OTQ5NzI2MTcsImp0aSI6IjIxYzc0YWFhZGQ2NTQ3YjZiYTM4NDRlODE4ZGYyZjhlIiwidXNlcl9pZCI6NX0._roC1gVCRmvOLzI2G21D98guIy6LP_TaxvJw8XVdgvo")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDMzNDE4LCJpYXQiOjE2OTUwMjYyMTgsImp0aSI6IjFjOTI2NzNkZWRjMjQwNmZhOGVjMzcwYzI5ZTMzYmQxIiwidXNlcl9pZCI6NX0.Jz-ON9kc3imdEqC_OnmCHhQBA2lqEbNKuTgCZrePW3M")
             }
         }.body()
     }
@@ -64,7 +64,7 @@ class MoreDataSource(
         return httpClient.patch {
             url {
                 path("profile/5/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0OTc5ODE3LCJpYXQiOjE2OTQ5NzI2MTcsImp0aSI6IjIxYzc0YWFhZGQ2NTQ3YjZiYTM4NDRlODE4ZGYyZjhlIiwidXNlcl9pZCI6NX0._roC1gVCRmvOLzI2G21D98guIy6LP_TaxvJw8XVdgvo")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDMzNDE4LCJpYXQiOjE2OTUwMjYyMTgsImp0aSI6IjFjOTI2NzNkZWRjMjQwNmZhOGVjMzcwYzI5ZTMzYmQxIiwidXNlcl9pZCI6NX0.Jz-ON9kc3imdEqC_OnmCHhQBA2lqEbNKuTgCZrePW3M")
                 setBody(updateProfileBody)
             }
         }.body()
@@ -75,7 +75,7 @@ class MoreDataSource(
         return httpClient.patch {
             url {
                 path("profile/5/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk0OTc5ODE3LCJpYXQiOjE2OTQ5NzI2MTcsImp0aSI6IjIxYzc0YWFhZGQ2NTQ3YjZiYTM4NDRlODE4ZGYyZjhlIiwidXNlcl9pZCI6NX0._roC1gVCRmvOLzI2G21D98guIy6LP_TaxvJw8XVdgvo")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDMzNDE4LCJpYXQiOjE2OTUwMjYyMTgsImp0aSI6IjFjOTI2NzNkZWRjMjQwNmZhOGVjMzcwYzI5ZTMzYmQxIiwidXNlcl9pZCI6NX0.Jz-ON9kc3imdEqC_OnmCHhQBA2lqEbNKuTgCZrePW3M")
                 if (image != null) {
                     body = MultiPartFormDataContent(
                         formData {
