@@ -438,7 +438,8 @@ fun ExpandableCard(title: String) {
                                 .height(40.dp),
                             onClick = {
                                 viewModel.obtainEvent(ProfileEvent.UpdateData)
-                                expanded = !expanded
+                                expanded = false
+                                openedFirst = false
                                 viewModel.obtainEvent(ProfileEvent.UploadAvatar)
                                 Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT)
                                     .show()
