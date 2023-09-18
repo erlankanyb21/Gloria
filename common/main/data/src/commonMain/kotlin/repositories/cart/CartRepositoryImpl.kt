@@ -1,6 +1,6 @@
-package repositories
+package repositories.cart
 
-import ktor.KtorCartDataSource
+import ktor.cart.KtorCartDataSource
 import models.cart.CartItems
 import models.cart.ClearCartResponse
 

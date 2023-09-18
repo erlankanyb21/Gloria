@@ -3,9 +3,9 @@ plugins {
     id("android-setup")
 }
 
-kotlin{
-    sourceSets{
-        commonMain{
+kotlin {
+    sourceSets {
+        commonMain {
             dependencies {
                 implementation(project(":common:core"))
                 implementation(project(":common:core-compose"))
@@ -19,12 +19,10 @@ kotlin{
             }
         }
 
-        androidMain{
+        androidMain {
             dependencies {
                 implementation(project(":common:core-compose"))
-
                 implementation(Dependencies.Android.composeActivity)
-
                 implementation(Dependencies.SplashApi.core)
                 implementation(Dependencies.Image.Coil.core)
                 implementation(Dependencies.Image.Coil.compose)

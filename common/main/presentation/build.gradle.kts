@@ -9,8 +9,7 @@ kotlin {
             dependencies {
                 api(project(":common:main:api"))
                 api(project(":common:core"))
-
-                implementation(Dependencies.Other.ViewModel.core)
+                api(Dependencies.Other.ViewModel.core)
             }
         }
     }

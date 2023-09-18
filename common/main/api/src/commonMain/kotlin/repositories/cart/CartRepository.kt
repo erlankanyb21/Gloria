@@ -1,4 +1,4 @@
-package repositories
+package repositories.cart
 
 import models.cart.CartItems
 import models.cart.ClearCartResponse

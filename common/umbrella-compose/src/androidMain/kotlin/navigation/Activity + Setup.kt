@@ -1,5 +1,6 @@
 package navigation
 
+import NavigationTree
 import android.graphics.Color
 import android.view.View
 import android.view.WindowManager
@@ -38,7 +39,13 @@ fun ComponentActivity.setupThemedNavigation() {
             CompositionLocalProvider(
                 LocalRootController provides rootController
             ) {
-                ModalNavigator(configuration = DefaultModalConfiguration(color.white, DisplayType.EdgeToEdge)) {
+
+                ModalNavigator(
+                    configuration = DefaultModalConfiguration(
+                        color.white,
+                        DisplayType.EdgeToEdge
+                    )
+                ) {
                     Navigator(startScreen = NavigationTree.Main.MainScreen.name)
                 }
             }
