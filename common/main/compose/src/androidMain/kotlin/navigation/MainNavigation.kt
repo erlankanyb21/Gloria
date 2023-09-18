@@ -1,6 +1,6 @@
 package navigation
 
-import cart.CartScreen
+import cart.cart_screen.CartScreen
 import catalog.CatalogScreen
 import home.HomeScreen
 import home.StoriesDetailsScreen
@@ -22,7 +22,7 @@ fun RootComposeBuilder.mainFlow() {
         tabsNavModel = BottomConfiguration(),
     ) {
         tab(MainTab()) {
-            screen(name = NavigationThree.Main.Tab.name) {
+            screen(name = NavigationThree.Main.MainScreen.name) {
                 HomeScreen()
             }
 
@@ -35,17 +35,17 @@ fun RootComposeBuilder.mainFlow() {
             }
         }
         tab(CatalogTab()) {
-            screen(name = NavigationThree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.Catalog.name) {
                 CatalogScreen()
             }
         }
         tab(CartTab()) {
-            screen(name = NavigationThree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.Cart.name) {
                 CartScreen()
             }
         }
         tab(MoreTab()) {
-            screen(name = NavigationThree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.More.name) {
                 MoreScreen()
             }
 
