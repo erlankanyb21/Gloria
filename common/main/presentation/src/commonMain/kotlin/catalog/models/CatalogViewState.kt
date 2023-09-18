@@ -2,6 +2,7 @@ package catalog.models
 
 import models.catalog.CatalogItem
 
-class CatalogViewState {
-    val catalogItem: List<CatalogItem> = emptyList()
-}
+data class CatalogViewState(
+    val catalogItem: List<CatalogItem> = emptyList(),
+    val subCatalogItem: CatalogItem? = null
+)

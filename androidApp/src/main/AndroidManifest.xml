@@ -9,6 +9,7 @@
         android:allowBackup="false"
         android:supportsRtl="true"
         android:icon="@drawable/splash"
+        android:screenOrientation = "portrait"
         android:forceDarkAllowed = "false"
         android:theme="@style/App.Starting.Theme"
         tools:targetApi="q">

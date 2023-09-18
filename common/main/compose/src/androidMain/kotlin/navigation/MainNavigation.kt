@@ -1,8 +1,14 @@
 package navigation
 
 import cart.CartScreen
+import catalog.CatalogDetailScreen
 import catalog.CatalogScreen
+import catalog.CatalogViewModel
+import catalog.SubcatalogScreen
+import com.adeo.kviewmodel.compose.observeAsState
+import com.adeo.kviewmodel.odyssey.StoredViewModel
 import main.MainScreen
+import models.catalog.CatalogItem
 import more.MoreScreen
 import navigation.tabs.BottomConfiguration
 import navigation.tabs.CartTab
@@ -27,6 +33,12 @@ fun RootComposeBuilder.mainFlow() {
         tab(CatalogTab()) {
             screen(name = NavigationTree.Main.Tab.name) {
                 CatalogScreen()
+            }
+            screen(name = NavigationTree.Main.SubcatalogScreen.name){
+                    SubcatalogScreen(slug = it as String)
+            }
+            screen(name = NavigationTree.Main.CatalogDetailScreen.name){
+                CatalogDetailScreen()
             }
         }
         tab(CartTab()) {

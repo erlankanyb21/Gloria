@@ -2,6 +2,7 @@
 <resources>
     <string name="cart">Корзина</string>
     <string name="unknown">Unknown</string>
+    <string name="catalog">Каталог</string>
     <string name="your_cart_is_empty">Ваша корзина пуста.</string>
     <string name="empty_cart_desc">Загляните в наш каталог и наполните ее радостью!</string>
     <string name="to_catalog">В каталог</string>
