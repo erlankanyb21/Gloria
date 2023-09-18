@@ -17,7 +17,7 @@ class KtorCartDataSource(
         return httpClient.get {
             url {
                 path("cart-items/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDM4Nzc3LCJpYXQiOjE2OTUwMzE1NzcsImp0aSI6IjIwNmIzYmQxYjMwNTQ4NjRhYjQzNGQ4YmYzZjM0YjI3IiwidXNlcl9pZCI6MX0.Whf1YhWWTo-nl7wxc15iHQh4lg6Ru2aVHbkoT2d4EkI")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NDU0LCJpYXQiOjE2OTUwMzgyNTQsImp0aSI6ImRiZmVkZDdhYjg2ZDQyYjE4OWZmMzQ2OTJhODBlZGJjIiwidXNlcl9pZCI6MX0.4oBdAQiFecMv5aLVrbHOEB7cg9iVLson9YnoAhfF61A")
             }
         }.body()
     }
@@ -27,7 +27,7 @@ class KtorCartDataSource(
             httpClient.delete {
                 url {
                     path("cart-items/")
-                    bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDM4Nzc3LCJpYXQiOjE2OTUwMzE1NzcsImp0aSI6IjIwNmIzYmQxYjMwNTQ4NjRhYjQzNGQ4YmYzZjM0YjI3IiwidXNlcl9pZCI6MX0.Whf1YhWWTo-nl7wxc15iHQh4lg6Ru2aVHbkoT2d4EkI")
+                    bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NDU0LCJpYXQiOjE2OTUwMzgyNTQsImp0aSI6ImRiZmVkZDdhYjg2ZDQyYjE4OWZmMzQ2OTJhODBlZGJjIiwidXNlcl9pZCI6MX0.4oBdAQiFecMv5aLVrbHOEB7cg9iVLson9YnoAhfF61A")
                 }
             }.body()
         } catch (e: Exception) {
@@ -39,7 +39,7 @@ class KtorCartDataSource(
         httpClient.delete {
             url {
                 path("cart-items/$productId/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDM4Nzc3LCJpYXQiOjE2OTUwMzE1NzcsImp0aSI6IjIwNmIzYmQxYjMwNTQ4NjRhYjQzNGQ4YmYzZjM0YjI3IiwidXNlcl9pZCI6MX0.Whf1YhWWTo-nl7wxc15iHQh4lg6Ru2aVHbkoT2d4EkI")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NDU0LCJpYXQiOjE2OTUwMzgyNTQsImp0aSI6ImRiZmVkZDdhYjg2ZDQyYjE4OWZmMzQ2OTJhODBlZGJjIiwidXNlcl9pZCI6MX0.4oBdAQiFecMv5aLVrbHOEB7cg9iVLson9YnoAhfF61A")
             }
         }
     }
