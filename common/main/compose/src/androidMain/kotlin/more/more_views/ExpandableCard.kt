@@ -43,6 +43,7 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,6 +67,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import coil.compose.SubcomposeAsyncImage
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
@@ -139,7 +141,7 @@ fun ExpandableCard(title: String) {
             dateOfBirth = viewState.getProfileResponse?.dateOfBirthday ?: ""
             phoneNumber = viewState.getProfileResponse?.phoneNumber ?: ""
             chosenGender = viewState.getProfileResponse?.gender ?: ""
-            image = viewState.getProfileResponse?.avatar?.replace("http", "https") ?: ""
+            image = viewState.getProfileResponse?.avatar?.replace("http","https") ?: ""
         }
 
         Card(
@@ -445,10 +447,10 @@ fun ExpandableCard(title: String) {
                                 .height(40.dp),
                             onClick = {
                                 viewModel.obtainEvent(ProfileEvent.UpdateData)
-                                Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT)
-                                    .show()
                                 expanded = !expanded
                                 viewModel.obtainEvent(ProfileEvent.UploadAvatar)
+                                Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         )
                     }

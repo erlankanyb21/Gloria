@@ -15,10 +15,14 @@ class ProfileViewModel : BaseSharedViewModel<ProfileViewState, ProfileAction, Pr
     override fun obtainEvent(viewEvent: ProfileEvent) {
         when (viewEvent) {
             is ProfileEvent.OpenFAQClick -> openFAQScreen()
+            is ProfileEvent.OpenQAClick -> openQAScreen()
             is ProfileEvent.UpdateData -> sendProfile()
             is ProfileEvent.UploadAvatar -> uploadAvatar()
-            else -> {}
         }
+    }
+
+    private fun openQAScreen() {
+        viewAction = ProfileAction.OpenQA
     }
 
     private fun uploadAvatar() = viewModelScope.launch {

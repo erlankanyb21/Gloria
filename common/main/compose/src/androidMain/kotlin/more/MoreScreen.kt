@@ -1,6 +1,7 @@
 package more
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,12 +17,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cart.models.CartEvent
+import com.adeo.kviewmodel.compose.observeAsState
+import com.adeo.kviewmodel.odyssey.StoredViewModel
 import more.more_views.ExpandableCard
 import components.GradientButton
 import components.ToolBar
+import more.profile.ProfileAction
+import more.profile.ProfileEvent
+import more.profile.ProfileViewModel
 import navigation.NavigationTree
 import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
@@ -112,32 +120,45 @@ private fun OutlinedButtons() {
 
 @Composable
 fun FilledButtons() {
-    val rootController = LocalRootController.current
-    GradientButton(
-        text = stringResource(R.string.contacts_and_address),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 7.dp)
-            .height(50.dp),
-        onClick = {
-            rootController.present(screen = NavigationTree.Main.ContactsAndAddress.name)
+    StoredViewModel(factory = { ProfileViewModel() }) { viewModel ->
+        val rootController = LocalRootController.current
+        val viewAction = viewModel.viewActions().observeAsState()
+        GradientButton(
+            text = stringResource(R.string.contacts_and_address),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 7.dp)
+                .height(50.dp),
+            onClick = {
+                viewModel.obtainEvent(ProfileEvent.OpenQAClick)
+            }
+        )
+        GradientButton(
+            text = stringResource(R.string.questions_answers),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 7.dp)
+                .height(50.dp),
+            onClick = {
+                viewModel.obtainEvent(ProfileEvent.OpenFAQClick)
+            }
+        )
+        GradientButton(
+            text = stringResource(R.string.sign_in_or_sign_up),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 7.dp)
+                .height(50.dp)
+        )
+
+        when(viewAction.value) {
+            ProfileAction.OpenFAQ -> {
+                rootController.present(NavigationTree.Main.FAQScreen.name)
+            }
+            ProfileAction.OpenQA -> {
+                rootController.present(NavigationTree.Main.ContactsAndAddress.name)
+            }
+            null -> {}
         }
-    )
-    GradientButton(
-        text = stringResource(R.string.questions_answers),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 7.dp)
-            .height(50.dp),
-        onClick = {
-            rootController.present(screen = NavigationTree.Main.FAQScreen.name)
-        }
-    )
-    GradientButton(
-        text = stringResource(R.string.sign_in_or_sign_up),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 7.dp)
-            .height(50.dp)
-    )
+    }
 }
