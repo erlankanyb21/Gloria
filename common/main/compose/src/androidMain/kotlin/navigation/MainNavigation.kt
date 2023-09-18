@@ -1,9 +1,11 @@
 package navigation
 
 import cart.cart_screen.CartScreen
+import catalog.CatalogDetailScreen
 import catalog.CatalogScreen
 import home.HomeScreen
 import home.StoriesDetailsScreen
+import catalog.SubcatalogScreen
 import more.MoreScreen
 import more.faq.FAQScreen
 import navigation.tabs.BottomConfiguration
@@ -37,6 +39,12 @@ fun RootComposeBuilder.mainFlow() {
         tab(CatalogTab()) {
             screen(name = NavigationTree.Main.Catalog.name) {
                 CatalogScreen()
+            }
+            screen(name = NavigationTree.Main.Subcatalog.name){
+                    SubcatalogScreen(slug = it as String)
+            }
+            screen(name = NavigationTree.Main.CatalogDetailScreen.name){
+                CatalogDetailScreen()
             }
         }
         tab(CartTab()) {

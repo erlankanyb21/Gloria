@@ -34,8 +34,7 @@ import theme.gloriaGradient
 @Composable
 fun ToolBarWithSearch(
     title: String,
-    painter: Painter? = null,
-    onClick: Unit
+    backIcon: (@Composable () -> Unit)? = null
 ) {
     Card(
         modifier = Modifier
@@ -49,18 +48,10 @@ fun ToolBarWithSearch(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Row(
-            modifier = Modifier.
-            padding(horizontal = 20.dp),
+            modifier = Modifier.padding(horizontal = 20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (painter != null) {
-                Image(
-                    modifier = Modifier
-                        .clickable {onClick},
-                    painter = painter,
-                    contentDescription = null
-                )
-            }
+            backIcon?.invoke()
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -85,7 +76,6 @@ fun ToolBarWithSearch(
 @Preview
 @Composable
 fun ToolBarContent() {
-    ToolBarWithSearch(title = "Каталог",
-        painterResource(id = R.drawable.ic_back_arrow),
-        onClick = Unit)
+    ToolBarWithSearch(title = "Каталог")
+
 }
