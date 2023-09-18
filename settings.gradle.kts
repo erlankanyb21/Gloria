@@ -18,9 +18,3 @@ include(":common:main:compose")
 include(":common:main:presentation")
 include(":common:main:api")
 include(":common:main:data")
-include(":common:home:api")
-include(":common:home:presentation")
-include(":common:home:compose")
-include(":common:home:data")
-
-

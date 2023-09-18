@@ -2,9 +2,9 @@ plugins {
     id("multiplatform-setup")
     id("android-setup")
 }
-kotlin{
-    sourceSets{
-        commonMain{
+kotlin {
+    sourceSets {
+        commonMain {
             dependencies {
                 api(Dependencies.Kotlin.Serialization.serialization)
                 api(Dependencies.Kotlin.Coroutines.core)
@@ -24,10 +24,10 @@ kotlin{
             }
         }
 
-        androidMain{
+        androidMain {
             dependencies {
                 implementation(Dependencies.Ktor.android)
-                    implementation(Dependencies.Kotlin.Coroutines.android)
+                implementation(Dependencies.Kotlin.Coroutines.android)
 //                implementation(Dependencies.SqlDelight.android)
                 implementation(Dependencies.SplashApi.core)
                 implementation(Dependencies.Image.Coil.core)
@@ -35,7 +35,7 @@ kotlin{
             }
         }
 
-        iosMain{
+        iosMain {
             dependencies {
                 implementation(Dependencies.Ktor.ios)
 //                implementation(Dependencies.SqlDelight.ios)

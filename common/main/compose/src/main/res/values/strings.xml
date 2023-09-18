@@ -8,4 +8,8 @@
     <string name="contacts_and_address">Контакты и адреса</string>
     <string name="questions_answers">Вопросы-ответы</string>
     <string name="sign_in_or_sign_up">Войти / Зарегистрироваться</string>
+    <string name="hi">Привет!</string>
+    <string name="sales_hits">Хиты продаж</string>
+    <string name="into_a_basket">В корзину</string>
+    <string name="bouquet_of_tulips">Букет\nтюльпанов</string>
 </resources>

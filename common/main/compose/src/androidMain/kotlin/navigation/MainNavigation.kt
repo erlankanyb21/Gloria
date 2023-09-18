@@ -2,7 +2,8 @@ package navigation
 
 import cart.CartScreen
 import catalog.CatalogScreen
-import main.MainScreen
+import home.HomeScreen
+import home.StoriesDetailsScreen
 import more.MoreScreen
 import more.faq.FAQScreen
 import navigation.tabs.BottomConfiguration
@@ -17,30 +18,38 @@ import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
 fun RootComposeBuilder.mainFlow() {
     bottomNavigation(
-        name = NavigationTree.Main.MainScreen.name,
+        name = NavigationThree.Main.MainScreen.name,
         tabsNavModel = BottomConfiguration(),
     ) {
         tab(MainTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
-                MainScreen()
+            screen(name = NavigationThree.Main.Tab.name) {
+                HomeScreen()
+            }
+
+            screen(NavigationThree.Main.FAQScreen.name) {
+                FAQScreen()
+            }
+
+            screen(NavigationThree.Main.StoriesDetailsScreen.name) {
+                StoriesDetailsScreen()
             }
         }
         tab(CatalogTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationThree.Main.Tab.name) {
                 CatalogScreen()
             }
         }
         tab(CartTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationThree.Main.Tab.name) {
                 CartScreen()
             }
         }
         tab(MoreTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationThree.Main.Tab.name) {
                 MoreScreen()
             }
 
-            screen(NavigationTree.Main.FAQScreen.name) {
+            screen(NavigationThree.Main.FAQScreen.name) {
                 FAQScreen()
             }
         }

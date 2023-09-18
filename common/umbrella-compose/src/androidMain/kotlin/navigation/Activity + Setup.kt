@@ -38,7 +38,7 @@ fun ComponentActivity.setupThemedNavigation() {
                 LocalRootController provides rootController
             ) {
                 ModalNavigator {
-                    Navigator(startScreen = NavigationTree.Main.MainScreen.name)
+                    Navigator(startScreen = NavigationThree.Main.MainScreen.name)
                 }
             }
         }

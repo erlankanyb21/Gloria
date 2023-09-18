@@ -284,6 +284,7 @@ fun ExpandableCard(title: String) {
 
                     GradientButton(
                         text = "Сохранить",
+                        fontSize = 18.sp,
                         modifier = Modifier
                             .padding(horizontal = 28.dp)
                             .height(40.dp)

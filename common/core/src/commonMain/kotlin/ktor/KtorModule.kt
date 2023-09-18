@@ -16,7 +16,7 @@ import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.singleton
 
-internal val ktorModule = DI.Module("ktorModule"){
+internal val ktorModule = DI.Module("ktorModule") {
     bind<HttpClient>() with singleton {
         HttpClient(HttpEngineFactory().createEngine()) {
             install(Logging) {
