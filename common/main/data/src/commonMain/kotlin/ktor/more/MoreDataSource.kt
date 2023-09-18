@@ -39,7 +39,7 @@ class MoreDataSource(
         return httpClient.get {
             url {
                 path("profile/5")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NTc0LCJpYXQiOjE2OTUwMzgzNzQsImp0aSI6IjI4NjY0OWFiZWRkZDRmMTM5OTQ5ODY3MmZkZjIzYWUwIiwidXNlcl9pZCI6NX0.JizfRTeyJve6drnSicTHSAgJI6CbqRc3XG-40HS7emc")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTA0MDIzLCJpYXQiOjE2OTUwOTY4MjMsImp0aSI6IjFiOGY5ZTVmYzk0OTQwOGY5NTQ1NTI3YmE2OWMxMGRiIiwidXNlcl9pZCI6NX0.Y2JXLuH4ViDCOiM08ciaE3bQltF5Dt3UHP2P12ZN-xE")
             }
         }.body()
     }
@@ -64,7 +64,7 @@ class MoreDataSource(
         return httpClient.patch {
             url {
                 path("profile/5/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NTc0LCJpYXQiOjE2OTUwMzgzNzQsImp0aSI6IjI4NjY0OWFiZWRkZDRmMTM5OTQ5ODY3MmZkZjIzYWUwIiwidXNlcl9pZCI6NX0.JizfRTeyJve6drnSicTHSAgJI6CbqRc3XG-40HS7emc")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTA0MDIzLCJpYXQiOjE2OTUwOTY4MjMsImp0aSI6IjFiOGY5ZTVmYzk0OTQwOGY5NTQ1NTI3YmE2OWMxMGRiIiwidXNlcl9pZCI6NX0.Y2JXLuH4ViDCOiM08ciaE3bQltF5Dt3UHP2P12ZN-xE")
                 setBody(updateProfileBody)
             }
         }.body()
@@ -75,7 +75,7 @@ class MoreDataSource(
         return httpClient.patch {
             url {
                 path("profile/5/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NTc0LCJpYXQiOjE2OTUwMzgzNzQsImp0aSI6IjI4NjY0OWFiZWRkZDRmMTM5OTQ5ODY3MmZkZjIzYWUwIiwidXNlcl9pZCI6NX0.JizfRTeyJve6drnSicTHSAgJI6CbqRc3XG-40HS7emc")
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTA0MDIzLCJpYXQiOjE2OTUwOTY4MjMsImp0aSI6IjFiOGY5ZTVmYzk0OTQwOGY5NTQ1NTI3YmE2OWMxMGRiIiwidXNlcl9pZCI6NX0.Y2JXLuH4ViDCOiM08ciaE3bQltF5Dt3UHP2P12ZN-xE")
                 if (image != null) {
                     body = MultiPartFormDataContent(
                         formData {

@@ -159,7 +159,7 @@ fun FilledButtons() {
             ProfileAction.OpenQA -> {
                 rootController.present(NavigationTree.Main.ContactsAndAddress.name)
             }
-            null -> {}
+            else -> {}
         }
     }
 }
