@@ -50,6 +50,7 @@ fun CatalogScreen() {
         val viewState = viewModel.viewStates().observeAsState()
         val rootController = LocalRootController.current
 
+
         Scaffold(
             topBar = {
                 ToolBarWithSearch(title = stringResource(id = R.string.catalog))
