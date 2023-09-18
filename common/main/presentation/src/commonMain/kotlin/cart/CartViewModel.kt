@@ -6,7 +6,7 @@ import cart.models.CartViewState
 import com.adeo.kviewmodel.BaseSharedViewModel
 import di.Inject
 import kotlinx.coroutines.launch
-import repositories.CartRepository
+import repositories.cart.CartRepository
 
 class CartViewModel : BaseSharedViewModel<CartViewState, CartAction, CartEvent>(
     initialState = CartViewState()

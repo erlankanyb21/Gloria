@@ -7,6 +7,7 @@ import home.HomeScreen
 import home.StoriesDetailsScreen
 import catalog.SubcatalogScreen
 import more.MoreScreen
+import more.contactAndAddress.ContactsAndAddressScreen
 import more.faq.FAQScreen
 import navigation.tabs.BottomConfiguration
 import navigation.tabs.CartTab
@@ -16,6 +17,7 @@ import navigation.tabs.MoreTab
 import ru.alexgladkov.odyssey.compose.extensions.bottomNavigation
 import ru.alexgladkov.odyssey.compose.extensions.screen
 import ru.alexgladkov.odyssey.compose.extensions.tab
+import ru.alexgladkov.odyssey.compose.helpers.FlowBuilder
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
 fun RootComposeBuilder.mainFlow() {
@@ -59,6 +61,10 @@ fun RootComposeBuilder.mainFlow() {
 
             screen(NavigationTree.Main.FAQ.name) {
                 FAQScreen()
+            }
+
+            screen(NavigationTree.Main.ContactsAndAddress.name) {
+                ContactsAndAddressScreen()
             }
         }
     }

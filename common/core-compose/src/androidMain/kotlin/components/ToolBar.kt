@@ -2,7 +2,6 @@ package components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -44,8 +43,7 @@ fun ToolBar(
         title = {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(),
+                    .fillMaxWidth(),
                 text = title,
                 style = TextStyle(
                     fontSize = 18.sp,
@@ -67,7 +65,7 @@ fun ToolBar(
 
 @Preview(showBackground = true)
 @Composable
-fun DetailsTopBarPreview() {
+fun TopBarPreview() {
     ToolBar(
         backIcon = {
             IconButton(
