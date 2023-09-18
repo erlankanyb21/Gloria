@@ -71,9 +71,3 @@ fun ItemCatalog(
         }
     }
 }
-
-@Preview
-@Composable
-fun ContentItem() {
-    ItemCatalog(text = "Свечи", painterResource(id = R.drawable.gloria),  onClick = {})
-}
