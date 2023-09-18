@@ -18,19 +18,19 @@ import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
 fun RootComposeBuilder.mainFlow() {
     bottomNavigation(
-        name = NavigationThree.Main.MainScreen.name,
+        name = NavigationTree.Main.MainScreen.name,
         tabsNavModel = BottomConfiguration(),
     ) {
         tab(MainTab()) {
-            screen(name = NavigationThree.Main.MainScreen.name) {
+            screen(name = NavigationTree.Main.MainScreen.name) {
                 HomeScreen()
             }
 
-            screen(NavigationThree.Main.FAQScreen.name) {
+            screen(NavigationTree.Main.FAQ.name) {
                 FAQScreen()
             }
 
-            screen(NavigationThree.Main.StoriesDetailsScreen.name) {
+            screen(NavigationTree.Main.StoriesDetails.name) {
                 StoriesDetailsScreen()
             }
         }
@@ -49,7 +49,7 @@ fun RootComposeBuilder.mainFlow() {
                 MoreScreen()
             }
 
-            screen(NavigationThree.Main.FAQScreen.name) {
+            screen(NavigationTree.Main.FAQ.name) {
                 FAQScreen()
             }
         }

@@ -35,7 +35,6 @@ import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import home.models.HomeAction
 import home.models.HomeEvent
-import navigation.NavigationThree
 import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -158,14 +157,12 @@ fun HomeScreen() {
         }
         val rootController = LocalRootController.current
         when (viewAction.value) {
-            is HomeAction.OpenStoriesDetails -> {
-                rootController.push(screen = NavigationThree.Main.StoriesDetailsScreen.name)
-            }
+            is HomeAction.OpenStoriesDetails -> {}
 
             is HomeAction.OpenSalesHits -> {}
             is HomeAction.OpenContactsAndAddresses -> {}
             is HomeAction.OpenFAQ -> {
-                rootController.push(screen = NavigationThree.Main.FAQScreen.name)
+                rootController.push(screen = NavigationTree.Main.FAQ.name)
             }
 
             else -> {}

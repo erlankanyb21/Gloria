@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import components.ExpandableCard
 import components.GradientButton
 import components.ToolBar
-import navigation.NavigationThree
 import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -130,7 +129,7 @@ fun FilledButtons() {
             .padding(horizontal = 20.dp, vertical = 7.dp)
             .height(50.dp),
         onClick = {
-            rootController.present(screen = NavigationThree.Main.FAQScreen.name)
+            rootController.present(screen = NavigationTree.Main.FAQ.name)
         }
     )
     GradientButton(
