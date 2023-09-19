@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import components.CardProduct
 import components.ToolBarWithSearch
+import extensions.OnBackPress
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
@@ -30,8 +31,8 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 @Preview
 @Composable
 fun CatalogDetailScreen() {
-
     val rootController = LocalRootController.current
+    OnBackPress { rootController.popBackStack() }
     Scaffold(
         topBar = {
             ToolBarWithSearch(
