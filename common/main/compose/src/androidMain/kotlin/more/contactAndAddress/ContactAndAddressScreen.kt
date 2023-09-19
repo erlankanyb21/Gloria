@@ -108,13 +108,13 @@ fun ContactsAndAddressScreen() {
                     .padding(horizontal = 20.dp)
                     .height(40.dp)
             ) {
-                val intent = Intent(Intent.ACTION_CALL)
-                intent.data = Uri.parse("tel:+996700103333")
-
                 if (context.checkSelfPermission(android.Manifest.permission.CALL_PHONE)
                     == android.content.pm.PackageManager.PERMISSION_GRANTED
                 ) {
-                    if (permissionState) context.startActivity(intent)
+                    Intent(Intent.ACTION_CALL).also { intent ->
+                        intent.data = Uri.parse("tel:+996700103333")
+                        context.startActivity(intent)
+                    }
                 } else {
                     requestPermissionLauncher.launch(android.Manifest.permission.CALL_PHONE)
                 }

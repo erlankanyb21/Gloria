@@ -169,7 +169,8 @@ fun ExpandableCard(title: String) {
                     contentAlignment = Alignment.Center
                 ) {
                     SubcomposeAsyncImage(
-                        model = image,
+                        model = if (selectedImageUri == null) image
+                        else selectedImageUri,
                         contentDescription = "",
                         loading = { CircularProgressIndicator(color = Color.White) },
                         contentScale = ContentScale.Crop,
