@@ -1,5 +1,6 @@
 package home
 
+import NavigationTree
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,6 +37,7 @@ import com.adeo.kviewmodel.odyssey.StoredViewModel
 import home.models.HomeAction
 import home.models.HomeEvent
 import org.tbm.gloria.main.compose.R
+import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.gloriaGradient
@@ -113,7 +115,7 @@ fun HomeScreen() {
             AdvertisingBannerItem(viewState.value)
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.obtainEvent(HomeEvent.ContactsAndAddressesClick) },
                 Modifier
                     .fillMaxWidth()
                     .height(40.dp)
@@ -161,8 +163,9 @@ fun HomeScreen() {
 
             is HomeAction.OpenSalesHits -> {}
             is HomeAction.OpenContactsAndAddresses -> {}
+
             is HomeAction.OpenFAQ -> {
-                rootController.push(screen = NavigationTree.Main.FAQ.name)
+                rootController.present(screen = NavigationTree.Main.FAQ.name)
             }
 
             else -> {}

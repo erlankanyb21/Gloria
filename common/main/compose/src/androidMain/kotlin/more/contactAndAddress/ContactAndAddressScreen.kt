@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import components.GradientButton
 import components.ToolBar
+import extensions.OnBackPress
 import org.tbm.gloria.main.compose.R
 import org.tbm.gloria.core_compose.R.drawable.ic_back_arrow
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -49,6 +50,7 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 @Composable
 fun ContactsAndAddressScreen() {
     val rootController = LocalRootController.current
+    OnBackPress { rootController.popBackStack() }
     val context = LocalContext.current
     var permissionState by remember { mutableStateOf(false) }
     val requestPermissionLauncher = rememberLauncherForActivityResult(

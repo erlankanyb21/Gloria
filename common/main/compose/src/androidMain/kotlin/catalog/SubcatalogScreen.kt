@@ -26,6 +26,7 @@ import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.SubcategoriesItem
 import components.ToolBarWithSearch
+import extensions.OnBackPress
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -36,11 +37,10 @@ fun SubcatalogScreen(slug: String) {
     StoredViewModel(factory = { CatalogViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
         val rootController = LocalRootController.current
-
+        OnBackPress { rootController.popBackStack() }
         LaunchedEffect(key1 = Unit) {
             viewModel.getSubCatalog(slug)
         }
-
         Scaffold(
             topBar = {
                 viewState.value.subCatalogItem?.let {
