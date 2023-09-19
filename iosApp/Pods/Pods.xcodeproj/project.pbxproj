@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -12,23 +12,40 @@
 			buildConfigurationList = D1982A0964A3E9A1723641A674C374D7 /* Build configuration list for PBXAggregateTarget "umbrella_ios" */;
 			buildPhases = (
 				950B69E92C2D0DF41C7B8BEB79037CF2 /* [CP-User] Build umbrella_ios */,
-				FA97D36B2AA99A5F005E9885 /* ShellScript */,
 			);
 			dependencies = (
 			);
 			name = umbrella_ios;
-			productName = umbrella_ios;
 		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		A2B55EABFB4A71B53D32D298A3473BE9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		BFDB287F95A6DB87FEB8091968F61F14 /* Pods-iosApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2475209BEE7612101900020629C625 /* Pods-iosApp-dummy.m */; };
-		EBB494DE07521549BBD575B5E6ED230D /* Pods-iosApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DE4C0106600A5B6D599285368F3270 /* Pods-iosApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0C9DD5C93FCDB00E02B6AF2FD05FB067 /* AEOTPTextField-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA4280E0226226C946FA07580BA1D91 /* AEOTPTextField-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CCD9CADE34794B316E3442348F0BF6E /* Pods-iosApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F87A626222A8D9B26448A9FEB04FD0DF /* Pods-iosApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D126CA6C0C88B5386439C5CE230AAC3 /* AEOTPTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25389E74F6F3794E51C2DCF9CA98F0D4 /* AEOTPTextFieldDelegate.swift */; };
+		3836734EBA12313D73A6728A263E9461 /* View+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192460DC984412789284C1F0C0A0ECDB /* View+Helpers.swift */; };
+		3E4258D4401E6044D94C9FA3BF2A1AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		3EF65A1F2206E579934B18C0B93D23A8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		730B39307565D753836E1A2A3E64F451 /* AEOTPViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CFEB80D0AF5C6A7FEB2ADE9B0F8E06 /* AEOTPViewRepresentable.swift */; };
+		B06F7E568365D21AE6E6712469A7DDC9 /* AEOTPTextFieldSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB418A0A4EA233D21B6F78588EEC31 /* AEOTPTextFieldSwiftUI.swift */; };
+		B88086825365FE2EDEEED2E989EBA42E /* Pods-iosApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC7F9924F99FEE67A9AD3BEE09A10C /* Pods-iosApp-dummy.m */; };
+		BA897B2A31AB27D30F0B08B1F32D4F63 /* AEOTPTextFieldImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E1B771BDD98D432FE14B8BD7285D0E /* AEOTPTextFieldImplementation.swift */; };
+		BAA2592986D3F1B374EBABACC8380656 /* AEOTPTextFieldImplementationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873EE9329D22CAD1444AE5FC10073B3B /* AEOTPTextFieldImplementationProtocol.swift */; };
+		CE6342C90C2F428090D9A20E60FCE0C9 /* AEOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB398AB3E55EBB08C315FDD384B754 /* AEOTPView.swift */; };
+		D775D3417D9B5B61DC934A26B0BE2A11 /* AEOTPTextField-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BB21F6BF228A9A37F537039ED030A53C /* AEOTPTextField-dummy.m */; };
+		E227B76CCBCD02A40F363B8858034786 /* AEOTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB333A319FB27EA41132463F58B7AABF /* AEOTPTextField.swift */; };
+		F2DADF5CEE8E52302CD0FED93578C969 /* ChangeObserverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5944B5FF9E773855A6DE649C7A07D9C7 /* ChangeObserverModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5DEF6A3838464408FF6C16E47A7D1346 /* PBXContainerItemProxy */ = {
+		18555EDD03764DD07B8072F8720272C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 843B748963255A8FEFEA42D08A2E7996;
+			remoteInfo = AEOTPTextField;
+		};
+		9B5C9E1488085BCC1F9FF8B62F773F69 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -38,29 +55,55 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0011AEE22E8296B3D9E0B0B2CDCAB2EE /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
-		0816DA944828BA0018137F436685E578 /* umbrella_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = umbrella_ios.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		1A2FB55B5C37861BC78ECD1420D818C3 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		0187F135D5F61750CD24C3E04B6E8B64 /* Pods-iosApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-frameworks.sh"; sourceTree = "<group>"; };
+		0816DA944828BA0018137F436685E578 /* umbrella_ios.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = umbrella_ios.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		0ACB398AB3E55EBB08C315FDD384B754 /* AEOTPView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEOTPView.swift; path = AEOTPTextField/Source/SwiftUI/Core/AEOTPView.swift; sourceTree = "<group>"; };
+		192460DC984412789284C1F0C0A0ECDB /* View+Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "View+Helpers.swift"; path = "AEOTPTextField/Source/SwiftUI/Utilities/View+Helpers.swift"; sourceTree = "<group>"; };
+		25389E74F6F3794E51C2DCF9CA98F0D4 /* AEOTPTextFieldDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEOTPTextFieldDelegate.swift; path = AEOTPTextField/Source/UIKit/Utilities/AEOTPTextFieldDelegate.swift; sourceTree = "<group>"; };
 		2BA29AE1E884A8FFC20224582F78F7F2 /* umbrella_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = umbrella_ios.debug.xcconfig; sourceTree = "<group>"; };
 		2BEFCC1F9BBC14B4FAE57672C8FEC49D /* SharedSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedSDK.framework; path = build/cocoapods/framework/SharedSDK.framework; sourceTree = "<group>"; };
-		3A2475209BEE7612101900020629C625 /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
-		42DE4C0106600A5B6D599285368F3270 /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
-		482384ADFE4EF692B16FACB8C2021970 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
+		3DA4280E0226226C946FA07580BA1D91 /* AEOTPTextField-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AEOTPTextField-umbrella.h"; sourceTree = "<group>"; };
+		3F64BADB16C311E9D09DAD0116F684F4 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		41CFEB80D0AF5C6A7FEB2ADE9B0F8E06 /* AEOTPViewRepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEOTPViewRepresentable.swift; path = AEOTPTextField/Source/SwiftUI/Core/AEOTPViewRepresentable.swift; sourceTree = "<group>"; };
+		54DC7F9924F99FEE67A9AD3BEE09A10C /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
+		5944B5FF9E773855A6DE649C7A07D9C7 /* ChangeObserverModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChangeObserverModifier.swift; path = AEOTPTextField/Source/SwiftUI/Utilities/ChangeObserverModifier.swift; sourceTree = "<group>"; };
+		5AC974169B09D4545F741E9A2147610E /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
+		6D0C00DEF648A0B4EA74DD7B30ADB440 /* AEOTPTextField.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AEOTPTextField.modulemap; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		84C38C392F6FC128A82421F31190E4F2 /* umbrella_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = umbrella_ios.release.xcconfig; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A43877303056397968EC90C7AAFE17E8 /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A79C2AA5C063914B2D1BD80187FDF6DE /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		873EE9329D22CAD1444AE5FC10073B3B /* AEOTPTextFieldImplementationProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEOTPTextFieldImplementationProtocol.swift; path = AEOTPTextField/Source/UIKit/Utilities/AEOTPTextFieldImplementationProtocol.swift; sourceTree = "<group>"; };
+		8B524AABE529FB8A2D151B05321336E0 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
+		9BB0B8B698D4C35D4F9A07EF70910170 /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9F1FFC8B10F4D7D4F37606E8959B3F29 /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9FECCB5AFF87D121F15BA01E683C7932 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		A7C7E8FC4572F174633DFAABF5308F70 /* AEOTPTextField-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AEOTPTextField-prefix.pch"; sourceTree = "<group>"; };
+		A8802E876CBAD98444BA648D0EF18777 /* AEOTPTextField.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AEOTPTextField.debug.xcconfig; sourceTree = "<group>"; };
 		B097DD7534E741D5C41838011D755842 /* Pods-iosApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-iosApp"; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCAED803D074E2E9C3B1327F049C8C2A /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
+		BB21F6BF228A9A37F537039ED030A53C /* AEOTPTextField-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AEOTPTextField-dummy.m"; sourceTree = "<group>"; };
+		C5023CE73DAF86A9F0B8F3C568140C89 /* AEOTPTextField.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AEOTPTextField.release.xcconfig; sourceTree = "<group>"; };
+		CB333A319FB27EA41132463F58B7AABF /* AEOTPTextField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEOTPTextField.swift; path = AEOTPTextField/Source/UIKit/Core/AEOTPTextField.swift; sourceTree = "<group>"; };
+		D4CB418A0A4EA233D21B6F78588EEC31 /* AEOTPTextFieldSwiftUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEOTPTextFieldSwiftUI.swift; path = AEOTPTextField/Source/SwiftUI/Utilities/AEOTPTextFieldSwiftUI.swift; sourceTree = "<group>"; };
+		E93415738A8469A1380987A9DBCB1D06 /* AEOTPTextField */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AEOTPTextField; path = AEOTPTextField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC2B8E83141565BBA0BA23C7D593561A /* AEOTPTextField-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AEOTPTextField-Info.plist"; sourceTree = "<group>"; };
+		F2E1B771BDD98D432FE14B8BD7285D0E /* AEOTPTextFieldImplementation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AEOTPTextFieldImplementation.swift; path = AEOTPTextField/Source/UIKit/Utilities/AEOTPTextFieldImplementation.swift; sourceTree = "<group>"; };
+		F87A626222A8D9B26448A9FEB04FD0DF /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B78C557352E9A363C1BE1E6E7396C5D3 /* Frameworks */ = {
+		A6F6A7C4CE54CC74A38AB257D97E79EB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2B55EABFB4A71B53D32D298A3473BE9 /* Foundation.framework in Frameworks */,
+				3EF65A1F2206E579934B18C0B93D23A8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8D31459446B2D11824E45369EA9A724 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E4258D4401E6044D94C9FA3BF2A1AC4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,25 +121,26 @@
 			path = "../../common/umbrella-ios";
 			sourceTree = "<group>";
 		};
-		1F86AA6785DF34AFD5A71790761717DE /* Products */ = {
+		11C970DEAE48C6D0282DFE54684F53F1 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				B097DD7534E741D5C41838011D755842 /* Pods-iosApp */,
+				52A898E555C2DBD7D25A7E44754C3FC6 /* Pods-iosApp */,
 			);
-			name = Products;
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		310087C345B86EEF25A054485E0BB5CB /* Pods-iosApp */ = {
+		52A898E555C2DBD7D25A7E44754C3FC6 /* Pods-iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				482384ADFE4EF692B16FACB8C2021970 /* Pods-iosApp.modulemap */,
-				A43877303056397968EC90C7AAFE17E8 /* Pods-iosApp-acknowledgements.markdown */,
-				0011AEE22E8296B3D9E0B0B2CDCAB2EE /* Pods-iosApp-acknowledgements.plist */,
-				3A2475209BEE7612101900020629C625 /* Pods-iosApp-dummy.m */,
-				BCAED803D074E2E9C3B1327F049C8C2A /* Pods-iosApp-Info.plist */,
-				42DE4C0106600A5B6D599285368F3270 /* Pods-iosApp-umbrella.h */,
-				A79C2AA5C063914B2D1BD80187FDF6DE /* Pods-iosApp.debug.xcconfig */,
-				1A2FB55B5C37861BC78ECD1420D818C3 /* Pods-iosApp.release.xcconfig */,
+				8B524AABE529FB8A2D151B05321336E0 /* Pods-iosApp.modulemap */,
+				9F1FFC8B10F4D7D4F37606E8959B3F29 /* Pods-iosApp-acknowledgements.markdown */,
+				9BB0B8B698D4C35D4F9A07EF70910170 /* Pods-iosApp-acknowledgements.plist */,
+				54DC7F9924F99FEE67A9AD3BEE09A10C /* Pods-iosApp-dummy.m */,
+				0187F135D5F61750CD24C3E04B6E8B64 /* Pods-iosApp-frameworks.sh */,
+				5AC974169B09D4545F741E9A2147610E /* Pods-iosApp-Info.plist */,
+				F87A626222A8D9B26448A9FEB04FD0DF /* Pods-iosApp-umbrella.h */,
+				3F64BADB16C311E9D09DAD0116F684F4 /* Pods-iosApp.debug.xcconfig */,
+				9FECCB5AFF87D121F15BA01E683C7932 /* Pods-iosApp.release.xcconfig */,
 			);
 			name = "Pods-iosApp";
 			path = "Target Support Files/Pods-iosApp";
@@ -120,6 +164,14 @@
 			path = "../../iosApp/Pods/Target Support Files/umbrella_ios";
 			sourceTree = "<group>";
 		};
+		782AF122AA16671EAC66693440D15461 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AD2C5F00BA43CE2B55C40030A80A6883 /* AEOTPTextField */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8A240F497849C2C06A2852B6B8DD276A /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,12 +180,37 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		C9F6DDEE5D76F65BB478A349731F54F4 /* Targets Support Files */ = {
+		AD2C5F00BA43CE2B55C40030A80A6883 /* AEOTPTextField */ = {
 			isa = PBXGroup;
 			children = (
-				310087C345B86EEF25A054485E0BB5CB /* Pods-iosApp */,
+				CB333A319FB27EA41132463F58B7AABF /* AEOTPTextField.swift */,
+				25389E74F6F3794E51C2DCF9CA98F0D4 /* AEOTPTextFieldDelegate.swift */,
+				F2E1B771BDD98D432FE14B8BD7285D0E /* AEOTPTextFieldImplementation.swift */,
+				873EE9329D22CAD1444AE5FC10073B3B /* AEOTPTextFieldImplementationProtocol.swift */,
+				D4CB418A0A4EA233D21B6F78588EEC31 /* AEOTPTextFieldSwiftUI.swift */,
+				0ACB398AB3E55EBB08C315FDD384B754 /* AEOTPView.swift */,
+				41CFEB80D0AF5C6A7FEB2ADE9B0F8E06 /* AEOTPViewRepresentable.swift */,
+				5944B5FF9E773855A6DE649C7A07D9C7 /* ChangeObserverModifier.swift */,
+				192460DC984412789284C1F0C0A0ECDB /* View+Helpers.swift */,
+				AD8EA89E61465D44E759FD0D5B924D06 /* Support Files */,
 			);
-			name = "Targets Support Files";
+			name = AEOTPTextField;
+			path = AEOTPTextField;
+			sourceTree = "<group>";
+		};
+		AD8EA89E61465D44E759FD0D5B924D06 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6D0C00DEF648A0B4EA74DD7B30ADB440 /* AEOTPTextField.modulemap */,
+				BB21F6BF228A9A37F537039ED030A53C /* AEOTPTextField-dummy.m */,
+				EC2B8E83141565BBA0BA23C7D593561A /* AEOTPTextField-Info.plist */,
+				A7C7E8FC4572F174633DFAABF5308F70 /* AEOTPTextField-prefix.pch */,
+				3DA4280E0226226C946FA07580BA1D91 /* AEOTPTextField-umbrella.h */,
+				A8802E876CBAD98444BA648D0EF18777 /* AEOTPTextField.debug.xcconfig */,
+				C5023CE73DAF86A9F0B8F3C568140C89 /* AEOTPTextField.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/AEOTPTextField";
 			sourceTree = "<group>";
 		};
 		CD87F7F6E2CBC5789253A28696F52FFD /* Pod */ = {
@@ -150,8 +227,9 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				8A240F497849C2C06A2852B6B8DD276A /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				1F86AA6785DF34AFD5A71790761717DE /* Products */,
-				C9F6DDEE5D76F65BB478A349731F54F4 /* Targets Support Files */,
+				782AF122AA16671EAC66693440D15461 /* Pods */,
+				DEE943D5D442665073BB8AA041FD2CA6 /* Products */,
+				11C970DEAE48C6D0282DFE54684F53F1 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,33 +249,69 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DEE943D5D442665073BB8AA041FD2CA6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E93415738A8469A1380987A9DBCB1D06 /* AEOTPTextField */,
+				B097DD7534E741D5C41838011D755842 /* Pods-iosApp */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		E50D9AEDB53AA5621E1B3F3A8E05670A /* Headers */ = {
+		0BAF5B05E59199DDB53242BCAF078259 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBB494DE07521549BBD575B5E6ED230D /* Pods-iosApp-umbrella.h in Headers */,
+				2CCD9CADE34794B316E3442348F0BF6E /* Pods-iosApp-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17C1200D487FB5EBF660C29D2FB92251 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C9DD5C93FCDB00E02B6AF2FD05FB067 /* AEOTPTextField-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		ED39C638569286489CD697A6C8964146 /* Pods-iosApp */ = {
+		843B748963255A8FEFEA42D08A2E7996 /* AEOTPTextField */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E8A6A8F93E66464BA4FFE6B6AD17EDA /* Build configuration list for PBXNativeTarget "Pods-iosApp" */;
+			buildConfigurationList = 6D73FBEE8D2E402C92FF746E5D3C6516 /* Build configuration list for PBXNativeTarget "AEOTPTextField" */;
 			buildPhases = (
-				E50D9AEDB53AA5621E1B3F3A8E05670A /* Headers */,
-				75BAAFDDD464BDECF63B2ACD78A9FEF2 /* Sources */,
-				B78C557352E9A363C1BE1E6E7396C5D3 /* Frameworks */,
-				C08550D49C95043D9AB986B31F124854 /* Resources */,
+				17C1200D487FB5EBF660C29D2FB92251 /* Headers */,
+				C2EE4BCA87ACF486973B946918513F7A /* Sources */,
+				A8D31459446B2D11824E45369EA9A724 /* Frameworks */,
+				E606739A64E5E3AC184B362FE0D1004D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3A4D8A93B63453693722D6D7A28B1E6B /* PBXTargetDependency */,
+			);
+			name = AEOTPTextField;
+			productName = AEOTPTextField;
+			productReference = E93415738A8469A1380987A9DBCB1D06 /* AEOTPTextField */;
+			productType = "com.apple.product-type.framework";
+		};
+		ED39C638569286489CD697A6C8964146 /* Pods-iosApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5677AF88734CB3115C8CFFEA77C29E1C /* Build configuration list for PBXNativeTarget "Pods-iosApp" */;
+			buildPhases = (
+				0BAF5B05E59199DDB53242BCAF078259 /* Headers */,
+				DD0B26E23F76062673867C29884978C0 /* Sources */,
+				A6F6A7C4CE54CC74A38AB257D97E79EB /* Frameworks */,
+				BA9DB0137B15203E7155BEA5C798853A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2803845FFF90A61BCC33602736F9A37A /* PBXTargetDependency */,
+				C7E0A6F41C62FAD8FA1823ED16B6B549 /* PBXTargetDependency */,
 			);
 			name = "Pods-iosApp";
 			productName = Pods_iosApp;
@@ -214,7 +328,7 @@
 				LastUpgradeCheck = 1300;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -222,10 +336,11 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 1F86AA6785DF34AFD5A71790761717DE /* Products */;
+			productRefGroup = DEE943D5D442665073BB8AA041FD2CA6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				843B748963255A8FEFEA42D08A2E7996 /* AEOTPTextField */,
 				ED39C638569286489CD697A6C8964146 /* Pods-iosApp */,
 				A9F8E711AAB604D43446974F6A3F260B /* umbrella_ios */,
 			);
@@ -233,7 +348,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C08550D49C95043D9AB986B31F124854 /* Resources */ = {
+		BA9DB0137B15203E7155BEA5C798853A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E606739A64E5E3AC184B362FE0D1004D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,46 +375,125 @@
 			shellPath = /bin/sh;
 			shellScript = "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
 		};
-		FA97D36B2AA99A5F005E9885 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		75BAAFDDD464BDECF63B2ACD78A9FEF2 /* Sources */ = {
+		C2EE4BCA87ACF486973B946918513F7A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFDB287F95A6DB87FEB8091968F61F14 /* Pods-iosApp-dummy.m in Sources */,
+				E227B76CCBCD02A40F363B8858034786 /* AEOTPTextField.swift in Sources */,
+				D775D3417D9B5B61DC934A26B0BE2A11 /* AEOTPTextField-dummy.m in Sources */,
+				2D126CA6C0C88B5386439C5CE230AAC3 /* AEOTPTextFieldDelegate.swift in Sources */,
+				BA897B2A31AB27D30F0B08B1F32D4F63 /* AEOTPTextFieldImplementation.swift in Sources */,
+				BAA2592986D3F1B374EBABACC8380656 /* AEOTPTextFieldImplementationProtocol.swift in Sources */,
+				B06F7E568365D21AE6E6712469A7DDC9 /* AEOTPTextFieldSwiftUI.swift in Sources */,
+				CE6342C90C2F428090D9A20E60FCE0C9 /* AEOTPView.swift in Sources */,
+				730B39307565D753836E1A2A3E64F451 /* AEOTPViewRepresentable.swift in Sources */,
+				F2DADF5CEE8E52302CD0FED93578C969 /* ChangeObserverModifier.swift in Sources */,
+				3836734EBA12313D73A6728A263E9461 /* View+Helpers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD0B26E23F76062673867C29884978C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B88086825365FE2EDEEED2E989EBA42E /* Pods-iosApp-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3A4D8A93B63453693722D6D7A28B1E6B /* PBXTargetDependency */ = {
+		2803845FFF90A61BCC33602736F9A37A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AEOTPTextField;
+			target = 843B748963255A8FEFEA42D08A2E7996 /* AEOTPTextField */;
+			targetProxy = 18555EDD03764DD07B8072F8720272C8 /* PBXContainerItemProxy */;
+		};
+		C7E0A6F41C62FAD8FA1823ED16B6B549 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = umbrella_ios;
 			target = A9F8E711AAB604D43446974F6A3F260B /* umbrella_ios */;
-			targetProxy = 5DEF6A3838464408FF6C16E47A7D1346 /* PBXContainerItemProxy */;
+			targetProxy = 9B5C9E1488085BCC1F9FF8B62F773F69 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1C2E1DD8FC3118BBBE811F1E84DD6B7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5023CE73DAF86A9F0B8F3C568140C89 /* AEOTPTextField.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/AEOTPTextField/AEOTPTextField-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AEOTPTextField/AEOTPTextField-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/AEOTPTextField/AEOTPTextField.modulemap";
+				PRODUCT_MODULE_NAME = AEOTPTextField;
+				PRODUCT_NAME = AEOTPTextField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2A721B625322E76BE1EECA9DFA514600 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F64BADB16C311E9D09DAD0116F684F4 /* Pods-iosApp.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		30E0B9EFD9A5C45D0D351231E81B30B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -373,9 +574,9 @@
 			};
 			name = Release;
 		};
-		3AFAFD9CD78DB7F704CA193C604F585C /* Release */ = {
+		C9FBCD012C3B8975898ABC1F426549D0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A2FB55B5C37861BC78ECD1420D818C3 /* Pods-iosApp.release.xcconfig */;
+			baseConfigurationReference = 9FECCB5AFF87D121F15BA01E683C7932 /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -410,6 +611,41 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		CD60DA2697DB10C3EDA21E405B257195 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8802E876CBAD98444BA648D0EF18777 /* AEOTPTextField.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/AEOTPTextField/AEOTPTextField-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AEOTPTextField/AEOTPTextField-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/AEOTPTextField/AEOTPTextField.modulemap";
+				PRODUCT_MODULE_NAME = AEOTPTextField;
+				PRODUCT_NAME = AEOTPTextField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		DFFC8D042D263FF0B0BE4DA68500310C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -494,43 +730,6 @@
 			};
 			name = Debug;
 		};
-		FF00BF026077BC48EC395B22ABF25FEF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A79C2AA5C063914B2D1BD80187FDF6DE /* Pods-iosApp.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -543,11 +742,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E8A6A8F93E66464BA4FFE6B6AD17EDA /* Build configuration list for PBXNativeTarget "Pods-iosApp" */ = {
+		5677AF88734CB3115C8CFFEA77C29E1C /* Build configuration list for PBXNativeTarget "Pods-iosApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FF00BF026077BC48EC395B22ABF25FEF /* Debug */,
-				3AFAFD9CD78DB7F704CA193C604F585C /* Release */,
+				2A721B625322E76BE1EECA9DFA514600 /* Debug */,
+				C9FBCD012C3B8975898ABC1F426549D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D73FBEE8D2E402C92FF746E5D3C6516 /* Build configuration list for PBXNativeTarget "AEOTPTextField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD60DA2697DB10C3EDA21E405B257195 /* Debug */,
+				1C2E1DD8FC3118BBBE811F1E84DD6B7A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

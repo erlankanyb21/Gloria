@@ -1,16 +1,23 @@
 PODS:
+  - AEOTPTextField (1.2.6)
   - umbrella_ios (0.0.1)
 
 DEPENDENCIES:
+  - AEOTPTextField
   - umbrella_ios (from `../common/umbrella-ios`)
+
+SPEC REPOS:
+  trunk:
+    - AEOTPTextField
 
 EXTERNAL SOURCES:
   umbrella_ios:
     :path: "../common/umbrella-ios"
 
 SPEC CHECKSUMS:
+  AEOTPTextField: a275823fde05601c5da7f8fb66aaecb41289b370
   umbrella_ios: d77c27986ab49920bed9842484a95a2bed45545a
 
-PODFILE CHECKSUM: 02b27805d5334992ff45ce36c64719d0cd3bf0d4
+PODFILE CHECKSUM: 1813c1e15380f273650d6ad75b089cbd3541f2b1
 
 COCOAPODS: 1.12.1

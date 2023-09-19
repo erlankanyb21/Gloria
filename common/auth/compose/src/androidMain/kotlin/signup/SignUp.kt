@@ -29,8 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import companent.CustomRowWithTextAndClickableText
-import companent.GradientButton
-import companent.PlaceholderTransformation
+import components.CustomTopBar
+import components.PlaceholderTransformation
+import components.GradientButton
+import navigation.NavigationTree
+import ru.alexgladkov.odyssey.compose.extensions.present
+import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
 
 @Composable
@@ -40,6 +44,8 @@ fun SignUp(){
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var checked by remember {mutableStateOf(false)}
+    val rootController = LocalRootController.current
+
 
 
     Column(
@@ -48,6 +54,16 @@ fun SignUp(){
             .fillMaxSize()
             .background(color.white)
     ) {
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        CustomTopBar(
+            rightText = "Пропустить",
+            colorIcon = color.royalBlue,
+            onRightIconClick = {
+                rootController.present(NavigationTree.Main.MainScreen.name)
+            }
+        )
 
         Spacer(modifier = Modifier.height(26.dp))
 
@@ -179,7 +195,9 @@ fun SignUp(){
             text = "Вход")
 
         CustomRowWithTextAndClickableText(
-            onClick = {},
+            onClick = {
+                      rootController.present(NavigationTree.Auth.SignIn.name)
+            },
             text = "Уже есть аккаунт?",
             clickableText = AnnotatedString("Войти"),
             textColor = color.black,
