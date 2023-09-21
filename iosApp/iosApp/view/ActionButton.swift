@@ -18,15 +18,26 @@ struct ActionButton: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color.blue)
+            RoundedRectangle(cornerRadius: 40)
                 .opacity(enabled ? 1.0 : 0.5)
+                .overlay(
+                    LinearGradient(
+                    stops: [
+                    Gradient.Stop(color: Color(red: 0.33, green: 0.13, blue: 0.5), location: 0.00),
+                    Gradient.Stop(color: Color(red: 0.64, green: 0.07, blue: 0.55), location: 0.61),
+                    Gradient.Stop(color: Color(red: 0.76, green: 0.09, blue: 0.52), location: 1.00),
+                    ],
+                    startPoint: UnitPoint(x: 1, y: 0),
+                    endPoint: UnitPoint(x: 0, y: 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                )
             
             Text(title)
                 .foregroundColor(.white)
-        }
-        .frame(maxWidth: .infinity, minHeight: height)
-        .padding(EdgeInsets(top: 0, leading: horizontalMargin, bottom: 0, trailing: horizontalMargin))
+                .font(Font.custom("SF Pro Text", size: 18)
+                    .width(.standard))
+        }.frame(width: 350, height: 40)
         .onTapGesture {
             action()
         }

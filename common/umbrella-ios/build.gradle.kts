@@ -9,7 +9,7 @@ kotlin{
     cocoapods{
         summary = "Gloria IOS SDK"
         homepage = "https://google.com"
-        ios.deploymentTarget = "16.0"
+        ios.deploymentTarget = "14.0"
 
         framework {
             transitiveExport = false

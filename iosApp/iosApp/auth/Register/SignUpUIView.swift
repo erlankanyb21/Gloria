@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SharedSDK
 
 struct SignUpUIView: View {
     @State private var isActive  = false
@@ -15,8 +16,7 @@ struct SignUpUIView: View {
     @State private var password: String = ""
     @State private var ConfirmPassword: String = ""
     @State private var isSecureField: Bool = true
-    
-    
+
     
     var body: some View {
         NavigationView{
@@ -34,6 +34,7 @@ struct SignUpUIView: View {
                     .padding(.all)
                     .overlay(RoundedRectangle(cornerRadius: 26).stroke(Color.black, lineWidth: 1)).padding([.leading,.trailing])
                     .foregroundColor(Color.black)
+
                 
                 TextField("Введите номер телефона", text: $phoneNumber)
                     .padding(.all)
@@ -106,7 +107,7 @@ struct SignUpUIView: View {
                 HStack{
                     Text("Уже есть аккаунт?").font(.system(size: 14)).foregroundColor(Color("black"))
                     
-                    NavigationLink(destination: LoginScreen()) {
+                    NavigationLink(destination: SignUpUIView()) {
                         Text("Войти").font(.system(size: 14))
                     }
                     
@@ -120,7 +121,7 @@ struct SignUpUIView: View {
                         .foregroundColor(.black)
                 }
             )
-        }.navigationBarBackButtonHidden(true)
+        }.navigationBarBackButtonHidden(true) // NavigationView
     }
 }
 

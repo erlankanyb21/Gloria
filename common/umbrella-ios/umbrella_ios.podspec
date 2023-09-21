@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'Gloria IOS SDK'
     spec.vendored_frameworks      = 'build/cocoapods/framework/SharedSDK.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '16.0'
+    spec.ios.deployment_target = '14.0'
                 
                 
     spec.pod_target_xcconfig = {

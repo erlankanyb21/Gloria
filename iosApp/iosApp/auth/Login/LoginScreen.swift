@@ -15,35 +15,54 @@ struct LoginScreen: View {
     @State private var isMainPresented = false
     private let loginViewModel = LoginViewModel()
     var body: some View {
-        
-        Text("Hello World!!")
-//        ObservingView(statePublisher: statePublisher(loginViewModel.viewStates())){ viewState in
-//
-//        }
-//        .sheet(isPresented: $isForgotPresented) {
-//            RestorePasswordUIView()
-//        }
-//        .sheet(isPresented: $isRegistrationPresented, content: {
-//            SignUpUIView()
-//        })
-//        .sheet(isPresented: $isMainPresented, content: {
-//            MainUIView()
-//        })
-//        .onReceive(sharePublisher(loginViewModel.viewActions())){ action in
-//            switch (action){
-//            case LoginAction.OpenForgotPasswordScreen():
-//                isForgotPresented = true
-//            case LoginAction.OpenRegistrationScreen():
-//                isRegistrationPresented = true
-//
-//            case LoginAction.OpenMainFlow():
-//                isMainPresented = true
-//
-//            default:
-//                break
-//            }
-//        }
-    }
+        NavigationView {
+            VStack {
+                ObservingView(statePublisher: statePublisher(loginViewModel.viewStates())) { viewState in
+                      SignInUIView(viewState: viewState) { event in
+                          loginViewModel.obtainEvent(viewEvent: event)
+                      }
+                  }
+                NavigationLink(
+                    destination: RestorePasswordUIView(),
+                    isActive: $isForgotPresented,
+                    label: {
+                        EmptyView()
+                    })
+                    .opacity(0)
+                
+                NavigationLink(
+                    destination: SignUpScreen(),
+                    isActive: $isRegistrationPresented,
+                    label: {
+                        EmptyView()
+                    })
+                    .opacity(0)
+                
+                NavigationLink(
+                    destination: MainUIView(),
+                    isActive: $isMainPresented,
+                    label: {
+                        EmptyView()
+                    })
+                    .opacity(0)
+            }
+        }
+        .onReceive(sharePublisher(loginViewModel.viewActions())) { action in
+            switch action {
+            case LoginAction.OpenForgotPasswordScreen():
+                isForgotPresented = true
+                
+            case LoginAction.OpenRegistrationScreen():
+                isRegistrationPresented = true
+                
+            case LoginAction.OpenMainFlow():
+                isMainPresented = true
+                
+            default:
+                break
+            }
+        }
+    } // bodyView
 }
 
 struct LoginScreen_Previews: PreviewProvider {

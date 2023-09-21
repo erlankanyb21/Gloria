@@ -7,11 +7,8 @@
 //
 
 import SwiftUI
-import AEOTPTextField
 
 struct RestorePasswordUIView: View {
-    @State private var otp: String = ""
-
     var body: some View {
         NavigationView{
             VStack(alignment: .center){
@@ -28,9 +25,7 @@ struct RestorePasswordUIView: View {
                 Spacer().frame(height: 40)
                 
                 Text("Введите код:").font(.system(size: 14))
-                
-                AEOTPView(text: $otp)
-                
+                                
                 Button(action:{
                     print("reset sms")
                 }){
