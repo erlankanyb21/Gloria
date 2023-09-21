@@ -1,0 +1,38 @@
+{
+  "images" : [
+    {
+      "filename" : "splash 3.svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "splash 4.svg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "splash 5.svg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "splash.svg",
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "splash 1.svg",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "splash 2.svg",
+      "idiom" : "iphone",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

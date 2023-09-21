@@ -46,7 +46,7 @@ fun ComponentActivity.setupThemedNavigation() {
                         DisplayType.EdgeToEdge
                     )
                 ) {
-                    Navigator(startScreen = NavigationTree.Main.MainScreen.name)
+                    Navigator(startScreen = NavigationTree.Auth.SignIn.name)
                 }
             }
         }
