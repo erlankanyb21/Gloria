@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import components.CustomTopBar
 import components.GradientButton
 import components.PlaceholderTransformation
-import navigation.NavigationTree
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -96,6 +95,7 @@ fun PasswordRecovery() {
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
             text = "Вход",
+            fontSize = 18.sp,
             onClick = {
                 rootController.present(NavigationTree.Auth.PasswordRecoverySms.name)
             }

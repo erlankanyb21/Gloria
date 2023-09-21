@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import components.CustomTopBar
 import components.GradientButton
-import navigation.NavigationTree
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -107,7 +106,8 @@ fun PasswordRecoverySms() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            text = "Вход")
+            text = "Вход",
+            fontSize = 18.sp)
 
         Spacer(modifier = Modifier.height(98.dp))
 

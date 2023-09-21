@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import companent.InputField
 import components.CustomTopBar
 import components.GradientButton
-import navigation.NavigationTree
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -108,7 +107,8 @@ fun NumberConfirmation(){
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            text = "Вход")
+            text = "Вход",
+            fontSize = 18.sp)
 
         Spacer(modifier = Modifier.height(98.dp))
 

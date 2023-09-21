@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import authorization.LoginAction
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
-import navigation.NavigationTree
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import viewModel.LoginViewModel

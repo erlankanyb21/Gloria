@@ -32,7 +32,6 @@ import companent.CustomRowWithTextAndClickableText
 import components.CustomTopBar
 import components.PlaceholderTransformation
 import components.GradientButton
-import navigation.NavigationTree
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
@@ -192,7 +191,8 @@ fun SignUp(){
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-            text = "Вход")
+            text = "Вход",
+            fontSize = 18.sp)
 
         CustomRowWithTextAndClickableText(
             onClick = {

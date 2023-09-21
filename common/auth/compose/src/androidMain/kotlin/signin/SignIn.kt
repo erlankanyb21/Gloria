@@ -29,15 +29,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import authorization.LoginEvent
 import authorization.LoginViewState
 import companent.CustomRowWithTextAndClickableText
-import components.PlaceholderTransformation
 import components.GradientButton
-import navigation.NavigationTree
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
@@ -59,11 +56,13 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
 
         Spacer(modifier = Modifier.height(26.dp))
 
-        Text(text = "Привет \n с возвращением!".uppercase(), style = TextStyle(
-            fontSize = 20.sp,
-            color = color.textColor,
-            textAlign = TextAlign.Center
-        ))
+        Text(
+            text = "Привет \n с возвращением!".uppercase(), style = TextStyle(
+                fontSize = 20.sp,
+                color = color.textColor,
+                textAlign = TextAlign.Center
+            )
+        )
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -81,7 +80,8 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
                 focusedBorderColor = color.black,
                 unfocusedBorderColor = color.black,
                 cursorColor = color.black,
-                textColor = color.black),
+                textColor = color.black
+            ),
             placeholder = {
                 Text("Введите номер телефона", color = color.black)
             }
@@ -104,8 +104,9 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
                 focusedBorderColor = color.black,
                 unfocusedBorderColor = color.black,
                 cursorColor = color.black,
-                textColor = color.black),
-            visualTransformation = if (state.passwordHidden){
+                textColor = color.black
+            ),
+            visualTransformation = if (state.passwordHidden) {
                 PasswordVisualTransformation()
             } else {
                 VisualTransformation.None
@@ -133,7 +134,7 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
 
         ClickableText(
-            text = AnnotatedString("Забыли пароль?",) ,
+            text = AnnotatedString("Забыли пароль?"),
             onClick = {
                 rootController.present(NavigationTree.Auth.PasswordRecovery.name)
             })
@@ -145,6 +146,7 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
             text = "Вход",
+            fontSize = 18.sp,
             onClick = {
                 eventHandler.invoke(LoginEvent.LoginClick)
             }
@@ -164,11 +166,4 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
         Spacer(modifier = Modifier.height(46.dp))
 
     }
-
 }
-
-//@Preview
-//@Composable
-//fun SignInPreview(){
-//    SignIn()
-//}
