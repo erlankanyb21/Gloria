@@ -29,14 +29,15 @@ fun RootComposeBuilder.mainFlow() {
             screen(name = NavigationTree.Main.MainScreen.name) {
                 HomeScreen()
             }
+
+            screen(name = NavigationTree.Main.StoriesDetails.name) {
+                StoriesDetailsScreen()
+            }
+
             screen(name = NavigationTree.Main.FAQ.name) {
                 FAQScreen()
             }
-
-            screen(name = NavigationTree.Main.StoriesDetails.name) {
-                StoriesDetailsScreen(id = it as Int)
-            }
-
+           
             screen(name = NavigationTree.Main.ContactsAndAddress.name) {
                 ContactsAndAddressScreen()
             }

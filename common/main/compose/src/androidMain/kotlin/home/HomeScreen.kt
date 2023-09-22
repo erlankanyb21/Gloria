@@ -45,6 +45,7 @@ import theme.gloriaGradient
 @Composable
 fun HomeScreen() {
     val scrollState = rememberScrollState()
+    val rootController = LocalRootController.current
     StoredViewModel({ HomeViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
         val viewAction = viewModel.viewActions().observeAsState()
@@ -68,8 +69,7 @@ fun HomeScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(horizontal = 20.dp),
-                    contentAlignment = Alignment.Center
+                        .padding(horizontal = 20.dp), contentAlignment = Alignment.Center
                 ) {
                     Row(
                         modifier = Modifier
@@ -125,8 +125,7 @@ fun HomeScreen() {
                 border = BorderStroke(1.dp, Color(0xFF000000))
             ) {
                 Text(
-                    text = stringResource(id = R.string.contacts_and_address),
-                    style = TextStyle(
+                    text = stringResource(id = R.string.contacts_and_address), style = TextStyle(
                         fontSize = 16.sp,
                         lineHeight = 24.sp,
                         fontWeight = FontWeight(500),
@@ -146,8 +145,7 @@ fun HomeScreen() {
                 border = BorderStroke(1.dp, Color(0xFF000000))
             ) {
                 Text(
-                    text = stringResource(id = R.string.questions_answers),
-                    style = TextStyle(
+                    text = stringResource(id = R.string.questions_answers), style = TextStyle(
                         fontSize = 16.sp,
                         lineHeight = 24.sp,
                         fontWeight = FontWeight(500),
@@ -157,12 +155,15 @@ fun HomeScreen() {
             }
             Spacer(modifier = Modifier.height(30.dp))
         }
-        val rootController = LocalRootController.current
         when (viewAction.value) {
-            is HomeAction.OpenStoriesDetails -> {}
+            is HomeAction.OpenStoriesDetails -> {
+                rootController.present(screen = NavigationTree.Main.StoriesDetails.name)
+            }
 
             is HomeAction.OpenSalesHits -> {}
-            is HomeAction.OpenContactsAndAddresses -> {}
+            is HomeAction.OpenContactsAndAddresses -> {
+                rootController.present(screen = NavigationTree.Main.ContactsAndAddress.name)
+            }
 
             is HomeAction.OpenFAQ -> {
                 rootController.present(screen = NavigationTree.Main.FAQ.name)

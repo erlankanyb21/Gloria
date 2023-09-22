@@ -2,7 +2,7 @@ package navigation
 
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
-fun RootComposeBuilder.generateGraph(){
+fun RootComposeBuilder.generateGraph() {
     mainFlow()
     authFlow()
 }

@@ -1,6 +1,7 @@
 import ktor.KtorAuthRemoteDataSource
 import ktor.KtorLoginRequest
 import model.AccessTokenResponse
+import model.RegisterResponse
 import settings.SettingsAuthDataSource
 
 class AuthRepositoryImpl(
@@ -34,5 +35,11 @@ class AuthRepositoryImpl(
         return Pair(refreshToken, accessToken)
     }
 
+    override suspend fun signUp(fullName: String, phoneNumber: String, password: String): RegisterResponse {
+        return remoteDataSource.signUp(fullName, phoneNumber, password)
+    }
 
+    override suspend fun confirmUser(code: String): String {
+        return remoteDataSource.confirmUser(code)
+    }
 }

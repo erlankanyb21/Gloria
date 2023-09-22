@@ -4,33 +4,31 @@ import numberConfirmation.NumberConfirmation
 import passwordRecovery.CreatedNewPassword
 import passwordRecovery.PasswordRecovery
 import passwordRecovery.PasswordRecoverySms
-import ru.alexgladkov.odyssey.compose.extensions.flow
 import ru.alexgladkov.odyssey.compose.extensions.screen
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
-import signin.SignIn
 import signin.SignInView
-import signup.SignUp
+import signup.SignUpScreen
 
-fun RootComposeBuilder.authFlow(){
-    screen(name = NavigationTree.Auth.SignUp.name){
-        SignUp()
+fun RootComposeBuilder.authFlow() {
+    screen(name = NavigationTree.Auth.SignUp.name) {
+        SignUpScreen()
     }
-    screen(name = NavigationTree.Auth.SignIn.name){
+    screen(name = NavigationTree.Auth.SignIn.name) {
         SignInView().Content()
     }
-    screen(name = NavigationTree.Auth.NumberConfirmation.name){
+    screen(name = NavigationTree.Auth.NumberConfirmation.name) {
         NumberConfirmation()
     }
 
-    screen(name = NavigationTree.Auth.CreatedNewPassword.name){
+    screen(name = NavigationTree.Auth.CreatedNewPassword.name) {
         CreatedNewPassword()
     }
 
-    screen(name = NavigationTree.Auth.PasswordRecovery.name){
+    screen(name = NavigationTree.Auth.PasswordRecovery.name) {
         PasswordRecovery()
     }
 
-    screen(name = NavigationTree.Auth.PasswordRecoverySms.name){
+    screen(name = NavigationTree.Auth.PasswordRecoverySms.name) {
         PasswordRecoverySms()
     }
 }

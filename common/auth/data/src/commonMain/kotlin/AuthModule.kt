@@ -10,11 +10,6 @@ val authModule = DI.Module("authModule") {
     bind<AuthRepository>() with singleton {
         AuthRepositoryImpl(instance(), instance())
     }
-
-    bind<RegisterRepository>() with singleton {
-        RegisterRepositoryImpl(instance())
-    }
-
     bind<SettingsAuthDataSource>() with provider {
         SettingsAuthDataSource(instance())
     }
