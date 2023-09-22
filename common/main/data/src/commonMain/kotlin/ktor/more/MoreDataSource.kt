@@ -52,8 +52,7 @@ class MoreDataSource(
         return httpClient.patch {
             url {
                 path("profile/30/")
-                                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
-
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
                 setBody(updateProfileBody)
             }
         }.body()
@@ -64,8 +63,7 @@ class MoreDataSource(
         return httpClient.patch {
             url {
                 path("profile/30/")
-                                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
-
+                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
                 if (image != null) {
                     body = MultiPartFormDataContent(
                         formData {
