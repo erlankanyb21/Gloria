@@ -8,24 +8,23 @@ import models.more.profile.UpdateProfileBody
 
 class MoreRepositoryImpl(
     private val moreDataSource: MoreDataSource
-): MoreRepository {
-    override suspend fun getProfile(): GetProfileResponse {
-        return moreDataSource.getProfile()
-    }
+) : MoreRepository {
 
-    override suspend fun fetchFAQ(): FAQResponse {
-        return moreDataSource.fetchFAQ()
-    }
+    override suspend fun getProfile(): GetProfileResponse =
+        moreDataSource.getProfile()
 
-    override suspend fun openWhatsApp(): WhatsAppResponse {
-        return moreDataSource.openWhatsApp()
-    }
+    override suspend fun fetchFAQ(): FAQResponse =
+        moreDataSource.fetchFAQ()
 
-    override suspend fun updateProfile(updateProfileBody: UpdateProfileBody): GetProfileResponse {
-        return moreDataSource.updateProfile(updateProfileBody)
-    }
+    override suspend fun openWhatsApp(): WhatsAppResponse =
+        moreDataSource.openWhatsApp()
 
-    override suspend fun uploadImage(editImage: ByteArray?): GetProfileResponse {
-        return moreDataSource.editImage(editImage)
-    }
+    override suspend fun updateProfile(updateProfileBody: UpdateProfileBody): GetProfileResponse =
+        moreDataSource.updateProfile(updateProfileBody)
+
+
+    override suspend fun uploadImage(editImage: ByteArray?): GetProfileResponse =
+        moreDataSource.editImage(editImage)
+
+    override suspend fun deleteAccount(): Boolean = moreDataSource.deleteAccount()
 }

@@ -47,7 +47,7 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -86,7 +86,6 @@ fun ExpandableCard(title: String) {
         val viewState by viewModel.viewStates().observeAsState()
 
         var fullName by remember { mutableStateOf(viewState.getProfileResponse?.fullname ?: "") }
-        var image by remember { mutableStateOf(viewState.getProfileResponse?.avatar ?: "") }
         var lastName by remember { mutableStateOf(viewState.getProfileResponse?.lastName ?: "") }
         var dateOfBirth by remember {
             mutableStateOf(
@@ -110,9 +109,10 @@ fun ExpandableCard(title: String) {
         val imagePickLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.PickVisualMedia(),
             onResult = {
-                selectedImageUri = it
-                image  = it.toString()
-                if (it != null) viewState.image = uriToByteArray(context, it)
+                if (it != null) {
+                    viewState.image = uriToByteArray(context, it)
+                    selectedImageUri = it
+                }
             }
         )
 
@@ -129,15 +129,14 @@ fun ExpandableCard(title: String) {
         var showGender by remember { mutableStateOf(false) }
         val rotateGenderIcon by animateFloatAsState(targetValue = if (showGender) 180f else 0f)
 
-        LaunchedEffect(key1 = viewState.getProfileResponse, block = {
+        SideEffect {
             Log.e("SIDE", "ExpandableCard: ${viewModel.viewStates().value}")
-            image = viewState.getProfileResponse?.avatar?.replace("http", "https") ?: ""
             fullName = viewState.getProfileResponse?.fullname ?: ""
             lastName = viewState.getProfileResponse?.lastName ?: ""
             dateOfBirth = viewState.getProfileResponse?.dateOfBirthday ?: ""
             phoneNumber = viewState.getProfileResponse?.phoneNumber ?: ""
             chosenGender = viewState.getProfileResponse?.gender ?: ""
-        })
+        }
 
         Card(
             elevation = CardDefaults.cardElevation(0.dp),
@@ -169,7 +168,11 @@ fun ExpandableCard(title: String) {
                     contentAlignment = Alignment.Center
                 ) {
                     SubcomposeAsyncImage(
-                        model = if (selectedImageUri == null) image
+                        model = if (selectedImageUri == null)
+                            viewState.getProfileResponse?.avatar?.replace(
+                            "http",
+                            "https"
+                        )
                         else selectedImageUri,
                         contentDescription = "",
                         loading = { CircularProgressIndicator(color = Color.White) },
@@ -179,11 +182,12 @@ fun ExpandableCard(title: String) {
                             .size(50.dp)
                             .padding(8.dp)
                             .clickable {
-                                handlePermission(
-                                    context,
-                                    imagePickLauncher,
-                                    requestPermissionLauncher
-                                )
+                                if (expanded)
+                                    handlePermission(
+                                        context,
+                                        imagePickLauncher,
+                                        requestPermissionLauncher
+                                    )
                             }
                             .clip(CircleShape)
                     )
@@ -330,18 +334,9 @@ fun ExpandableCard(title: String) {
                             ) {
                                 Text(
                                     text = when {
-                                        viewState.getProfileResponse?.gender?.isEmpty() == true -> {
-                                            chosenGender
-                                        }
-
-                                        chosenGender.isEmpty() -> {
-                                            viewState.getProfileResponse?.gender ?: ""
-                                        }
-
-                                        else -> {
-                                            chosenGender
-                                        }
-
+                                        chosenGender.isEmpty() -> stringResource(id = R.string.gender)
+                                        viewState.getProfileResponse?.gender == null -> chosenGender
+                                        else -> chosenGender
                                     },
                                     color = Color.Black,
                                     textAlign = TextAlign.Start,
@@ -375,7 +370,6 @@ fun ExpandableCard(title: String) {
                                 selectedValue.value = it
                                 chosenGender = it
                                 viewState.gender = it
-                                viewModel.obtainEvent(ProfileEvent.UpdateData)
                             }
 
                             val items = stringArrayResource(id = R.array.genders)
@@ -438,9 +432,12 @@ fun ExpandableCard(title: String) {
                                 viewModel.obtainEvent(ProfileEvent.UpdateData)
                                 expanded = false
                                 openedFirst = false
-                                viewModel.obtainEvent(ProfileEvent.UploadAvatar)
                                 Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT)
                                     .show()
+
+                                if (selectedImageUri.toString().isNotEmpty()) {
+                                    viewModel.obtainEvent(ProfileEvent.UploadAvatar)
+                                }
                             }
                         )
                     }
@@ -464,6 +461,7 @@ private fun handlePermission(
         imagePickLauncher.launch(
             PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
         )
+
     } else {
         requestPermissionLauncher.launch(permissionToCheck)
     }
