@@ -12,11 +12,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,19 +29,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import org.tbm.gloria.core_compose.R.drawable.location
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import components.GradientButton
 import components.ToolBar
 import extensions.OnBackPress
-import org.tbm.gloria.main.compose.R
 import org.tbm.gloria.core_compose.R.drawable.ic_back_arrow
+import org.tbm.gloria.core_compose.R.drawable.location
+import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
