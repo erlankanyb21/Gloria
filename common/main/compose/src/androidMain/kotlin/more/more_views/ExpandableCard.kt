@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import org.tbm.gloria.core_compose.R.drawable.empty_ava
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -167,12 +168,12 @@ fun ExpandableCard(title: String) {
                         .padding(horizontal = 16.dp),
                     contentAlignment = Alignment.Center
                 ) {
+                    val userAvatar = viewState.getProfileResponse?.avatar?.replace(
+                        "http",
+                        "https"
+                    )
                     SubcomposeAsyncImage(
-                        model = if (selectedImageUri == null)
-                            viewState.getProfileResponse?.avatar?.replace(
-                            "http",
-                            "https"
-                        )
+                        model = if (selectedImageUri == null) userAvatar ?: empty_ava
                         else selectedImageUri,
                         contentDescription = "",
                         loading = { CircularProgressIndicator(color = Color.White) },

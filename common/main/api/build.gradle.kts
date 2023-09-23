@@ -10,6 +10,7 @@ kotlin {
             dependencies {
                 implementation(Dependencies.Kotlin.Serialization.serialization)
                 api(project(":common:core"))
+                api(project(":common:auth:data"))
             }
         }
     }

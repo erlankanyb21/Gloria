@@ -18,15 +18,17 @@ import models.more.faq.FAQResponse
 import models.more.faq.WhatsAppResponse
 import models.more.profile.GetProfileResponse
 import models.more.profile.UpdateProfileBody
+import settings.SettingsAuthDataSource
 
 class MoreDataSource(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val settingsAuthDataSource: SettingsAuthDataSource
 ) {
     suspend fun getProfile(): GetProfileResponse {
         return httpClient.get {
             url {
-                path("profile/30")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
+                path("profile/${settingsAuthDataSource.setUserId()}/")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }.body()
     }
@@ -50,8 +52,8 @@ class MoreDataSource(
     suspend fun updateProfile(updateProfileBody: UpdateProfileBody): GetProfileResponse {
         return httpClient.patch {
             url {
-                path("profile/30/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
+                path("profile/${settingsAuthDataSource.setUserId()}/")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
                 setBody(updateProfileBody)
             }
         }.body()
@@ -61,8 +63,8 @@ class MoreDataSource(
     suspend fun editImage(image: ByteArray?): GetProfileResponse {
         return httpClient.patch {
             url {
-                path("profile/30/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
+                path("profile/${settingsAuthDataSource.setUserId()}/")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
                 if (image != null) {
                     body = MultiPartFormDataContent(
                         formData {
@@ -80,8 +82,8 @@ class MoreDataSource(
     suspend fun deleteAccount(): Boolean {
         val response = httpClient.delete {
             url {
-                path("profile/30/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MzgzOTcxLCJpYXQiOjE2OTUzNzY3NzEsImp0aSI6ImE1MWNmZjhhMGExODQ3M2JhZDEwMDcyN2NiZDIwM2RhIiwidXNlcl9pZCI6MzB9.5AfL08jeq1hgKlvpIkG6NpJXMDTFRGAypG1d9-8Osww")
+                path("profile/${settingsAuthDataSource.setUserId()}/")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }
 

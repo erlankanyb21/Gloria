@@ -41,6 +41,6 @@ val mainModule = DI.Module("mainModule") {
         MoreRepositoryImpl(instance())
     }
     bind<MoreDataSource>() with provider {
-        MoreDataSource(instance())
+        MoreDataSource(instance(), instance())
     }
 }
