@@ -40,6 +40,7 @@ import more.profile.ProfileViewModel
 import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import ru.alexgladkov.odyssey.core.LaunchFlag
 import theme.gloriaGradient
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -189,7 +190,7 @@ fun FilledButtons() {
             }
         )
         GradientButton(
-            text = "Удалить аккаунт",
+            text = stringResource(R.string.delete_account),
             fontSize = 16.sp,
             modifier = Modifier
                 .fillMaxWidth()
@@ -209,12 +210,17 @@ fun FilledButtons() {
                 rootController.present(NavigationTree.Main.ContactsAndAddress.name)
             }
 
+            ProfileAction.OpenSignUp -> {
+                rootController.present(NavigationTree.Auth.SignUp.name)
+            }
+
             else -> {}
         }
 
         when (viewState.isAccountDeleted) {
             true -> {
-                Toast.makeText(LocalContext.current, "Account deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(LocalContext.current, "Account deleted", Toast.LENGTH_SHORT)
+                    .show()
             }
 
             false -> {

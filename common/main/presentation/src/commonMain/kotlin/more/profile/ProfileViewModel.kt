@@ -18,6 +18,7 @@ class ProfileViewModel : BaseSharedViewModel<ProfileViewState, ProfileAction, Pr
             is ProfileEvent.UpdateData -> sendProfile()
             is ProfileEvent.UploadAvatar -> uploadAvatar()
             is ProfileEvent.DeleteAccount -> deleteAccount()
+            else -> {}
         }
     }
 
@@ -83,6 +84,9 @@ class ProfileViewModel : BaseSharedViewModel<ProfileViewState, ProfileAction, Pr
     private fun deleteAccount() = withViewModelScope {
         viewState = try {
             val response = moreRepository.deleteAccount()
+            if (response) {
+                viewAction = ProfileAction.OpenSignUp
+            }
             viewState.copy(
                 isAccountDeleted = response
             )

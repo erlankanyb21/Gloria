@@ -33,7 +33,6 @@ class LoginViewModel: BaseSharedViewModel<LoginViewState, LoginAction, LoginEven
             val isUserLoggedIn = authRepository.isUserLoggedIn()
             if (isUserLoggedIn) {
                 viewAction = LoginAction.OpenMainFlow
-
             }
         }
     }

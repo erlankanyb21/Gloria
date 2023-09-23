@@ -193,7 +193,9 @@ fun ExpandableCard(title: String) {
                             .clip(CircleShape)
                     )
 
-                    if (showAlert) {
+                    if (showAlert &&
+                        viewState.getProfileResponse?.fullname?.isNotEmpty() == true
+                    ) {
                         AlertDialog(
                             onDismissRequest = {},
                             title = {

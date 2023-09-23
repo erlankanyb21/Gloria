@@ -4,10 +4,23 @@ object NavigationTree {
     }
 
     enum class Auth {
-        SignIn, SignUp, NumberConfirmation, CreatedNewPassword, PasswordRecovery, PasswordRecoverySms
+        SignIn,
+        SignUp,
+        NumberConfirmation,
+        CreatedNewPassword,
+        PasswordRecovery,
+        PasswordRecoverySms
     }
 
     enum class Main {
-        MainScreen, Main, Catalog, Cart, More, FAQ, ContactsAndAddress, StoriesDetails, Subcatalog, CatalogDetailScreen
+        MainScreen,
+        Catalog,
+        Cart,
+        More,
+        FAQ,
+        ContactsAndAddress,
+        StoriesDetails,
+        Subcatalog,
+        CatalogDetailScreen
     }
 }
