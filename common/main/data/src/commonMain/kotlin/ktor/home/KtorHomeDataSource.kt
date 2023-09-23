@@ -11,20 +11,19 @@ class KtorHomeDataSource(private val httpClient: HttpClient) {
 
     suspend fun fetchStories(): List<Stories> {
         return httpClient.get {
-            url.path("stories")
+            url.path("stories/")
         }.body()
     }
 
     suspend fun fetchStoriesDetails(id: Int): Stories {
         return httpClient.get {
-            url.path("stories/$id")
+            url.path("stories/$id/")
         }.body()
-
     }
 
     suspend fun fetchAdvertisingBanner(): List<AdvertisingBanner> {
         return httpClient.get {
-            url.path("banners")
+            url.path("banners/")
         }.body()
     }
 }

@@ -32,6 +32,7 @@ fun StoriesItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                     tween(durationMillis = 250)
                 )
             ) {
+                val id = viewState.stories[it].id
                 val originLink = viewState.stories[it].image
                 val modifiedLink = originLink?.replace("http://", "https://")
                 AsyncImage(
