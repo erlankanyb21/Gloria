@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cart.models.CartEvent
+import cart.cart.models.CartEvent
 import org.tbm.gloria.core_compose.R
 import theme.color
 import theme.gloriaGradient

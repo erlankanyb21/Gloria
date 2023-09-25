@@ -55,10 +55,10 @@ fun ToolBar(
             )
         },
         actions = {
-            actions?.let { it() }
+            actions?.invoke()
         },
         navigationIcon = {
-            backIcon?.let { it() }
+            backIcon?.invoke()
         },
     )
 }

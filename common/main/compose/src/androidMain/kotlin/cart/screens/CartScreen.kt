@@ -1,5 +1,6 @@
-package cart
+package cart.screens
 
+import NavigationTree
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +14,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,13 +27,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cart.cart.CartViewModel
+import cart.cart.models.CartAction
+import cart.cart.models.CartEvent
 import cart.cart_views.CartListItem
 import cart.cart_views.CartTopAppBar
 import cart.cart_views.EmptyCartScreen
-import cart.models.CartAction
+import cart.cart_views.LoadingScreen
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import org.tbm.gloria.core_compose.R
+import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
 import theme.gloriaGradient
@@ -62,16 +66,9 @@ fun CartScreen() {
                     viewModel.obtainEvent(it)
                 }
             }
-        ) { padding ->
+        ) { paddingValues ->
             if (viewState.value.loading) {
-                Box(
-                    modifier = Modifier
-                        .padding(top = padding.calculateTopPadding())
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = color.purple200)
-                }
+                LoadingScreen(paddingValues)
             } else {
                 if (viewState.value.cartItems.isNotEmpty()) {
                     Box(
@@ -81,10 +78,9 @@ fun CartScreen() {
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(top = padding.calculateTopPadding()),
+                                .padding(top = paddingValues.calculateTopPadding()),
                             contentPadding = PaddingValues(
-                                start = 20.dp, top = 20.dp, end = 20.dp, bottom = 80.dp
-                            ),
+                                start = 20.dp, top = 20.dp, end = 20.dp, bottom = 80.dp),
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             itemsIndexed(
@@ -93,7 +89,7 @@ fun CartScreen() {
                             ) { index, item ->
                                 CartListItem(
                                     Modifier.animateItemPlacement(),
-                                    item, viewState, index, modalController
+                                    item, index, modalController
                                 ) { event ->
                                     viewModel.obtainEvent(event)
                                 }
@@ -106,10 +102,12 @@ fun CartScreen() {
                                 .clip(RoundedCornerShape(40.dp))
                                 .background(gloriaGradient),
                             colors = ButtonDefaults.buttonColors(Color.Transparent),
-                            onClick = { }
+                            onClick = {
+                                viewModel.obtainEvent(CartEvent.OpenPlaceOrder)
+                            }
                         ) {
                             Text(
-                                text = "Оформить заказ",
+                                text = stringResource(id = R.string.place_order),
                                 style = TextStyle(
                                     fontSize = 18.sp,
                                     fontWeight = FontWeight.Bold,
@@ -119,7 +117,7 @@ fun CartScreen() {
                         }
                     }
                 } else {
-                    EmptyCartScreen(padding) { event ->
+                    EmptyCartScreen(paddingValues) { event ->
                         viewModel.obtainEvent(event)
                     }
                 }
@@ -130,11 +128,12 @@ fun CartScreen() {
             CartAction.OpenCatalog -> {
                 rootController.findHostController()?.switchTab(1)
             }
-
             CartAction.OnBackClick -> {
                 rootController.popBackStack()
             }
-
+            CartAction.OpenPlaceOrder -> {
+                rootController.present(NavigationTree.Main.PlaceOrder.name)
+            }
             else -> {}
         }
     }

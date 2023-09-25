@@ -26,27 +26,23 @@ import theme.gloriaGradient
 @Composable
 fun GradientButton(
     text: String,
-    fontSize: TextUnit,
+    fontSize: TextUnit = 18.sp,
     modifier: Modifier = Modifier,
-    shape: RoundedCornerShape? = null,
+    shape: RoundedCornerShape = CircleShape,
     onClick: () -> Unit = { },
 ) {
     Button(
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(Color.Transparent),
         contentPadding = PaddingValues(),
-        shape = when (shape) {
-            null -> CircleShape
-            else -> shape
-        },
+        shape = shape,
         onClick = { onClick() },
     ) {
         Box(
             modifier = Modifier
                 .background(gloriaGradient)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .then(modifier),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             contentAlignment = Alignment.Center,
         ) {
             Text(
@@ -54,7 +50,7 @@ fun GradientButton(
                 style = TextStyle(
                     fontSize = fontSize,
                     lineHeight = 24.sp,
-                    fontWeight = FontWeight(700),
+                    fontWeight = FontWeight.Bold,
                     color = Color.White,
                     textAlign = TextAlign.Center,
                 )

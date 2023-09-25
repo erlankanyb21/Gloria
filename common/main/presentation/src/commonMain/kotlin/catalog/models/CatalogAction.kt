@@ -1,6 +1,6 @@
 package catalog.models
 
-import cart.models.CartAction
+import cart.cart.models.CartAction
 
 sealed class CatalogAction {
 

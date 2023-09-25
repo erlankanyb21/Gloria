@@ -23,8 +23,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cart.models.CartEvent
-import cart.models.CartViewState
+import cart.cart.models.CartEvent
+import cart.cart.models.CartViewState
 import extensions.bottomBorder
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.controllers.ModalController

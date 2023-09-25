@@ -1,4 +1,4 @@
-package cart.models
+package cart.cart.models
 
 import models.cart.CartItems
 
