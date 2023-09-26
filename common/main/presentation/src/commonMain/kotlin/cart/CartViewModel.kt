@@ -6,7 +6,7 @@ import cart.models.CartViewState
 import com.adeo.kviewmodel.BaseSharedViewModel
 import di.Inject
 import kotlinx.coroutines.launch
-import repositories.CartRepository
+import repositories.cart.CartRepository
 
 class CartViewModel : BaseSharedViewModel<CartViewState, CartAction, CartEvent>(
     initialState = CartViewState()
@@ -15,22 +15,24 @@ class CartViewModel : BaseSharedViewModel<CartViewState, CartAction, CartEvent>(
     private val cartRepository: CartRepository = Inject.instance()
 
     override fun obtainEvent(viewEvent: CartEvent) {
-        when(viewEvent) {
-            is CartEvent.ClearCart -> {
+        when (viewEvent) {
+            is CartEvent.ClearCart -> { clearCart() }
+            is CartEvent.RemoveItem -> { removeItem(viewEvent.productId) }
+            is CartEvent.IncrementProductCount -> { incrementProductCount(viewEvent.value) }
+            is CartEvent.DecrementProductCount -> { decrementProductCount(viewEvent.value) }
+            is CartEvent.OpenCatalogClick -> { openCatalog() }
+            is CartEvent.OnBackClick -> { onBackClick() }
+        }
+    }
 
-            }
-            is CartEvent.RemoveItem -> {
+    private fun onBackClick() {
+        viewAction = CartAction.OnBackClick
+    }
 
-            }
-            is CartEvent.IncrementProductCount -> {
-                incrementProductCount(viewEvent.value)
-            }
-            is CartEvent.DecrementProductCount -> {
-                decrementProductCount(viewEvent.value)
-            }
-            is CartEvent.OpenCatalogClick -> {
-                openCatalog()
-            }
+    private fun removeItem(productId: Int) {
+        viewModelScope.launch {
+            cartRepository.deleteCartItem(productId)
+            fetchUserCart()
         }
     }
 
@@ -39,30 +41,47 @@ class CartViewModel : BaseSharedViewModel<CartViewState, CartAction, CartEvent>(
     }
 
     private fun decrementProductCount(position: Int) {
-        viewState.cartItems[position].productCount.plus(1)
+
     }
 
     private fun incrementProductCount(position: Int) {
-
+        viewState = try {
+            val cartItems = viewState.cartItems.toMutableList()
+            var count = cartItems[position].quantity
+            val item = cartItems[position].copy(
+                quantity = ++count
+            )
+            cartItems[position] = item
+            viewState.copy(
+                cartItems = cartItems
+            )
+        } catch (e: Exception) {
+            viewState
+        }
     }
 
-    init {
-    }
-
-    private fun fetchUserCart() {
+    fun fetchUserCart() {
         viewModelScope.launch {
             viewState = try {
                 val res = cartRepository.fetchUserCart()
                 viewState.copy(
-                    isNotEmptyCart = res.cartItems.isNotEmpty(),
-                    cartItems = res.cartItems
+                    loading = false,
+                    cartItems = res
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
                 viewState.copy(
+                    loading = false,
                     cartItems = emptyList()
                 )
             }
+        }
+    }
+
+    private fun clearCart() {
+        viewModelScope.launch {
+            cartRepository.clearCart()
+            fetchUserCart()
         }
     }
 }

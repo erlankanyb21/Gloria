@@ -1,15 +1,14 @@
 package navigation
 
-import cart.CartScreen
+import cart.cart_screen.CartScreen
 import catalog.CatalogDetailScreen
 import catalog.CatalogScreen
-import catalog.CatalogViewModel
+import home.HomeScreen
+import home.StoriesDetailsScreen
 import catalog.SubcatalogScreen
-import com.adeo.kviewmodel.compose.observeAsState
-import com.adeo.kviewmodel.odyssey.StoredViewModel
-import main.MainScreen
-import models.catalog.CatalogItem
 import more.MoreScreen
+import more.contactAndAddress.ContactsAndAddressScreen
+import more.faq.FAQScreen
 import navigation.tabs.BottomConfiguration
 import navigation.tabs.CartTab
 import navigation.tabs.CatalogTab
@@ -18,6 +17,7 @@ import navigation.tabs.MoreTab
 import ru.alexgladkov.odyssey.compose.extensions.bottomNavigation
 import ru.alexgladkov.odyssey.compose.extensions.screen
 import ru.alexgladkov.odyssey.compose.extensions.tab
+import ru.alexgladkov.odyssey.compose.helpers.FlowBuilder
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
 fun RootComposeBuilder.mainFlow() {
@@ -26,15 +26,23 @@ fun RootComposeBuilder.mainFlow() {
         tabsNavModel = BottomConfiguration(),
     ) {
         tab(MainTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
-                MainScreen()
+            screen(name = NavigationTree.Main.MainScreen.name) {
+                HomeScreen()
+            }
+
+            screen(NavigationTree.Main.FAQ.name) {
+                FAQScreen()
+            }
+
+            screen(NavigationTree.Main.StoriesDetails.name) {
+                StoriesDetailsScreen()
             }
         }
         tab(CatalogTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.Catalog.name) {
                 CatalogScreen()
             }
-            screen(name = NavigationTree.Main.SubcatalogScreen.name){
+            screen(name = NavigationTree.Main.Subcatalog.name){
                     SubcatalogScreen(slug = it as String)
             }
             screen(name = NavigationTree.Main.CatalogDetailScreen.name){
@@ -42,13 +50,21 @@ fun RootComposeBuilder.mainFlow() {
             }
         }
         tab(CartTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.Cart.name) {
                 CartScreen()
             }
         }
         tab(MoreTab()) {
-            screen(name = NavigationTree.Main.Tab.name) {
+            screen(name = NavigationTree.Main.More.name) {
                 MoreScreen()
+            }
+
+            screen(NavigationTree.Main.FAQ.name) {
+                FAQScreen()
+            }
+
+            screen(NavigationTree.Main.ContactsAndAddress.name) {
+                ContactsAndAddressScreen()
             }
         }
     }

@@ -9,7 +9,6 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":common:main:api"))
-                implementation(project(":common:core"))
 
                 implementation(Dependencies.Kodein.core)
                 implementation(Dependencies.Settings.core)

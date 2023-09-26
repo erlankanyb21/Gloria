@@ -1,11 +1,10 @@
-package navigation
 
 object NavigationTree {
-    enum class SplashScreen{
+    enum class SplashScreen {
         SplashScreen
     }
 
-    enum class Main{
-        MainScreen, Tab, SubcatalogScreen, CatalogDetailScreen
+    enum class Main {
+        MainScreen, Main, Catalog, Cart, More, FAQ, ContactsAndAddress, StoriesDetails, Subcatalog, CatalogDetailScreen
     }
 }

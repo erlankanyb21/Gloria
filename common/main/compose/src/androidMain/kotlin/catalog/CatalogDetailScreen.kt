@@ -13,59 +13,74 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import companent.CardProduct
+import catalog.catalog_view.CardProductView
+import com.adeo.kviewmodel.compose.observeAsState
+import com.adeo.kviewmodel.odyssey.StoredViewModel
+import components.CardProduct
+import components.ToolBarWithSearch
+import models.catalog.ResultsItem
 import org.tbm.gloria.core_compose.R
-import companent.ToolBarWithSearch
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
 fun CatalogDetailScreen() {
+    StoredViewModel(factory = { CatalogViewModel() }) { viewModel ->
+        val viewState = viewModel.viewStates().observeAsState()
 
-    val rootController = LocalRootController.current
-    Scaffold(
-        topBar = {
-            ToolBarWithSearch(
-                title = stringResource(id = R.string.catalog),
-                backIcon = {
-                    Image(
-                        modifier = Modifier.clickable {
-                            rootController.popBackStack()
-                        },
-                        painter = painterResource(id = R.drawable.ic_back_arrow),
-                        contentDescription = null,
-                    )
-                }
-            )
+        LaunchedEffect(key1 = Unit) {
+            viewModel.getProduct()
         }
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(top = it.calculateTopPadding())
-                .fillMaxSize()
-                .background(Color.White)
+        val rootController = LocalRootController.current
+        Scaffold(
+            topBar = {
+                ToolBarWithSearch(
+                    title = stringResource(id = R.string.catalog),
+                    backIcon = {
+                        Image(
+                            modifier = Modifier.clickable {
+                                rootController.popBackStack()
+                            },
+                            painter = painterResource(id = R.drawable.ic_back_arrow),
+                            contentDescription = null,
+                        )
+                    }
+                )
+            }
         ) {
-            Spacer(modifier = Modifier.height(10.dp))
-            LazyVerticalGrid(
+            Column(
                 modifier = Modifier
+                    .padding(top = it.calculateTopPadding())
                     .fillMaxSize()
-                    .padding(horizontal = 5.dp),
-                columns = GridCells.Fixed(count = 2),
-                verticalArrangement = Arrangement.spacedBy(space = 5.dp),
-                horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
-                contentPadding = PaddingValues(all = 5.dp)
+                    .background(Color.White)
             ) {
-                items(count = 10) {
-                    CardProduct()
+                Spacer(modifier = Modifier.height(10.dp))
+                LazyVerticalGrid(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 5.dp),
+                    columns = GridCells.Fixed(count = 2),
+                    verticalArrangement = Arrangement.spacedBy(space = 5.dp),
+                    horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
+                    contentPadding = PaddingValues(all = 5.dp)
+                ) {
+                    if (viewState.value.productItem != null)
+                    items(items = viewState.value.productItem!!.results!!){ item ->
+                        CardProductView(item = item)
+                    }
                 }
             }
         }

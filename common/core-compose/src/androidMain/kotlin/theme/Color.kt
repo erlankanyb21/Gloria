@@ -18,6 +18,7 @@ data class GloriaColor(
     val deeepPink: Color,
     val purple500: Color,
     val purple200: Color,
+    val purple:Color,
     val transient: Color
 )
 
@@ -43,7 +44,8 @@ val color = GloriaColor(
     deeepPink = Color(0xFFFF1393),
     purple500 = Color(0xFF552180),
     purple200 = Color(0xFFA4128C),
-    transient = Color(0x0)
+    transient = Color(0x0),
+    purple = Color(0xFF98158A),
 )
 val LocalColorProvider =
     staticCompositionLocalOf<GloriaColor> { error("No default implementation") }

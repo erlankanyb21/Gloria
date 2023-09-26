@@ -5,7 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CartItems(
-    val id: Int? = null,
+    val id: Int,
+    @SerialName("product_images")
+    val productImages: List<CartItemImage>,
     val price: Double? = null,
     @SerialName("product_slug")
     val productSlug: String? = null,
@@ -16,13 +18,11 @@ data class CartItems(
     val subcategories: Int? = null,
     @SerialName("total_price")
     val totalPrice: Double? = null,
-    val quantity: Int? = null,
+    var quantity: Int = 1,
     @SerialName("created_at")
     val createdAt: String? = null,
+    val order: Int? = null,
     val product: Int? = null,
     val user: Int? = null,
-    val balls: Int? = null,
-    val postcard: Int? = null,
-    val name: String? = null,
-    val productCount: Int = 1
+    val name: String? = null
 )

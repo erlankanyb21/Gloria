@@ -1,5 +1,6 @@
 package catalog
 
+import NavigationTree
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,22 +29,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import  org.tbm.gloria.core_compose.R
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
-import companent.ToolBarWithSearch
-import navigation.NavigationTree
-import ru.alexgladkov.odyssey.compose.extensions.present
+import components.ToolBarWithSearch
+import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
 @Composable
 fun CatalogScreen() {
     StoredViewModel(factory = { CatalogViewModel() }) { viewModel ->
@@ -82,7 +80,7 @@ fun CatalogScreen() {
                                         rootController.push(NavigationTree.Main.CatalogDetailScreen.name)
                                     } else {
                                         rootController.push(
-                                            NavigationTree.Main.SubcatalogScreen.name,
+                                            NavigationTree.Main.Subcatalog.name,
                                             params = it.categorySlug
                                         )
                                     }
@@ -106,7 +104,8 @@ fun CatalogScreen() {
                                 style = TextStyle(
                                     Color.Black,
                                     fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    textAlign = TextAlign.End
                                 )
                             )
                         }
