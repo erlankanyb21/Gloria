@@ -29,7 +29,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,11 +49,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import authorization.signUp.SignUpAction
 import authorization.signUp.SignUpEvent
-import authorization.signUp.SignUpViewState
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.GradientButton
 import components.PlaceholderTransformation
+import kotlinx.coroutines.delay
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
@@ -67,6 +67,7 @@ fun SignUpScreen() {
         val state = viewModel.viewStates().observeAsState()
         val action = viewModel.viewActions().observeAsState()
         var checked by remember { mutableStateOf(false) }
+        var clickedOnRegistration by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -129,6 +130,11 @@ fun SignUpScreen() {
                 ),
             )
 
+            CheckTheValidity(
+                visible = state.value.fullName.isEmpty() && clickedOnRegistration,
+                errorMessage = "Имя не может быть пустым"
+            )
+
             Spacer(modifier = Modifier.height(12.dp))
 
             OutlinedTextField(
@@ -164,7 +170,16 @@ fun SignUpScreen() {
                 )
             )
 
-            ValidatePhoneNumber(state)
+            Row {
+                CheckTheValidity(
+                    visible = !state.value.phoneNumber.startsWith("+996") && state.value.phoneNumber.isNotEmpty(),
+                    errorMessage = "Формат номера должен быть +996"
+                )
+                CheckTheValidity(
+                    visible = state.value.phoneNumber.isEmpty() && clickedOnRegistration,
+                    errorMessage = "Телефон номер не может быть пустым"
+                )
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -189,17 +204,35 @@ fun SignUpScreen() {
                 onValueChange = {
                     viewModel.obtainEvent(SignUpEvent.PasswordChanged(it))
                 },
-                label = { Text("Пароль", color = color.black) },
+                label = { Text("Пароль") },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = color.black,
                     unfocusedBorderColor = color.black,
                     cursorColor = color.black,
-                    textColor = color.black
+                    textColor = color.black,
+                    errorBorderColor = color.errorMessage,
+                    errorLabelColor = color.errorMessage,
+                    errorCursorColor = color.errorMessage,
+                    disabledLabelColor = color.black,
+                    focusedLabelColor = color.black,
+                    unfocusedLabelColor = color.black
                 ),
                 visualTransformation = if (state.value.passwordHidden) PasswordVisualTransformation()
                 else VisualTransformation.None,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
             )
+
+            Row {
+                CheckTheValidity(
+                    visible = state.value.password != state.value.passwordConfirm && clickedOnRegistration
+                            && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty(),
+                    errorMessage = "Пароль и подтверждение пароля не совпадают"
+                )
+                CheckTheValidity(
+                    visible = state.value.password.isEmpty() && clickedOnRegistration,
+                    errorMessage = "Пароль не может быть пустым"
+                )
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -224,17 +257,35 @@ fun SignUpScreen() {
                         }, contentDescription = "Показать подтверждение пароля", tint = color.black
                     )
                 },
-                label = { Text("Пароль", color = color.black) },
+                label = { Text("Пароль") },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = color.black,
                     unfocusedBorderColor = color.black,
                     cursorColor = color.black,
-                    textColor = color.black
+                    textColor = color.black,
+                    errorBorderColor = color.errorMessage,
+                    errorLabelColor = color.errorMessage,
+                    errorCursorColor = color.errorMessage,
+                    disabledLabelColor = color.black,
+                    focusedLabelColor = color.black,
+                    unfocusedLabelColor = color.black
                 ),
                 visualTransformation = if (state.value.passwordConfirmHidden) PasswordVisualTransformation()
                 else VisualTransformation.None,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
             )
+
+            Row {
+                CheckTheValidity(
+                    visible = state.value.password != state.value.passwordConfirm && clickedOnRegistration
+                            && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty(),
+                    errorMessage = "Пароль и подтверждение пароля не совпадают"
+                )
+                CheckTheValidity(
+                    visible = state.value.passwordConfirm.isEmpty() && clickedOnRegistration,
+                    errorMessage = "Пароль подтверждение не может быть пустым"
+                )
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -264,11 +315,25 @@ fun SignUpScreen() {
                 text = "Регистрация",
                 fontSize = 18.sp,
                 onClick = {
-                    when (checked) {
-                        true -> viewModel.obtainEvent(SignUpEvent.RegistrationClick)
-                        false -> showToast(context)
-                    }
+                    clickedOnRegistration = true
+                    if (state.value.fullName.isNotEmpty() &&
+                        state.value.phoneNumber.isNotEmpty() &&
+                        state.value.phoneNumber.startsWith("+996") &&
+                        state.value.password.isNotEmpty() &&
+                        state.value.passwordConfirm.isNotEmpty() &&
+                        state.value.password == state.value.passwordConfirm &&
+                        checked
+                    ) {
+                        viewModel.obtainEvent(SignUpEvent.RegistrationClick)
+                    } else if (!checked) showToast(context)
                 })
+
+            if (clickedOnRegistration) {
+                LaunchedEffect(Unit) {
+                    delay(5000)
+                    clickedOnRegistration = false
+                }
+            }
 
             Row(
                 modifier = Modifier
@@ -314,12 +379,12 @@ fun SignUpScreen() {
 }
 
 @Composable
-fun ValidatePhoneNumber(state: State<SignUpViewState>) {
-    AnimatedVisibility(visible = !state.value.phoneNumber.startsWith("+996") && state.value.phoneNumber.isNotEmpty()) {
+fun CheckTheValidity(visible: Boolean, errorMessage: String) {
+    AnimatedVisibility(visible = visible) {
         Column {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Формат номера должен быть +996",
+                text = errorMessage,
                 color = color.errorMessage,
                 fontSize = 12.sp,
                 modifier = Modifier.padding(start = 16.dp)
