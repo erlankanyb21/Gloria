@@ -24,8 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -83,7 +85,13 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
                 textColor = color.black
             ),
             placeholder = {
-                Text("Введите номер телефона", color = color.black)
+                Text("Введите номер телефона",
+                    style = TextStyle(
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight(400),
+                        color = Color.Gray,
+                    ),
+                    color = color.black)
             }
         )
 
@@ -112,7 +120,13 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
                 VisualTransformation.None
             },
             placeholder = {
-                Text("Введите пароль", color = color.black)
+                Text("Введите пароль",
+                    style = TextStyle(
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight(400),
+                        color = Color.Gray,
+                    ),
+                    color = color.black)
             },
             trailingIcon = {
                 Icon(

@@ -81,10 +81,13 @@ object Dependencies {
             const val foundation = "androidx.compose.foundation:foundation:$version"
             const val material3 = "androidx.compose.material3:material3:1.1.1"
             const val material = "androidx.compose.material:material:$version"
-            const val materialWindow = "androidx.compose.material3:material3-window-size-class:1.1.1"
+            const val materialWindow =
+                "androidx.compose.material3:material3-window-size-class:1.1.1"
             const val activityCompose = "androidx.activity:activity-compose:1.7.1"
             const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
             const val navigation = "androidx.navigation:navigation-compose:2.6.0"
+            const val dialogsCore = "com.maxkeppeler.sheets-compose-dialogs:core:1.2.0"
+            const val calendarDialog = "com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.0"
         }
     }
 
