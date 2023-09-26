@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,14 +28,15 @@ import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.CardProduct
 import components.ToolBarWithSearch
-import models.catalog.ResultsItem
+import extensions.OnBackPress
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
 @Composable
 fun CatalogDetailScreen() {
+    val rootController = LocalRootController.current
+    OnBackPress { rootController.popBackStack() }
     StoredViewModel(factory = { CatalogViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
 

@@ -5,7 +5,7 @@ import models.cart.CartItems
 import models.cart.ClearCartResponse
 
 class CartRepositoryImpl(
-    private val remoteDataSource: KtorCartDataSource
+    private val remoteDataSource: KtorCartDataSource,
 ): CartRepository {
     override suspend fun fetchUserCart(): List<CartItems> {
         return remoteDataSource.fetchUserCart()

@@ -21,7 +21,8 @@ object PlatformSDK {
                 importAll(
                     umbrellaModule,
                     coreModule,
-                    mainModule
+                    mainModule,
+                    authModule
                 )
             }.direct
         )

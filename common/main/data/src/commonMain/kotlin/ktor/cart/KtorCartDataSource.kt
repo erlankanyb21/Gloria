@@ -8,16 +8,18 @@ import io.ktor.client.request.get
 import io.ktor.http.path
 import models.cart.CartItems
 import models.cart.ClearCartResponse
+import settings.SettingsAuthDataSource
 
 class KtorCartDataSource(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val settingsAuthDataSource: SettingsAuthDataSource
 ) {
 
     suspend fun fetchUserCart(): List<CartItems> {
         return httpClient.get {
             url {
                 path("cart-items/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NDU0LCJpYXQiOjE2OTUwMzgyNTQsImp0aSI6ImRiZmVkZDdhYjg2ZDQyYjE4OWZmMzQ2OTJhODBlZGJjIiwidXNlcl9pZCI6MX0.4oBdAQiFecMv5aLVrbHOEB7cg9iVLson9YnoAhfF61A")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }.body()
     }
@@ -27,7 +29,7 @@ class KtorCartDataSource(
             httpClient.delete {
                 url {
                     path("cart-items/")
-                    bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NDU0LCJpYXQiOjE2OTUwMzgyNTQsImp0aSI6ImRiZmVkZDdhYjg2ZDQyYjE4OWZmMzQ2OTJhODBlZGJjIiwidXNlcl9pZCI6MX0.4oBdAQiFecMv5aLVrbHOEB7cg9iVLson9YnoAhfF61A")
+                    bearerAuth(settingsAuthDataSource.fetchAccessToken())
                 }
             }.body()
         } catch (e: Exception) {
@@ -39,7 +41,7 @@ class KtorCartDataSource(
         httpClient.delete {
             url {
                 path("cart-items/$productId/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQ1NDU0LCJpYXQiOjE2OTUwMzgyNTQsImp0aSI6ImRiZmVkZDdhYjg2ZDQyYjE4OWZmMzQ2OTJhODBlZGJjIiwidXNlcl9pZCI6MX0.4oBdAQiFecMv5aLVrbHOEB7cg9iVLson9YnoAhfF61A")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }
     }

@@ -10,6 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.adeo.kviewmodel.odyssey.setupWithViewModels
 import ru.alexgladkov.odyssey.compose.base.Navigator
+import ru.alexgladkov.odyssey.compose.extensions.setupWithActivity
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.ModalNavigator
@@ -23,6 +24,7 @@ fun ComponentActivity.setupThemedNavigation() {
     installSplashScreen()
     val rootController = RootComposeBuilder().apply { generateGraph() }.build()
 
+    rootController.setupWithActivity(this)
     rootController.setupWithViewModels()
     setContent {
         AppTheme {
@@ -46,7 +48,7 @@ fun ComponentActivity.setupThemedNavigation() {
                         DisplayType.EdgeToEdge
                     )
                 ) {
-                    Navigator(startScreen = NavigationTree.Main.MainScreen.name)
+                    Navigator(startScreen = NavigationTree.Auth.SignIn.name)
                 }
             }
         }

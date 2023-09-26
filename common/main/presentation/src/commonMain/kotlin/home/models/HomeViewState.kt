@@ -6,7 +6,7 @@ import models.stories.Stories
 
 data class HomeViewState(
     var stories: List<Stories> = emptyList(),
-    val storiesDetails: Stories? = null,
+    val storiesDetails: String,
     val salesHits: List<Favorite> = emptyList(),
     val advertisingBanner: List<AdvertisingBanner> = emptyList()
 )

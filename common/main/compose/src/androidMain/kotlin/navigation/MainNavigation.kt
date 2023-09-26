@@ -30,22 +30,26 @@ fun RootComposeBuilder.mainFlow() {
                 HomeScreen()
             }
 
-            screen(NavigationTree.Main.FAQ.name) {
-                FAQScreen()
+            screen(name = NavigationTree.Main.StoriesDetails.name) {
+                StoriesDetailsScreen()
             }
 
-            screen(NavigationTree.Main.StoriesDetails.name) {
-                StoriesDetailsScreen()
+            screen(name = NavigationTree.Main.FAQ.name) {
+                FAQScreen()
+            }
+           
+            screen(name = NavigationTree.Main.ContactsAndAddress.name) {
+                ContactsAndAddressScreen()
             }
         }
         tab(CatalogTab()) {
             screen(name = NavigationTree.Main.Catalog.name) {
                 CatalogScreen()
             }
-            screen(name = NavigationTree.Main.Subcatalog.name){
-                    SubcatalogScreen(slug = it as String)
+            screen(name = NavigationTree.Main.Subcatalog.name) {
+                SubcatalogScreen(slug = it as String)
             }
-            screen(name = NavigationTree.Main.CatalogDetailScreen.name){
+            screen(name = NavigationTree.Main.CatalogDetailScreen.name) {
                 CatalogDetailScreen()
             }
         }

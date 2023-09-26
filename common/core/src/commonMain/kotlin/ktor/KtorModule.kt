@@ -13,6 +13,7 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.singleton
