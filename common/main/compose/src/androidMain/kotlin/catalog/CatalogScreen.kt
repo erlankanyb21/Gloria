@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import catalog.models.CatalogAction
+import catalog.models.CatalogEvent
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.adeo.kviewmodel.compose.observeAsState
@@ -40,13 +43,16 @@ import components.ToolBarWithSearch
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import theme.color
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CatalogScreen() {
+
+    val rootController = LocalRootController.current
     StoredViewModel(factory = { CatalogViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
-        val rootController = LocalRootController.current
+        val viewAction = viewModel.viewActions().observeAsState()
 
 
         Scaffold(
@@ -54,64 +60,84 @@ fun CatalogScreen() {
                 ToolBarWithSearch(title = stringResource(id = R.string.catalog))
             }
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(top = it.calculateTopPadding())
-                    .fillMaxSize()
-                    .background(Color.White)
-            ) {
-                Spacer(modifier = Modifier.height(10.dp))
-                LazyVerticalGrid(
+            if (viewState.value.loading) {
+                Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 5.dp),
-                    columns = GridCells.Fixed(count = 2),
-                    verticalArrangement = Arrangement.spacedBy(space = 5.dp),
-                    horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
-                    contentPadding = PaddingValues(all = 5.dp)
+                        .padding(top = it.calculateTopPadding())
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
                 ) {
-                    items(items = viewState.value.catalogItem) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(180.dp)
-                                .clickable {
-                                    if (it.subcategories.isNullOrEmpty()) {
-                                        rootController.push(NavigationTree.Main.CatalogDetailScreen.name)
-                                    } else {
-                                        rootController.push(
-                                            NavigationTree.Main.Subcatalog.name,
-                                            params = it.categorySlug
-                                        )
-                                    }
-                                }
-                                .clip(RoundedCornerShape(size = 4.dp)),
-                            contentAlignment = Alignment.BottomEnd
-                        ) {
-                            AsyncImage(
-                                modifier = Modifier.fillMaxSize(),
-                                model = ImageRequest.Builder(context = LocalContext.current)
-                                    .data(it.image?.replace("http", "https"))
-                                    .crossfade(true)
-                                    .build(),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop
-                            )
-                            Text(
+                    CircularProgressIndicator(color = color.purple200)
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .padding(top = it.calculateTopPadding())
+                        .fillMaxSize()
+                        .background(Color.White)
+                ) {
+                    Spacer(modifier = Modifier.height(10.dp))
+                    LazyVerticalGrid(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 5.dp),
+                        columns = GridCells.Fixed(count = 2),
+                        verticalArrangement = Arrangement.spacedBy(space = 5.dp),
+                        horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
+                        contentPadding = PaddingValues(all = 5.dp)
+                    ) {
+                        items(items = viewState.value.catalogItem) {item ->
+                            Box(
                                 modifier = Modifier
-                                    .padding(end = 10.dp, bottom = 10.dp),
-                                text = it.name,
-                                style = TextStyle(
-                                    Color.Black,
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.End
+                                    .fillMaxWidth()
+                                    .height(180.dp)
+                                    .clickable {
+                                        if (item.subcategories.isNullOrEmpty()) {
+                                            viewModel.obtainEvent(CatalogEvent.OpenProductClick)
+                                        } else {
+                                            viewModel.obtainEvent(CatalogEvent.OpenSubCatalogClick(item.categorySlug))
+                                        }
+                                    }
+                                    .clip(RoundedCornerShape(size = 4.dp)),
+                                contentAlignment = Alignment.BottomEnd
+                            ) {
+                                AsyncImage(
+                                    modifier = Modifier.fillMaxSize(),
+                                    model = ImageRequest.Builder(context = LocalContext.current)
+                                        .data(item.image?.replace("http", "https"))
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop
                                 )
-                            )
+                                Text(
+                                    modifier = Modifier
+                                        .padding(end = 10.dp, bottom = 10.dp),
+                                    text = item.name,
+                                    style = TextStyle(
+                                        Color.Black,
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        textAlign = TextAlign.End
+                                    )
+                                )
+                            }
                         }
                     }
                 }
             }
+        }
+        when(viewAction.value){
+            CatalogAction.OpenProduct -> {
+                rootController.push(NavigationTree.Main.CatalogDetailScreen.name)
+            }
+            is CatalogAction.OpenSubCatalog -> {
+                rootController.push(
+                    NavigationTree.Main.Subcatalog.name,
+                    params = (viewAction.value as CatalogAction.OpenSubCatalog).slag
+                )
+            }
+            else-> {}
         }
     }
 }

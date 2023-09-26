@@ -1,8 +1,10 @@
 package catalog.models
 
-import cart.models.CartAction
-
 sealed class CatalogAction {
 
-    object OpenCatalog : CatalogAction()
+    data class OpenSubCatalog(val slag: String) : CatalogAction()
+
+    object OnBackClick : CatalogAction()
+
+    object OpenProduct : CatalogAction()
 }
