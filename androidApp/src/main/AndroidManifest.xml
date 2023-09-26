@@ -25,6 +25,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation = "portrait"
+            tools:ignore="LockedOrientationActivity"
             android:theme="@style/App.Starting.Theme"
             android:exported="true">
             <intent-filter>

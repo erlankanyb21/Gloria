@@ -7,11 +7,13 @@ import com.adeo.kviewmodel.BaseSharedViewModel
 import di.Inject
 import kotlinx.coroutines.launch
 import repositories.CatalogRepository
+import repositories.ProductRepository
 
 class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, CatalogEvent>(
     initialState = CatalogViewState()
 ) {
     private val catalogRepository: CatalogRepository = Inject.instance()
+    private val productRepository: ProductRepository = Inject.instance()
     override fun obtainEvent(viewEvent: CatalogEvent) {
 
     }
@@ -44,6 +46,20 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
                     subCatalogItem = response
                 )
             } catch (e: Exception) {
+                viewState
+            }
+        }
+    }
+
+    fun getProduct() {
+        viewModelScope.launch {
+            viewState = try {
+                val response = productRepository.fetchProduct()
+                viewState.copy(
+                    productItem = response
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
                 viewState
             }
         }

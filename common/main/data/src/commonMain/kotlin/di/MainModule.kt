@@ -4,6 +4,7 @@ import ktor.cart.KtorCartDataSource
 import ktor.catalog.KtorCatalogDataSource
 import ktor.home.KtorHomeDataSource
 import ktor.more.MoreDataSource
+import ktor.product.KtorProductDataSource
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -13,6 +14,8 @@ import repositories.CatalogRepository
 import repositories.CatalogRepositoryImpl
 import repositories.HomeRepository
 import repositories.HomeRepositoryImpl
+import repositories.ProductRepository
+import repositories.ProductRepositoryImpl
 import repositories.cart.CartRepository
 import repositories.cart.CartRepositoryImpl
 import repositories.more.MoreRepository
@@ -23,7 +26,7 @@ val mainModule = DI.Module("mainModule") {
         CartRepositoryImpl(instance())
     }
     bind<KtorCartDataSource>() with provider {
-        KtorCartDataSource(instance())
+        KtorCartDataSource(instance(),instance())
     }
     bind<CatalogRepository>() with singleton {
         CatalogRepositoryImpl(instance())
@@ -41,6 +44,12 @@ val mainModule = DI.Module("mainModule") {
         MoreRepositoryImpl(instance())
     }
     bind<MoreDataSource>() with provider {
-        MoreDataSource(instance())
+        MoreDataSource(instance(), instance())
+    }
+    bind<KtorProductDataSource>() with provider {
+        KtorProductDataSource(instance())
+    }
+    bind<ProductRepository>() with singleton {
+        ProductRepositoryImpl(instance())
     }
 }

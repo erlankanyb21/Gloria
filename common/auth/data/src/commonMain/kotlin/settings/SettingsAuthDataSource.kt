@@ -17,8 +17,17 @@ class SettingsAuthDataSource(private val settings: Settings) {
         return settings[accessTokenKey, ""]
     }
 
+    fun saveUserId(id: Int) {
+        settings.putInt(userId, id)
+    }
+
+    fun setUserId(): Int {
+        return settings[userId, 0]
+    }
+
     companion object {
         private val refreshTokenKey = "refreshTokenKey"
         private val accessTokenKey = "accessTokenKey"
+        private val userId = "userId"
     }
 }

@@ -43,7 +43,7 @@ object Dependencies {
     }
 
     object Ktor {
-        private const val version = "2.3.0"
+        private const val version = "2.2.4"
         const val core = "io.ktor:ktor-client-core:$version"
         const val json = "io.ktor:ktor-client-json:$version"
         const val ios = "io.ktor:ktor-client-ios:$version"

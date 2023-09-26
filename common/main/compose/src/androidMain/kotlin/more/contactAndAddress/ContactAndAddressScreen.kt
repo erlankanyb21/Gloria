@@ -29,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import org.tbm.gloria.core_compose.R.drawable.location
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -39,8 +38,9 @@ import androidx.compose.ui.unit.sp
 import components.GradientButton
 import components.ToolBar
 import extensions.OnBackPress
-import org.tbm.gloria.main.compose.R
 import org.tbm.gloria.core_compose.R.drawable.ic_back_arrow
+import org.tbm.gloria.core_compose.R.drawable.location
+import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -105,13 +105,13 @@ fun ContactsAndAddressScreen() {
                     .padding(horizontal = 20.dp)
                     .height(40.dp)
             ) {
-                val intent = Intent(Intent.ACTION_CALL)
-                intent.data = Uri.parse("tel:+996700103333")
-
                 if (context.checkSelfPermission(android.Manifest.permission.CALL_PHONE)
                     == android.content.pm.PackageManager.PERMISSION_GRANTED
                 ) {
-                    if (permissionState) context.startActivity(intent)
+                    Intent(Intent.ACTION_CALL).also { intent ->
+                        intent.data = Uri.parse("tel:+996700103333")
+                        context.startActivity(intent)
+                    }
                 } else {
                     requestPermissionLauncher.launch(android.Manifest.permission.CALL_PHONE)
                 }

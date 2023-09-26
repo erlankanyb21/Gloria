@@ -9,5 +9,7 @@ data class ProfileViewState(
     var date: String? = null,
     var gender: String? = null,
     var phone: String? = null,
-    var image: ByteArray? = null
+    var image: ByteArray? = null,
+    var profileUri: String? = null,
+    var isAccountDeleted: Boolean? = null
 )
