@@ -144,7 +144,7 @@ fun SignUpScreen() {
                 value = state.value.phoneNumber,
                 shape = RoundedCornerShape(16.dp),
                 enabled = !state.value.isSending,
-                isError = !state.value.phoneNumber.startsWith("+996") && state.value.phoneNumber.isNotEmpty(),
+                isError = !state.value.phoneNumber.startsWith("996") && state.value.phoneNumber.isNotEmpty(),
                 onValueChange = {
                     if (it.length <= 13) viewModel.obtainEvent(SignUpEvent.PhoneNumberChanged(it))
                 },
@@ -172,8 +172,8 @@ fun SignUpScreen() {
 
             Row {
                 CheckTheValidity(
-                    visible = !state.value.phoneNumber.startsWith("+996") && state.value.phoneNumber.isNotEmpty(),
-                    errorMessage = "Формат номера должен быть +996"
+                    visible = !state.value.phoneNumber.startsWith("996") && state.value.phoneNumber.isNotEmpty(),
+                    errorMessage = "Формат номера должен быть 996"
                 )
                 CheckTheValidity(
                     visible = state.value.phoneNumber.isEmpty() && clickedOnRegistration,
@@ -315,7 +315,7 @@ fun SignUpScreen() {
                 onClick = {
                     clickedOnRegistration = true
                     if (state.value.fullName.isNotEmpty() && state.value.phoneNumber.isNotEmpty() && state.value.phoneNumber.startsWith(
-                            "+996"
+                            "996"
                         ) && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty() && state.value.password == state.value.passwordConfirm && checked
                     ) {
                         viewModel.obtainEvent(SignUpEvent.RegistrationClick)
