@@ -37,7 +37,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -48,9 +47,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -80,11 +78,14 @@ import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import components.GradientButton
+import more.more_views.NumberDefaults.INPUT_LENGTH
+import more.more_views.NumberDefaults.MASK
 import more.profile.ProfileEvent
 import more.profile.ProfileViewModel
 import org.tbm.gloria.core_compose.R.drawable.empty_ava
 import org.tbm.gloria.main.compose.R
 import theme.gloriaGradient
+import utils.MaskVisualTransformation
 import utils.compressBitmap
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -102,13 +103,13 @@ fun ExpandableCard(title: String) {
             )
         }
         var chosenGender by remember { mutableStateOf("") }
-        var showAlert by remember { mutableStateOf(false) }
         var openedFirst by remember { mutableStateOf(false) }
         var phoneNumber by remember {
             mutableStateOf(
                 viewState.getProfileResponse?.phoneNumber ?: ""
             )
         }
+        val calendarState = rememberUseCaseState()
 
         val context = LocalContext.current
         var selectedImageUri by remember {
@@ -138,16 +139,27 @@ fun ExpandableCard(title: String) {
         var showGender by remember { mutableStateOf(false) }
         val rotateGenderIcon by animateFloatAsState(targetValue = if (showGender) 180f else 0f)
 
-        val calendarState = rememberUseCaseState()
+        var selectedValue by remember { mutableStateOf(chosenGender) }
 
-        SideEffect {
+        val isSelectedItem: (String) -> Boolean = {
+            if (selectedValue.isEmpty())
+                selectedValue = viewState.getProfileResponse?.gender ?: ""
+            selectedValue == it
+        }
+        val onChangeState: (String) -> Unit = {
+            selectedValue = it
+            chosenGender = it
+            viewState.gender = it
+        }
+
+        LaunchedEffect(key1 = viewState.getProfileResponse, block = {
             Log.e("SIDE", "ExpandableCard: ${viewModel.viewStates().value}")
             fullName = viewState.getProfileResponse?.fullname ?: ""
+            phoneNumber = viewState.getProfileResponse?.phoneNumber ?: ""
             lastName = viewState.getProfileResponse?.lastName ?: ""
             dateOfBirth = viewState.getProfileResponse?.dateOfBirthday ?: ""
-            phoneNumber = viewState.getProfileResponse?.phoneNumber ?: ""
             chosenGender = viewState.getProfileResponse?.gender ?: ""
-        }
+        })
 
         Card(
             elevation = CardDefaults.cardElevation(0.dp),
@@ -166,13 +178,7 @@ fun ExpandableCard(title: String) {
                         .fillMaxWidth()
                         .size(54.dp)
                         .clickable {
-                            if (openedFirst) {
-                                showAlert = true
-                                openedFirst = false
-                            }
-
-                            expanded = true
-                            openedFirst = true
+                            expanded = !expanded
                         }
                         .background(gloriaGradient)
                         .padding(horizontal = 16.dp),
@@ -203,44 +209,6 @@ fun ExpandableCard(title: String) {
                             .clip(CircleShape)
                     )
 
-                    if (showAlert &&
-                        viewState.getProfileResponse?.fullname?.isNotEmpty() == true
-                    ) {
-                        AlertDialog(
-                            onDismissRequest = {},
-                            title = {
-                                Text(text = "Внимание!")
-                            },
-                            text = {
-                                Text(
-                                    "Вы действительно хотите закрыть форму? " +
-                                            "При закрытии формы ваши данные не сохранятся"
-                                )
-                            },
-                            confirmButton = {
-                                TextButton(
-                                    onClick = {
-                                        showAlert = false
-                                        expanded = false
-                                        openedFirst = false
-                                    }
-                                ) {
-                                    Text("ДА")
-                                }
-                            },
-                            dismissButton = {
-                                TextButton(
-                                    onClick = {
-                                        showAlert = false
-                                        openedFirst = false
-                                    }
-                                ) {
-                                    Text("НЕТ")
-                                }
-                            }
-                        )
-                    }
-
                     Text(
                         modifier = Modifier
                             .align(Alignment.Center)
@@ -260,13 +228,7 @@ fun ExpandableCard(title: String) {
                             .align(Alignment.CenterEnd)
                             .rotate(rotateCardIcon)
                             .clickable {
-                                if (openedFirst) {
-                                    showAlert = true
-                                    openedFirst = false
-                                }
-
-                                expanded = true
-                                openedFirst = true
+                                expanded = !expanded
                             },
                         imageVector = Icons.Default.KeyboardArrowDown,
                         contentDescription = "",
@@ -349,6 +311,7 @@ fun ExpandableCard(title: String) {
 
                         OutlinedButton(
                             modifier = Modifier
+                                .padding(vertical = 7.dp)
                                 .width(280.dp)
                                 .size(50.dp),
                             onClick = {
@@ -361,7 +324,8 @@ fun ExpandableCard(title: String) {
                                 fontWeight = FontWeight.Normal,
                                 text = if (dateOfBirth.isEmpty()) stringResource(id = R.string.data_of_birth)
                                 else dateOfBirth,
-                                color = Color.Black
+                                color = if (dateOfBirth.isEmpty()) Color.Gray
+                                else Color.Black
                             )
                         }
 
@@ -396,7 +360,8 @@ fun ExpandableCard(title: String) {
                                         fontWeight = FontWeight(400),
                                         color = Color.Black,
                                     ),
-                                    color = Color.Black,
+                                    color = if (chosenGender.isEmpty()) Color.Gray
+                                    else Color.Black,
                                     textAlign = TextAlign.Start,
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -417,18 +382,6 @@ fun ExpandableCard(title: String) {
                         }
 
                         if (showGender) {
-                            val selectedValue = remember { mutableStateOf(chosenGender) }
-
-                            val isSelectedItem: (String) -> Boolean = {
-                                if (selectedValue.value.isEmpty())
-                                    selectedValue.value = viewState.getProfileResponse?.gender ?: ""
-                                selectedValue.value == it
-                            }
-                            val onChangeState: (String) -> Unit = {
-                                selectedValue.value = it
-                                chosenGender = it
-                                viewState.gender = it
-                            }
 
                             val items = stringArrayResource(id = R.array.genders)
                             Column(Modifier.padding(horizontal = 28.dp)) {
@@ -464,9 +417,11 @@ fun ExpandableCard(title: String) {
 
                         OutlinedTextField(
                             value = phoneNumber,
-                            onValueChange = {
-                                phoneNumber = it
-                                viewState.phone = it
+                            onValueChange = { it ->
+                                if (it.length <= INPUT_LENGTH) {
+                                    phoneNumber = it.filter { it.isDigit() }
+                                    viewState.phone = it
+                                }
                             },
                             modifier = Modifier.padding(vertical = 7.dp),
                             shape = CircleShape,
@@ -475,6 +430,7 @@ fun ExpandableCard(title: String) {
                                 imeAction = ImeAction.Done,
                                 keyboardType = KeyboardType.Number
                             ),
+                            visualTransformation = MaskVisualTransformation(MASK),
                             placeholder = {
                                 Text(
                                     text = stringResource(id = R.string.phone_number),
@@ -493,8 +449,8 @@ fun ExpandableCard(title: String) {
                             text = stringResource(id = R.string.save),
                             fontSize = 18.sp,
                             modifier = Modifier
-                                .padding(horizontal = 28.dp)
-                                .height(40.dp),
+                                .width(280.dp)
+                                .size(50.dp),
                             onClick = {
                                 when {
                                     fullName.isEmpty() -> {
@@ -509,6 +465,22 @@ fun ExpandableCard(title: String) {
                                         Toast.makeText(
                                             context,
                                             "Поле номер телефона не может быть пустым",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    phoneNumber.length < 12 -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Заполните номер",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    !phoneNumber.contains("996") -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Неверынй формат номера",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -554,6 +526,26 @@ private fun handlePermission(
     } else {
         requestPermissionLauncher.launch(permissionToCheck)
     }
+}
+
+@Composable
+fun CustomTextField() {
+    var text by remember { mutableStateOf("") }
+    OutlinedTextField(
+        value = text,
+        onValueChange = { it ->
+            if (it.length <= INPUT_LENGTH) {
+                text = it.filter { it.isDigit() }
+            }
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        visualTransformation = MaskVisualTransformation(MASK)
+    )
+}
+
+object NumberDefaults {
+    const val MASK = "+###-###-###-###"
+    const val INPUT_LENGTH = 12
 }
 
 @Composable
