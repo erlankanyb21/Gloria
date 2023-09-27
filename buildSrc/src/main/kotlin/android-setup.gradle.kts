@@ -29,6 +29,7 @@ android{
         implementation(Dependencies.SplashApi.core)
         implementation(Dependencies.Image.Coil.core)
         implementation(Dependencies.Image.Coil.compose)
-
+        implementation(Dependencies.Android.Compose.dialogsCore)
+        implementation(Dependencies.Android.Compose.calendarDialog)
     }
 }

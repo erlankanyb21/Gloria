@@ -26,7 +26,7 @@ val mainModule = DI.Module("mainModule") {
         CartRepositoryImpl(instance())
     }
     bind<KtorCartDataSource>() with provider {
-        KtorCartDataSource(instance(),instance())
+        KtorCartDataSource(instance(), instance())
     }
     bind<CatalogRepository>() with singleton {
         CatalogRepositoryImpl(instance())

@@ -3,15 +3,16 @@ package more.more_views
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.util.Log
-import org.tbm.gloria.core_compose.R.drawable.empty_ava
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -42,6 +43,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -73,13 +75,19 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
+import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
+import com.maxkeppeler.sheets.calendar.CalendarDialog
+import com.maxkeppeler.sheets.calendar.models.CalendarConfig
+import com.maxkeppeler.sheets.calendar.models.CalendarSelection
 import components.GradientButton
 import more.profile.ProfileEvent
 import more.profile.ProfileViewModel
+import org.tbm.gloria.core_compose.R.drawable.empty_ava
 import org.tbm.gloria.main.compose.R
 import theme.gloriaGradient
-import utils.uriToByteArray
+import utils.compressBitmap
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExpandableCard(title: String) {
@@ -111,7 +119,7 @@ fun ExpandableCard(title: String) {
             contract = ActivityResultContracts.PickVisualMedia(),
             onResult = {
                 if (it != null) {
-                    viewState.image = uriToByteArray(context, it)
+                    viewState.image = compressBitmap(context, it, Bitmap.CompressFormat.JPEG, 80)
                     selectedImageUri = it
                 }
             }
@@ -129,6 +137,8 @@ fun ExpandableCard(title: String) {
 
         var showGender by remember { mutableStateOf(false) }
         val rotateGenderIcon by animateFloatAsState(targetValue = if (showGender) 180f else 0f)
+
+        val calendarState = rememberUseCaseState()
 
         SideEffect {
             Log.e("SIDE", "ExpandableCard: ${viewModel.viewStates().value}")
@@ -265,6 +275,7 @@ fun ExpandableCard(title: String) {
                 }
 
                 if (expanded) {
+
                     Column(
                         modifier = Modifier
                             .padding(bottom = 15.dp)
@@ -283,7 +294,16 @@ fun ExpandableCard(title: String) {
                             shape = CircleShape,
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                            placeholder = { Text(text = stringResource(id = R.string.name)) },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.name),
+                                    style = TextStyle(
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(400),
+                                        color = Color.Gray,
+                                    )
+                                )
+                            },
                         )
 
                         OutlinedTextField(
@@ -296,24 +316,54 @@ fun ExpandableCard(title: String) {
                             shape = CircleShape,
                             maxLines = 1,
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                            placeholder = { Text(text = stringResource(id = R.string.surname)) }
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.surname),
+                                    style = TextStyle(
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(400),
+                                        color = Color.Gray,
+                                    )
+                                )
+                            }
                         )
 
-                        OutlinedTextField(
-                            value = dateOfBirth,
-                            onValueChange = {
-                                dateOfBirth = it
-                                viewState.date = it
-                            },
-                            modifier = Modifier.padding(vertical = 7.dp),
-                            shape = CircleShape,
-                            maxLines = 1,
-                            keyboardOptions = KeyboardOptions(
-                                imeAction = ImeAction.Done,
-                                keyboardType = KeyboardType.Number
+                        CalendarDialog(
+                            state = calendarState,
+                            config = CalendarConfig(
+                                monthSelection = true,
+                                yearSelection = true
                             ),
-                            placeholder = { Text(text = stringResource(id = R.string.data_of_birth)) },
-                        )
+                            selection = CalendarSelection.Date {
+                                viewState.date = it.toString()
+                                dateOfBirth = it.toString()
+                                calendarState.setManualActions(
+                                    positiveAction = {
+                                        true
+                                    },
+                                    negativeAction = {
+                                        calendarState.finish()
+                                    }
+                                )
+                            })
+
+                        OutlinedButton(
+                            modifier = Modifier
+                                .width(280.dp)
+                                .size(50.dp),
+                            onClick = {
+                                calendarState.show()
+                            }) {
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                textAlign = TextAlign.Start,
+                                fontWeight = FontWeight.Normal,
+                                text = if (dateOfBirth.isEmpty()) stringResource(id = R.string.data_of_birth)
+                                else dateOfBirth,
+                                color = Color.Black
+                            )
+                        }
 
                         Card(
                             shape = CircleShape,
@@ -341,6 +391,11 @@ fun ExpandableCard(title: String) {
                                         viewState.getProfileResponse?.gender == null -> chosenGender
                                         else -> chosenGender
                                     },
+                                    style = TextStyle(
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(400),
+                                        color = Color.Black,
+                                    ),
                                     color = Color.Black,
                                     textAlign = TextAlign.Start,
                                     modifier = Modifier
@@ -420,7 +475,16 @@ fun ExpandableCard(title: String) {
                                 imeAction = ImeAction.Done,
                                 keyboardType = KeyboardType.Number
                             ),
-                            placeholder = { Text(text = stringResource(id = R.string.phone_number)) },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.phone_number),
+                                    style = TextStyle(
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(400),
+                                        color = Color.Gray,
+                                    )
+                                )
+                            },
                         )
 
                         Spacer(modifier = Modifier.height(10.dp))
@@ -432,14 +496,36 @@ fun ExpandableCard(title: String) {
                                 .padding(horizontal = 28.dp)
                                 .height(40.dp),
                             onClick = {
-                                viewModel.obtainEvent(ProfileEvent.UpdateData)
-                                expanded = false
-                                openedFirst = false
-                                Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT)
-                                    .show()
+                                when {
+                                    fullName.isEmpty() -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Поле имя не может быть пустым",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
 
-                                if (selectedImageUri.toString().isNotEmpty()) {
-                                    viewModel.obtainEvent(ProfileEvent.UploadAvatar)
+                                    phoneNumber.isEmpty() -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Поле номер телефона не может быть пустым",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    else -> {
+                                        viewModel.obtainEvent(ProfileEvent.UpdateData)
+                                        expanded = false
+                                        openedFirst = false
+                                        Toast.makeText(
+                                            context,
+                                            "Данные сохранены",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        if (selectedImageUri != null) {
+                                            viewModel.obtainEvent(ProfileEvent.UploadAvatar)
+                                        }
+                                    }
                                 }
                             }
                         )

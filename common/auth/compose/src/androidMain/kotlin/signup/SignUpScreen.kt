@@ -83,13 +83,13 @@ fun SignUpScreen() {
                     .wrapContentHeight(),
                 contentAlignment = Alignment.CenterEnd
             ) {
-                Text(
-                    text = "Пропустить", style = TextStyle(
+                Text(text = "Пропустить",
+                    style = TextStyle(
                         fontSize = 14.sp,
                         color = color.black,
                         textDecoration = TextDecoration.Underline,
-                    )
-                )
+                    ),
+                    modifier = Modifier.clickable { rootController.present(screen = NavigationTree.Main.MainScreen.name) })
             }
 
             Spacer(modifier = Modifier.height(33.dp))
@@ -224,8 +224,7 @@ fun SignUpScreen() {
 
             Row {
                 CheckTheValidity(
-                    visible = state.value.password != state.value.passwordConfirm && clickedOnRegistration
-                            && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty(),
+                    visible = state.value.password != state.value.passwordConfirm && clickedOnRegistration && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty(),
                     errorMessage = "Пароль и подтверждение пароля не совпадают"
                 )
                 CheckTheValidity(
@@ -277,8 +276,7 @@ fun SignUpScreen() {
 
             Row {
                 CheckTheValidity(
-                    visible = state.value.password != state.value.passwordConfirm && clickedOnRegistration
-                            && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty(),
+                    visible = state.value.password != state.value.passwordConfirm && clickedOnRegistration && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty(),
                     errorMessage = "Пароль и подтверждение пароля не совпадают"
                 )
                 CheckTheValidity(
@@ -316,13 +314,9 @@ fun SignUpScreen() {
                 fontSize = 18.sp,
                 onClick = {
                     clickedOnRegistration = true
-                    if (state.value.fullName.isNotEmpty() &&
-                        state.value.phoneNumber.isNotEmpty() &&
-                        state.value.phoneNumber.startsWith("+996") &&
-                        state.value.password.isNotEmpty() &&
-                        state.value.passwordConfirm.isNotEmpty() &&
-                        state.value.password == state.value.passwordConfirm &&
-                        checked
+                    if (state.value.fullName.isNotEmpty() && state.value.phoneNumber.isNotEmpty() && state.value.phoneNumber.startsWith(
+                            "+996"
+                        ) && state.value.password.isNotEmpty() && state.value.passwordConfirm.isNotEmpty() && state.value.password == state.value.passwordConfirm && checked
                     ) {
                         viewModel.obtainEvent(SignUpEvent.RegistrationClick)
                     } else if (!checked) showToast(context)
