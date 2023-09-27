@@ -480,7 +480,7 @@ fun ExpandableCard(title: String) {
                                     !phoneNumber.contains("996") -> {
                                         Toast.makeText(
                                             context,
-                                            "Неверынй формат номера",
+                                            "формат должен начинаться с 996",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -528,23 +528,8 @@ private fun handlePermission(
     }
 }
 
-@Composable
-fun CustomTextField() {
-    var text by remember { mutableStateOf("") }
-    OutlinedTextField(
-        value = text,
-        onValueChange = { it ->
-            if (it.length <= INPUT_LENGTH) {
-                text = it.filter { it.isDigit() }
-            }
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        visualTransformation = MaskVisualTransformation(MASK)
-    )
-}
-
 object NumberDefaults {
-    const val MASK = "+###-###-###-###"
+    const val MASK = "###-###-###-###"
     const val INPUT_LENGTH = 12
 }
 
