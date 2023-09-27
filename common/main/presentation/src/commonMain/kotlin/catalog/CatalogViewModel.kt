@@ -15,19 +15,38 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
     private val catalogRepository: CatalogRepository = Inject.instance()
     private val productRepository: ProductRepository = Inject.instance()
     override fun obtainEvent(viewEvent: CatalogEvent) {
-
+        when (viewEvent){
+            is CatalogEvent.OpenSubCatalogClick -> { openSubCatalog(viewEvent.slag) }
+            is CatalogEvent.OpenProductClick -> { openProduct() }
+            is CatalogEvent.OnBackClick -> { onBackClick() }
+        }
     }
 
     init {
         fetchProduct()
+        getProduct()
     }
+
+    private fun openSubCatalog(slag: String) {
+        viewAction = CatalogAction.OpenSubCatalog(slag)
+    }
+    private fun onBackClick() {
+        viewAction = CatalogAction.OnBackClick
+    }
+
+
+    private fun openProduct() {
+        viewAction = CatalogAction.OpenProduct
+    }
+
+
 
     private fun fetchProduct() {
         viewModelScope.launch {
             viewState = try {
                 val response = catalogRepository.fetchCatalog()
                 viewState.copy(
-                    catalogItem = response
+                    catalogItem = response, loading = false
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -43,7 +62,7 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
             viewState = try {
                 val response = catalogRepository.fetchSubCatalog(slug)
                 viewState.copy(
-                    subCatalogItem = response
+                    subCatalogItem = response, loading = false
                 )
             } catch (e: Exception) {
                 viewState
@@ -56,7 +75,7 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
             viewState = try {
                 val response = productRepository.fetchProduct()
                 viewState.copy(
-                    productItem = response
+                    productItem = response , loading = false
                 )
             } catch (e: Exception) {
                 e.printStackTrace()

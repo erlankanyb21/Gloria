@@ -38,7 +38,7 @@ fun SubcategoriesItem(
             .height(80.dp),
         shape = RoundedCornerShape(40.dp),
         border = BorderStroke(1.dp, color = Color.Black),
-        elevation = CardDefaults.cardElevation(4.dp),
+        elevation = CardDefaults.cardElevation(10.dp),
         onClick = onClick
     ) {
         Row(
