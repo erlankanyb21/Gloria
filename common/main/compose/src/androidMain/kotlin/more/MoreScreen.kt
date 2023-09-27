@@ -2,7 +2,8 @@ package more
 
 import NavigationTree
 import android.annotation.SuppressLint
-import android.widget.Toast
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,29 +42,42 @@ import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.gloriaGradient
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MoreScreen() {
-    Scaffold(
-        topBar = {
-            ToolBar(
-                title = stringResource(id = R.string.profile)
-            )
-        }
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(it)
-                .verticalScroll(rememberScrollState())
-        ) {
+    StoredViewModel(factory = { ProfileViewModel() }) { viewModel ->
+        val rootController = LocalRootController.current
+        val viewState = viewModel.viewStates().observeAsState()
+        when (viewState.value.getProfileResponse?.fullname.toString().isNotEmpty()) {
+            true -> {
+                Scaffold(
+                    topBar = {
+                        ToolBar(
+                            title = stringResource(id = R.string.profile)
+                        )
+                    }
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(it)
+                            .verticalScroll(rememberScrollState())
+                    ) {
 
-            Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(10.dp))
 
-            ExpandableCard(title = stringResource(R.string.profile_data))
+                        ExpandableCard(title = stringResource(R.string.profile_data))
 
-            OutlinedButtons()
+                        OutlinedButtons()
 
-            FilledButtons()
+                        FilledButtons()
+                    }
+                }
+            }
+
+            else -> {
+                rootController.popBackStack()
+            }
         }
     }
 }
@@ -187,17 +200,18 @@ fun FilledButtons() {
                 viewModel.obtainEvent(ProfileEvent.OpenFAQClick)
             }
         )
-        GradientButton(
-            text = stringResource(R.string.delete_account),
-            fontSize = 16.sp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 7.dp)
-                .height(50.dp),
-            onClick = {
-                showAlert = true
-            }
-        )
+
+//        GradientButton(
+//            text = stringResource(R.string.delete_account),
+//            fontSize = 16.sp,
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = 20.dp, vertical = 7.dp)
+//                .height(50.dp),
+//            onClick = {
+//                showAlert = true
+//            }
+//        )
 
         when (viewAction.value) {
             ProfileAction.OpenFAQ -> {
@@ -212,16 +226,8 @@ fun FilledButtons() {
         }
 
         when (viewState.isAccountDeleted) {
-            true -> {
-                Toast.makeText(LocalContext.current, "Account deleted", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-            false -> {
-                Toast.makeText(LocalContext.current, "Account not deleted", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
+            true -> rootController.popBackStack()
+            false -> rootController.popBackStack()
             else -> {}
         }
     }
