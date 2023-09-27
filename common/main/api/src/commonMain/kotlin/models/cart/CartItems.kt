@@ -8,7 +8,7 @@ data class CartItems(
     val id: Int,
     @SerialName("product_images")
     val productImages: List<CartItemImage>,
-    val price: Double? = null,
+    val price: Double,
     @SerialName("product_slug")
     val productSlug: String? = null,
     val description: String? = null,
@@ -22,7 +22,7 @@ data class CartItems(
     @SerialName("created_at")
     val createdAt: String? = null,
     val order: Int? = null,
-    val product: Int? = null,
-    val user: Int? = null,
+    val product: Int,
+    val user: Int,
     val name: String? = null
 )

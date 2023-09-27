@@ -86,7 +86,7 @@ fun CatalogScreen() {
                         horizontalArrangement = Arrangement.spacedBy(space = 5.dp),
                         contentPadding = PaddingValues(all = 5.dp)
                     ) {
-                        items(items = viewState.value.catalogItem) {item ->
+                        items(items = viewState.value.catalogItem) { item ->
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -95,7 +95,11 @@ fun CatalogScreen() {
                                         if (item.subcategories.isNullOrEmpty()) {
                                             viewModel.obtainEvent(CatalogEvent.OpenProductClick)
                                         } else {
-                                            viewModel.obtainEvent(CatalogEvent.OpenSubCatalogClick(item.categorySlug))
+                                            viewModel.obtainEvent(
+                                                CatalogEvent.OpenSubCatalogClick(
+                                                    item.categorySlug
+                                                )
+                                            )
                                         }
                                     }
                                     .clip(RoundedCornerShape(size = 4.dp)),
@@ -127,17 +131,19 @@ fun CatalogScreen() {
                 }
             }
         }
-        when(viewAction.value){
+        when (viewAction.value) {
             CatalogAction.OpenProduct -> {
                 rootController.push(NavigationTree.Main.CatalogDetailScreen.name)
             }
+
             is CatalogAction.OpenSubCatalog -> {
                 rootController.push(
                     NavigationTree.Main.Subcatalog.name,
                     params = (viewAction.value as CatalogAction.OpenSubCatalog).slag
                 )
             }
-            else-> {}
+
+            else -> {}
         }
     }
 }

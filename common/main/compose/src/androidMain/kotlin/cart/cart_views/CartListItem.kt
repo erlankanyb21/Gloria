@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,10 +23,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cart.models.CartEvent
-import cart.models.CartViewState
+import cart.cart.models.CartEvent
 import coil.compose.AsyncImage
 import extensions.textBrush
 import models.cart.CartItems
@@ -42,7 +41,6 @@ import theme.gloriaGradient
 fun CartListItem(
     modifier: Modifier = Modifier,
     item: CartItems,
-    viewState: State<CartViewState>,
     index: Int,
     modalController: ModalController,
     eventHandler: (CartEvent) -> Unit
@@ -90,7 +88,9 @@ fun CartListItem(
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = color.black,
-                    )
+                    ),
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 Row(
@@ -103,7 +103,9 @@ fun CartListItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
-                        onClick = { }
+                        onClick = {
+                            eventHandler(CartEvent.DecrementProductCount(index))
+                        }
                     ) {
                         Image(
                             painter = painterResource(

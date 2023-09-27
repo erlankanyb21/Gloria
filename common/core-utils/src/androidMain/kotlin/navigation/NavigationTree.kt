@@ -1,3 +1,4 @@
+
 object NavigationTree {
     enum class SplashScreen {
         SplashScreen
@@ -14,6 +15,7 @@ object NavigationTree {
 
     enum class Main {
         MainScreen,
+        Main,
         Catalog,
         Cart,
         More,
@@ -21,6 +23,8 @@ object NavigationTree {
         ContactsAndAddress,
         StoriesDetails,
         Subcatalog,
-        CatalogDetailScreen
+        CatalogDetailScreen,
+        PlaceOrder,
+        SuccessfulOrder,
     }
 }

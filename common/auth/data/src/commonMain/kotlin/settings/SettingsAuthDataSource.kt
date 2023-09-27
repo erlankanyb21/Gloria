@@ -9,6 +9,11 @@ class SettingsAuthDataSource(private val settings: Settings) {
         settings.putString(accessTokenKey, accessToken)
     }
 
+    fun saveUserData(number: String, password: String) {
+        settings.putString(USER_NUMBER, number)
+        settings.putString(USER_PASSWORD, password)
+    }
+
     fun fetchRefreshToken(): String {
         return settings[refreshTokenKey, ""]
     }
@@ -26,8 +31,10 @@ class SettingsAuthDataSource(private val settings: Settings) {
     }
 
     companion object {
-        private val refreshTokenKey = "refreshTokenKey"
-        private val accessTokenKey = "accessTokenKey"
-        private val userId = "userId"
+        private const val refreshTokenKey = "refreshTokenKey"
+        private const val accessTokenKey = "accessTokenKey"
+        private const val userId = "userId"
+        private const val USER_NUMBER = "userNumber"
+        private const val USER_PASSWORD = "userPassword"
     }
 }

@@ -1,5 +1,6 @@
 package numberConfirmation
 
+import NavigationTree
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,9 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import companent.InputField
 import components.CustomTopBar
 import components.GradientButton
+import components.InputField
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -60,7 +61,7 @@ fun NumberConfirmation(){
 
         Text(text = "Подтвердить номер \n телефона!".uppercase(), style = TextStyle(
             fontSize = 20.sp,
-            color = color.textColor,
+            color = color.purple,
             textAlign = TextAlign.Center
         )
         )

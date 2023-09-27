@@ -1,5 +1,6 @@
 package signin
 
+import NavigationTree
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -61,7 +62,7 @@ fun SignIn(state: LoginViewState, eventHandler: (LoginEvent) -> Unit) {
         Text(
             text = "Привет \n с возвращением!".uppercase(), style = TextStyle(
                 fontSize = 20.sp,
-                color = color.textColor,
+                color = color.purple,
                 textAlign = TextAlign.Center
             )
         )

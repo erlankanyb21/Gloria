@@ -4,9 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
-import io.ktor.http.isSuccess
 import io.ktor.http.path
-import io.ktor.util.reflect.TypeInfo
 import model.AccessTokenResponse
 import model.RegisterResponse
 import model.signUp.ConfirmCode

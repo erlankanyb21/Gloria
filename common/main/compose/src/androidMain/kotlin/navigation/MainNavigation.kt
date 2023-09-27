@@ -1,11 +1,14 @@
 package navigation
 
-import cart.cart_screen.CartScreen
+import NavigationTree
+import cart.screens.CartScreen
+import cart.screens.PlaceOrderScreen
+import cart.screens.SuccessfulOrderScreen
 import catalog.CatalogDetailScreen
 import catalog.CatalogScreen
+import catalog.SubcatalogScreen
 import home.HomeScreen
 import home.StoriesDetailsScreen
-import catalog.SubcatalogScreen
 import more.MoreScreen
 import more.contactAndAddress.ContactsAndAddressScreen
 import more.faq.FAQScreen
@@ -17,7 +20,6 @@ import navigation.tabs.MoreTab
 import ru.alexgladkov.odyssey.compose.extensions.bottomNavigation
 import ru.alexgladkov.odyssey.compose.extensions.screen
 import ru.alexgladkov.odyssey.compose.extensions.tab
-import ru.alexgladkov.odyssey.compose.helpers.FlowBuilder
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
 fun RootComposeBuilder.mainFlow() {
@@ -56,6 +58,12 @@ fun RootComposeBuilder.mainFlow() {
         tab(CartTab()) {
             screen(name = NavigationTree.Main.Cart.name) {
                 CartScreen()
+            }
+            screen(name = NavigationTree.Main.PlaceOrder.name) {
+                PlaceOrderScreen()
+            }
+            screen(name = NavigationTree.Main.SuccessfulOrder.name) {
+                SuccessfulOrderScreen()
             }
         }
         tab(MoreTab()) {

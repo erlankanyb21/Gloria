@@ -1,4 +1,4 @@
-package companent
+package components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +37,7 @@ fun InputField(
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
     keyboardActions: KeyboardActions = KeyboardActions(),
     onValueChange: (String) -> Unit,
-){
+) {
     val spaceBetweenBoxes = 8.dp
     BasicTextField(modifier = modifier,
         value = value,
@@ -61,7 +61,7 @@ fun InputField(
                             .size(boxWidth, boxHeight)
                             .border(
                                 1.dp,
-                                color = color.textColor,
+                                color = color.purple,
                                 shape = RoundedCornerShape(4.dp)
                             ),
                         contentAlignment = Alignment.Center

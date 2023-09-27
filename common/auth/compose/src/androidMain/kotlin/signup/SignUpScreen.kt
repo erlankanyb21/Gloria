@@ -288,8 +288,8 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(12.dp))
 
             val customCheckboxColors = CheckboxDefaults.colors(
-                checkedColor = color.textColor,
-                uncheckedColor = color.textColor,
+                checkedColor = color.purple,
+                uncheckedColor = color.purple,
                 checkmarkColor = color.white
             )
 

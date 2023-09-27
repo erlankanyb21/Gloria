@@ -1,5 +1,6 @@
 package passwordRecovery
 
+import NavigationTree
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -59,7 +60,7 @@ fun PasswordRecovery() {
 
         Text(text = "Восстановление пароля".uppercase(), style = TextStyle(
             fontSize = 20.sp,
-            color = color.textColor,
+            color = color.purple,
             textAlign = TextAlign.Center
         )
         )
