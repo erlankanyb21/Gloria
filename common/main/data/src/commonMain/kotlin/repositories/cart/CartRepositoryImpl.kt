@@ -7,7 +7,7 @@ import models.cart.FilialModel
 import models.cart.SetProductQuantityModel
 
 class CartRepositoryImpl(
-    private val remoteDataSource: KtorCartDataSource
+    private val remoteDataSource: KtorCartDataSource,
 ): CartRepository {
     override suspend fun fetchUserCart(): List<CartItems> {
         return remoteDataSource.fetchUserCart()

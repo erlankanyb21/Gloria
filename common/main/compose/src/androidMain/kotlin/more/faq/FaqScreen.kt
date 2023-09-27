@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.ToolBar
+import extensions.OnBackPress
 import more.more_views.SimpleExpandableCard
 import org.tbm.gloria.core_compose.R
 import org.tbm.gloria.main.compose.R.string.questions_answers
@@ -42,7 +43,7 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 @Composable
 fun FAQScreen() {
     val rootController = LocalRootController.current
-
+    OnBackPress { rootController.popBackStack() }
     StoredViewModel(factory = { FAQViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
 

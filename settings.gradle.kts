@@ -18,3 +18,10 @@ include(":common:main:compose")
 include(":common:main:presentation")
 include(":common:main:api")
 include(":common:main:data")
+include(":common:auth:api")
+include(":common:auth:compose")
+include(":common:auth:data")
+include(":common:auth:presentation")
+
+
+

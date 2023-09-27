@@ -4,8 +4,27 @@ object NavigationTree {
         SplashScreen
     }
 
+    enum class Auth {
+        SignIn,
+        SignUp,
+        NumberConfirmation,
+        CreatedNewPassword,
+        PasswordRecovery,
+        PasswordRecoverySms
+    }
+
     enum class Main {
-        MainScreen, Main, Catalog, Cart, More, FAQ, ContactsAndAddress, StoriesDetails, Subcatalog,
-        CatalogDetailScreen, PlaceOrder, SuccessfulOrder
+        MainScreen,
+        Main,
+        Catalog,
+        Cart,
+        More,
+        FAQ,
+        ContactsAndAddress,
+        StoriesDetails,
+        Subcatalog,
+        CatalogDetailScreen,
+        PlaceOrder,
+        SuccessfulOrder,
     }
 }

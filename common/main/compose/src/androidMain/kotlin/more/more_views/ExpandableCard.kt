@@ -1,9 +1,14 @@
 package more.more_views
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import org.tbm.gloria.core_compose.R.drawable.empty_ava
 import android.widget.Toast
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -82,7 +87,6 @@ fun ExpandableCard(title: String) {
         val viewState by viewModel.viewStates().observeAsState()
 
         var fullName by remember { mutableStateOf(viewState.getProfileResponse?.fullname ?: "") }
-        var image by remember { mutableStateOf(viewState.getProfileResponse?.avatar ?: "") }
         var lastName by remember { mutableStateOf(viewState.getProfileResponse?.lastName ?: "") }
         var dateOfBirth by remember {
             mutableStateOf(
@@ -106,8 +110,10 @@ fun ExpandableCard(title: String) {
         val imagePickLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.PickVisualMedia(),
             onResult = {
-                selectedImageUri = it
-                if (it != null) viewState.image = uriToByteArray(context, it)
+                if (it != null) {
+                    viewState.image = uriToByteArray(context, it)
+                    selectedImageUri = it
+                }
             }
         )
 
@@ -131,7 +137,6 @@ fun ExpandableCard(title: String) {
             dateOfBirth = viewState.getProfileResponse?.dateOfBirthday ?: ""
             phoneNumber = viewState.getProfileResponse?.phoneNumber ?: ""
             chosenGender = viewState.getProfileResponse?.gender ?: ""
-            image = viewState.getProfileResponse?.avatar?.replace("http", "https") ?: ""
         }
 
         Card(
@@ -163,8 +168,12 @@ fun ExpandableCard(title: String) {
                         .padding(horizontal = 16.dp),
                     contentAlignment = Alignment.Center
                 ) {
+                    val userAvatar = viewState.getProfileResponse?.avatar?.replace(
+                        "http",
+                        "https"
+                    )
                     SubcomposeAsyncImage(
-                        model = if (selectedImageUri == null) image
+                        model = if (selectedImageUri == null) userAvatar ?: empty_ava
                         else selectedImageUri,
                         contentDescription = "",
                         loading = { CircularProgressIndicator(color = Color.White) },
@@ -174,23 +183,19 @@ fun ExpandableCard(title: String) {
                             .size(50.dp)
                             .padding(8.dp)
                             .clickable {
-                                val permissionToCheck = when {
-                                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> android.Manifest.permission.READ_MEDIA_IMAGES
-                                    else -> android.Manifest.permission.READ_EXTERNAL_STORAGE
-                                }
-
-                                if (context.checkSelfPermission(permissionToCheck) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                                    imagePickLauncher.launch(
-                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                if (expanded)
+                                    handlePermission(
+                                        context,
+                                        imagePickLauncher,
+                                        requestPermissionLauncher
                                     )
-                                } else {
-                                    requestPermissionLauncher.launch(permissionToCheck)
-                                }
                             }
                             .clip(CircleShape)
                     )
 
-                    if (showAlert) {
+                    if (showAlert &&
+                        viewState.getProfileResponse?.fullname?.isNotEmpty() == true
+                    ) {
                         AlertDialog(
                             onDismissRequest = {},
                             title = {
@@ -332,18 +337,9 @@ fun ExpandableCard(title: String) {
                             ) {
                                 Text(
                                     text = when {
-                                        viewState.getProfileResponse?.gender?.isEmpty() == true -> {
-                                            chosenGender
-                                        }
-
-                                        chosenGender.isEmpty() -> {
-                                            viewState.getProfileResponse?.gender ?: ""
-                                        }
-
-                                        else -> {
-                                            chosenGender
-                                        }
-
+                                        chosenGender.isEmpty() -> stringResource(id = R.string.gender)
+                                        viewState.getProfileResponse?.gender == null -> chosenGender
+                                        else -> chosenGender
                                     },
                                     color = Color.Black,
                                     textAlign = TextAlign.Start,
@@ -377,7 +373,6 @@ fun ExpandableCard(title: String) {
                                 selectedValue.value = it
                                 chosenGender = it
                                 viewState.gender = it
-                                viewModel.obtainEvent(ProfileEvent.UpdateData)
                             }
 
                             val items = stringArrayResource(id = R.array.genders)
@@ -438,16 +433,40 @@ fun ExpandableCard(title: String) {
                                 .height(40.dp),
                             onClick = {
                                 viewModel.obtainEvent(ProfileEvent.UpdateData)
-                                expanded = !expanded
-                                viewModel.obtainEvent(ProfileEvent.UploadAvatar)
+                                expanded = false
+                                openedFirst = false
                                 Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT)
                                     .show()
+
+                                if (selectedImageUri.toString().isNotEmpty()) {
+                                    viewModel.obtainEvent(ProfileEvent.UploadAvatar)
+                                }
                             }
                         )
                     }
                 }
             }
         }
+    }
+}
+
+private fun handlePermission(
+    context: Context,
+    imagePickLauncher: ManagedActivityResultLauncher<PickVisualMediaRequest, Uri?>,
+    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>
+) {
+    val permissionToCheck = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> Manifest.permission.READ_MEDIA_IMAGES
+        else -> Manifest.permission.READ_EXTERNAL_STORAGE
+    }
+
+    if (context.checkSelfPermission(permissionToCheck) == PackageManager.PERMISSION_GRANTED) {
+        imagePickLauncher.launch(
+            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        )
+
+    } else {
+        requestPermissionLauncher.launch(permissionToCheck)
     }
 }
 

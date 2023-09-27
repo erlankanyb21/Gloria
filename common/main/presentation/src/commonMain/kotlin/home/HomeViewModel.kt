@@ -8,21 +8,28 @@ import home.models.HomeViewState
 import repositories.HomeRepository
 
 class HomeViewModel : BaseSharedViewModel<HomeViewState, HomeAction, HomeEvent>(
-    HomeViewState()
+    HomeViewState(storiesDetails = "")
 ) {
     private val homeRepository: HomeRepository = Inject.instance()
 
     override fun obtainEvent(viewEvent: HomeEvent) {
         when (viewEvent) {
-            is HomeEvent.StoriesDetailsClick -> showStoriesDetails()
+            is HomeEvent.StoriesDetailsClick -> showStoriesDetails(viewEvent.id)
             is HomeEvent.SalesHitsClick -> showSalesHits()
             is HomeEvent.ContactsAndAddressesClick -> showContactsAndAddresses()
             is HomeEvent.AnswersAndQuestionsClick -> showFAQ()
         }
     }
 
-    private fun showStoriesDetails() {
-        viewAction = HomeAction.OpenStoriesDetails
+    private fun showStoriesDetails(id: Int) {
+        withViewModelScope {
+            val response = homeRepository.fetchStoriesDetails(id)
+            if (response.image != null) {
+                val image = response.image!!.replace("http://", "https://")
+                viewState = viewState.copy(storiesDetails = image)
+                viewAction = HomeAction.OpenStoriesDetails
+            }
+        }
     }
 
     private fun showSalesHits() {

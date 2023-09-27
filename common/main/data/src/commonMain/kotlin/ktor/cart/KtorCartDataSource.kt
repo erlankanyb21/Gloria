@@ -6,32 +6,77 @@ import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.patch
+import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.request.url
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.path
+import kotlinx.serialization.Serializable
 import models.cart.CartItems
 import models.cart.ClearCartResponse
 import models.cart.FilialModel
 import models.cart.SetProductQuantityModel
+import models.token.RefreshTokenBody
+import settings.SettingsAuthDataSource
 
 class KtorCartDataSource(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val settingsAuthDataSource: SettingsAuthDataSource
 ) {
 
     suspend fun fetchUserCart(): List<CartItems> {
-        return httpClient.get {
+        val response = httpClient.get {
             url {
-                path("cart-items/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1Mzg5NTc4LCJpYXQiOjE2OTUzODIzNzgsImp0aSI6IjI2MTg4NGE3ZmU4MzQ4MDE4YWNmYzg4ZDE4ZjQyNGZiIiwidXNlcl9pZCI6MX0.IlJNW6KevKYTy1Q_2bIp5uLvaD7sr04jkfnV_V7ySa4")
+                path(CART_ITEMS)
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
-        }.body()
+        }
+        if (response.status == HttpStatusCode.Unauthorized) {
+            val tokenRefresh = httpClient.post {
+                setBody(RefreshTokenBody(settingsAuthDataSource.fetchRefreshToken()))
+                url(TOKEN_REFRESH)
+            }
+            if (tokenRefresh.status == HttpStatusCode.Unauthorized) {
+                val login = httpClient.post {
+                    setBody(
+                        LoginBody(
+                        "+996502020000",
+                        "argen1234")
+                    )
+                    url(LOGIN)
+                }.body<LoginResponse>()
+                settingsAuthDataSource.saveTokens(
+                    refreshToken = login.refresh,
+                    accessToken = login.access
+                )
+                return httpClient.get {
+                    url {
+                        path(CART_ITEMS)
+                        bearerAuth(settingsAuthDataSource.fetchAccessToken())
+                    }
+                }.body()
+            }
+            settingsAuthDataSource.saveTokens(
+                settingsAuthDataSource.fetchRefreshToken(),
+                tokenRefresh.body<RefreshTokenBody>().refresh
+            )
+
+            return httpClient.get {
+                url {
+                    path(CART_ITEMS)
+                    bearerAuth(settingsAuthDataSource.fetchAccessToken())
+                }
+            }.body()
+        }
+        return response.body()
     }
 
     suspend fun clearCart(): ClearCartResponse? {
         return try {
             httpClient.delete {
                 url {
-                    path("cart-items/")
-                    bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1Mzg5NTc4LCJpYXQiOjE2OTUzODIzNzgsImp0aSI6IjI2MTg4NGE3ZmU4MzQ4MDE4YWNmYzg4ZDE4ZjQyNGZiIiwidXNlcl9pZCI6MX0.IlJNW6KevKYTy1Q_2bIp5uLvaD7sr04jkfnV_V7ySa4")
+                    path(CART_ITEMS)
+                    bearerAuth(settingsAuthDataSource.fetchAccessToken())
                 }
             }.body()
         } catch (e: Exception) {
@@ -42,8 +87,8 @@ class KtorCartDataSource(
     suspend fun deleteCartItem(productId: Int) {
         httpClient.delete {
             url {
-                path("cart-items/$productId/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1Mzg5NTc4LCJpYXQiOjE2OTUzODIzNzgsImp0aSI6IjI2MTg4NGE3ZmU4MzQ4MDE4YWNmYzg4ZDE4ZjQyNGZiIiwidXNlcl9pZCI6MX0.IlJNW6KevKYTy1Q_2bIp5uLvaD7sr04jkfnV_V7ySa4")
+                path("$CART_ITEMS$productId")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }
     }
@@ -52,8 +97,8 @@ class KtorCartDataSource(
         return httpClient.patch {
             setBody(body)
             url {
-                path("cart-items/$quantity/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1Mzg5NTc4LCJpYXQiOjE2OTUzODIzNzgsImp0aSI6IjI2MTg4NGE3ZmU4MzQ4MDE4YWNmYzg4ZDE4ZjQyNGZiIiwidXNlcl9pZCI6MX0.IlJNW6KevKYTy1Q_2bIp5uLvaD7sr04jkfnV_V7ySa4")
+                path("$CART_ITEMS$quantity")
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }.body()
     }
@@ -62,9 +107,28 @@ class KtorCartDataSource(
         return httpClient.get {
             setBody(body)
             url {
-                path("filial/")
-                bearerAuth("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1Mzg5NTc4LCJpYXQiOjE2OTUzODIzNzgsImp0aSI6IjI2MTg4NGE3ZmU4MzQ4MDE4YWNmYzg4ZDE4ZjQyNGZiIiwidXNlcl9pZCI6MX0.IlJNW6KevKYTy1Q_2bIp5uLvaD7sr04jkfnV_V7ySa4")
+                path(FILIAL)
+                bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }.body()
     }
+
+    companion object {
+        const val FILIAL = "filial/"
+        const val CART_ITEMS = "cart-items/"
+        const val LOGIN = "login/"
+        const val TOKEN_REFRESH = "token/refresh/"
+    }
 }
+
+@Serializable
+data class LoginBody(
+    val phone_number: String,
+    val password: String
+)
+
+@Serializable
+data class LoginResponse(
+    val refresh: String,
+    val access: String
+)
