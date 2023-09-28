@@ -1,8 +1,6 @@
 package components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,11 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import org.tbm.gloria.core_compose.R
 import theme.gloriaGradient
 
 
@@ -67,15 +61,8 @@ fun ToolBarWithSearch(
         }
         Spacer(modifier = Modifier.height(16.dp))
         Column {
-            SearchBar(text = "", readOnly = false, onValueChange = {}, onSearch = {})
+            SearchBar(text = "", readOnly = true, onValueChange = {}, onSearch = {})
         }
         Spacer(modifier = Modifier.height(16.dp))
     }
-}
-
-@Preview
-@Composable
-fun ToolBarContent() {
-    ToolBarWithSearch(title = "Каталог")
-
 }
