@@ -9,9 +9,11 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,6 +35,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import components.GradientButton
@@ -56,7 +62,12 @@ fun ContactsAndAddressScreen() {
         if (isGranted) {
             permissionState = true
         } else {
-            Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                "Чтобы позвонить, приложению нужно разрешение на доступ к звонкам. " +
+                        "Пожалуйста, предоставьте разрешение в настройках приложения.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
     Scaffold(
@@ -81,14 +92,18 @@ fun ContactsAndAddressScreen() {
         }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                .padding(it)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 modifier = Modifier
                     .padding(18.dp)
-                    .clickable {
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) {
                         open2GISWithAddress(context)
                     }
                     .clip(RoundedCornerShape(8.dp)),
@@ -96,10 +111,33 @@ fun ContactsAndAddressScreen() {
                 contentDescription = ""
             )
 
-            Text(text = "Глория", modifier = Modifier.padding(vertical = 10.dp))
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("Глория\n")
+                        append("Cтудия аэродизайна")
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp),
+            )
+
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Normal)) {
+                        append("5-й микрорайон, 66/1")
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 10.dp),
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             GradientButton(
-                text = "Позвонить",
+                text = stringResource(R.string.make_call),
                 fontSize = 18.sp,
                 modifier = Modifier
                     .padding(horizontal = 20.dp)

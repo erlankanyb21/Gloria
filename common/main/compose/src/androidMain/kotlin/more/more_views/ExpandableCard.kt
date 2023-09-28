@@ -31,12 +31,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -77,7 +80,6 @@ import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig
 import com.maxkeppeler.sheets.calendar.models.CalendarSelection
-import components.GradientButton
 import more.more_views.NumberDefaults.INPUT_LENGTH
 import more.more_views.NumberDefaults.MASK
 import more.profile.ProfileEvent
@@ -445,12 +447,15 @@ fun ExpandableCard(title: String) {
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        GradientButton(
-                            text = stringResource(id = R.string.save),
-                            fontSize = 18.sp,
+                        Button(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.Transparent
+                            ),
                             modifier = Modifier
                                 .width(280.dp)
-                                .size(50.dp),
+                                .size(50.dp)
+                                .clip(RoundedCornerShape(40.dp))
+                                .background(gloriaGradient),
                             onClick = {
                                 when {
                                     fullName.isEmpty() -> {
@@ -500,7 +505,12 @@ fun ExpandableCard(title: String) {
                                     }
                                 }
                             }
-                        )
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.save),
+                                fontSize = 18.sp,
+                            )
+                        }
                     }
                 }
             }
@@ -552,29 +562,34 @@ fun SimpleExpandableCard(
             .padding(horizontal = 28.dp, vertical = 10.dp),
         border = BorderStroke(1.dp, gloriaGradient)
     ) {
-        Column(modifier = Modifier.background(Color.White)) {
+        Column(
+            modifier = Modifier.background(Color.White),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(28.dp))
                     .fillMaxWidth()
-                    .size(54.dp)
+                    .wrapContentSize()
                     .clickable { expanded = !expanded }
                     .background(gloriaGradient)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
                 contentAlignment = Alignment.Center
             ) {
 
                 Text(
                     modifier = Modifier
-                        .align(Alignment.Center)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .align(Alignment.CenterStart),
                     text = title,
                     style = TextStyle(
                         fontSize = 16.sp,
                         lineHeight = 24.sp,
                         fontWeight = FontWeight(600),
                         color = Color(0xFFFFFFFF),
-                    )
+                    ),
                 )
 
                 Icon(

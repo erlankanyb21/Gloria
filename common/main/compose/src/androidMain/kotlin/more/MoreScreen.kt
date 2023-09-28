@@ -4,6 +4,7 @@ import NavigationTree
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,17 +14,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
-import components.GradientButton
 import components.ToolBar
 import more.more_views.ExpandableCard
 import more.profile.ProfileAction
@@ -142,64 +140,44 @@ fun FilledButtons() {
         val rootController = LocalRootController.current
         val viewAction = viewModel.viewActions().observeAsState()
         val viewState by viewModel.viewStates().observeAsState()
-        var showAlert by remember { mutableStateOf(false) }
 
-        if (showAlert) {
-            AlertDialog(
-                onDismissRequest = {},
-                title = {
-                    Text(text = "Внимание!")
-                },
-                text = {
-                    Text(
-                        "Вы действительно хотите удалить аккаунт?\n " +
-                                "После удаления аккаунта вас перебросит на регистрационную форму"
-                    )
-                },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            showAlert = false
-                            viewModel.obtainEvent(ProfileEvent.DeleteAccount)
-                        }
-                    ) {
-                        Text("ДА")
-                    }
-                },
-                dismissButton = {
-                    TextButton(
-                        onClick = {
-                            showAlert = false
-                        }
-                    ) {
-                        Text("НЕТ")
-                    }
-                }
+        Button(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 7.dp)
+                .clip(RoundedCornerShape(40.dp))
+                .background(gloriaGradient),
+            onClick = {
+                viewModel.obtainEvent(ProfileEvent.OpenQAClick)
+            },
+        ) {
+            Text(
+                text = stringResource(R.string.contacts_and_address),
+                fontSize = 16.sp,
             )
         }
 
-        GradientButton(
-            text = stringResource(R.string.contacts_and_address),
-            fontSize = 16.sp,
+        Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 7.dp)
-                .height(50.dp),
-            onClick = {
-                viewModel.obtainEvent(ProfileEvent.OpenQAClick)
-            }
-        )
-        GradientButton(
-            text = stringResource(R.string.questions_answers),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 7.dp)
-                .height(50.dp),
-            fontSize = 16.sp,
+                .clip(RoundedCornerShape(40.dp))
+                .background(gloriaGradient),
             onClick = {
                 viewModel.obtainEvent(ProfileEvent.OpenFAQClick)
-            }
-        )
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent
+            )
+        ) {
+            Text(
+                text = stringResource(R.string.questions_answers),
+                fontSize = 16.sp,
+            )
+        }
 
 //        GradientButton(
 //            text = stringResource(R.string.delete_account),
@@ -214,14 +192,8 @@ fun FilledButtons() {
 //        )
 
         when (viewAction.value) {
-            ProfileAction.OpenFAQ -> {
-                rootController.present(NavigationTree.Main.FAQ.name)
-            }
-
-            ProfileAction.OpenQA -> {
-                rootController.present(NavigationTree.Main.ContactsAndAddress.name)
-            }
-
+            ProfileAction.OpenFAQ -> rootController.present(NavigationTree.Main.FAQ.name)
+            ProfileAction.OpenQA -> rootController.present(NavigationTree.Main.ContactsAndAddress.name)
             else -> {}
         }
 
