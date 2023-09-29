@@ -24,14 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import catalog.catalog_view.CardProductView
 import catalog.models.CatalogAction
 import catalog.models.CatalogEvent
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
-import components.CardProduct
 import components.ToolBarWithSearch
 import extensions.OnBackPress
 import org.tbm.gloria.core_compose.R
@@ -98,7 +96,9 @@ fun CatalogDetailScreen() {
                     ) {
                         if (viewState.value.productItem != null)
                             items(items = viewState.value.productItem!!.results!!) { item ->
-                                CardProductView(item = item)
+                                CardProductView(item = item) { catalogEvent ->
+                                    viewModel.obtainEvent(catalogEvent)
+                                }
                             }
                     }
                 }

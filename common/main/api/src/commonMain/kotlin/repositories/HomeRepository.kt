@@ -10,5 +10,7 @@ interface HomeRepository {
 
     suspend fun fetchStoriesDetails(id: Int): Stories
     suspend fun fetchSalesHist(): List<ResultsItem>
+
+    suspend fun fetchAddCart(productId: Int): Unit
     suspend fun fetchAdvertisingBanner(): List<AdvertisingBanner>
 }

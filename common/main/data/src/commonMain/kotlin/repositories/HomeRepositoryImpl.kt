@@ -18,6 +18,10 @@ class HomeRepositoryImpl(private val ktorHomeDataSource: KtorHomeDataSource) : H
         return ktorHomeDataSource.fetchSalesHits()
     }
 
+    override suspend fun fetchAddCart(productId: Int) {
+        ktorHomeDataSource.fetchAddCart(productId)
+    }
+
 
     override suspend fun fetchAdvertisingBanner(): List<AdvertisingBanner> {
         return ktorHomeDataSource.fetchAdvertisingBanner()

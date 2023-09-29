@@ -16,9 +16,16 @@ class HomeViewModel : BaseSharedViewModel<HomeViewState, HomeAction, HomeEvent>(
         when (viewEvent) {
             is HomeEvent.StoriesDetailsClick -> showStoriesDetails(viewEvent.id)
             is HomeEvent.SalesHitsClick -> showSalesHits()
+            is HomeEvent.CartClick -> addCartProduct(viewEvent.productId)
             is HomeEvent.ContactsAndAddressesClick -> showContactsAndAddresses()
             is HomeEvent.AnswersAndQuestionsClick -> showFAQ()
             is HomeEvent.StoriesDetailsDownload -> downloadStoriesDetails(viewEvent.imageId)
+        }
+    }
+
+    private fun addCartProduct(productId: Int) {
+        withViewModelScope {
+            homeRepository.fetchAddCart(productId)
         }
     }
 

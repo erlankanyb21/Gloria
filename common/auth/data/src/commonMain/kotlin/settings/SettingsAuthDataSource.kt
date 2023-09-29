@@ -38,7 +38,7 @@ class SettingsAuthDataSource(private val settings: Settings) {
         settings.putInt(userId, id)
     }
 
-    fun setUserId(): Int {
+    fun userId(): Int {
         return settings[userId, 0]
     }
 

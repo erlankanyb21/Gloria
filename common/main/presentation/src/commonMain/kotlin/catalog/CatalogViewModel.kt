@@ -7,6 +7,7 @@ import com.adeo.kviewmodel.BaseSharedViewModel
 import di.Inject
 import kotlinx.coroutines.launch
 import repositories.CatalogRepository
+import repositories.HomeRepository
 import repositories.ProductRepository
 
 class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, CatalogEvent>(
@@ -14,11 +15,19 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
 ) {
     private val catalogRepository: CatalogRepository = Inject.instance()
     private val productRepository: ProductRepository = Inject.instance()
+    private val homeRepository: HomeRepository = Inject.instance()
     override fun obtainEvent(viewEvent: CatalogEvent) {
-        when (viewEvent){
-            is CatalogEvent.OpenSubCatalogClick -> { openSubCatalog(viewEvent.slag) }
-            is CatalogEvent.OpenProductClick -> { openProduct() }
-            is CatalogEvent.OnBackClick -> { onBackClick() }
+        when (viewEvent) {
+            is CatalogEvent.OpenSubCatalogClick -> openSubCatalog(viewEvent.slag)
+            is CatalogEvent.OpenProductClick -> openProduct()
+            is CatalogEvent.OnBackClick -> onBackClick()
+            is CatalogEvent.CartClick -> addCartProduct(viewEvent.productId)
+        }
+    }
+
+    private fun addCartProduct(productId: Int) {
+        withViewModelScope {
+            homeRepository.fetchAddCart(productId)
         }
     }
 
@@ -30,6 +39,7 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
     private fun openSubCatalog(slag: String) {
         viewAction = CatalogAction.OpenSubCatalog(slag)
     }
+
     private fun onBackClick() {
         viewAction = CatalogAction.OnBackClick
     }
@@ -38,7 +48,6 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
     private fun openProduct() {
         viewAction = CatalogAction.OpenProduct
     }
-
 
 
     private fun fetchProduct() {
@@ -75,7 +84,7 @@ class CatalogViewModel : BaseSharedViewModel<CatalogViewState, CatalogAction, Ca
             viewState = try {
                 val response = productRepository.fetchProduct()
                 viewState.copy(
-                    productItem = response , loading = false
+                    productItem = response, loading = false
                 )
             } catch (e: Exception) {
                 e.printStackTrace()

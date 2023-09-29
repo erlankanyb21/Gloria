@@ -38,7 +38,7 @@ val mainModule = DI.Module("mainModule") {
         HomeRepositoryImpl(instance())
     }
     bind<KtorHomeDataSource>() with provider {
-        KtorHomeDataSource(instance())
+        KtorHomeDataSource(instance(), instance())
     }
     bind<MoreRepository>() with singleton {
         MoreRepositoryImpl(instance())

@@ -27,7 +27,7 @@ class MoreDataSource(
     suspend fun getProfile(): GetProfileResponse {
         return httpClient.get {
             url {
-                path("profile/${settingsAuthDataSource.setUserId()}/")
+                path("profile/${settingsAuthDataSource.userId()}/")
                 bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }.body()
@@ -52,7 +52,7 @@ class MoreDataSource(
     suspend fun updateProfile(updateProfileBody: UpdateProfileBody): GetProfileResponse {
         return httpClient.patch {
             url {
-                path("profile/${settingsAuthDataSource.setUserId()}/")
+                path("profile/${settingsAuthDataSource.userId()}/")
                 bearerAuth(settingsAuthDataSource.fetchAccessToken())
                 setBody(updateProfileBody)
             }
@@ -63,7 +63,7 @@ class MoreDataSource(
     suspend fun editImage(image: ByteArray?): GetProfileResponse {
         return httpClient.patch {
             url {
-                path("profile/${settingsAuthDataSource.setUserId()}/")
+                path("profile/${settingsAuthDataSource.userId()}/")
                 bearerAuth(settingsAuthDataSource.fetchAccessToken())
                 if (image != null) {
                     body = MultiPartFormDataContent(
@@ -82,7 +82,7 @@ class MoreDataSource(
     suspend fun deleteAccount(): Boolean {
         val response = httpClient.delete {
             url {
-                path("profile/${settingsAuthDataSource.setUserId()}/")
+                path("profile/${settingsAuthDataSource.userId()}/")
                 bearerAuth(settingsAuthDataSource.fetchAccessToken())
             }
         }

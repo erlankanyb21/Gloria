@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import catalog.models.CatalogEvent
 import coil.compose.AsyncImage
 import models.catalog.ResultsItem
 import org.tbm.gloria.core_compose.R
@@ -43,6 +44,7 @@ import theme.gloriaGradient
 @Composable
 fun CardProductView(
     item: ResultsItem,
+    eventHandler: (CatalogEvent) -> Unit,
 ) {
     var isFavorite = remember {
         mutableStateOf(false)
@@ -85,8 +87,7 @@ fun CardProductView(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    modifier = Modifier.fillMaxWidth(.7f),
-                    text = item.name, style = TextStyle(
+                    modifier = Modifier.fillMaxWidth(.7f), text = item.name, style = TextStyle(
                         fontSize = 12.sp,
                         lineHeight = 12.27.sp,
                         fontWeight = FontWeight(500),
@@ -94,7 +95,7 @@ fun CardProductView(
                     )
                 )
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {},
                     modifier = Modifier
                         .width(46.dp)
                         .height(20.dp),
@@ -138,7 +139,11 @@ fun CardProductView(
                     modifier = Modifier
                         .width(98.dp)
                         .height(30.dp),
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        item.id?.let { id ->
+                            eventHandler(CatalogEvent.CartClick(id))
+                        }
+                    },
                     shape = RoundedCornerShape(40.dp),
                     colors = ButtonDefaults.buttonColors(Color.Transparent),
                     contentPadding = PaddingValues(0.dp),

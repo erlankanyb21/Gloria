@@ -30,7 +30,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -137,13 +136,17 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        GradientButton(
-                            text = stringResource(id = R.string.into_a_basket),
+                        GradientButton(text = stringResource(id = R.string.into_a_basket),
                             fontSize = 12.sp,
                             modifier = Modifier
                                 .width(98.dp)
                                 .height(30.dp),
                             shape = RoundedCornerShape(40.dp),
+                            onClick = {
+                                viewState.salesHist[it].id?.let { id ->
+                                    eventHandler(HomeEvent.CartClick(id))
+                                }
+                            }
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_favorite),
