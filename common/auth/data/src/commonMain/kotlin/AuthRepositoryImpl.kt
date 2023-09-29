@@ -17,6 +17,7 @@ class AuthRepositoryImpl(
         )
         settingsAuthDataSource.saveUserId(token.id)
         settingsAuthDataSource.saveTokens(token.detail.refresh, token.detail.access)
+        settingsAuthDataSource.saveUserData(phone_number, password)
         return token
     }
 

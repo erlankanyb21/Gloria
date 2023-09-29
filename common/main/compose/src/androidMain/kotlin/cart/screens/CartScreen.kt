@@ -1,6 +1,9 @@
 package cart.screens
 
 import NavigationTree
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,11 +12,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cart.cart.CartViewModel
@@ -29,12 +40,27 @@ import components.GradientButton
 import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import theme.color
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CartScreen() {
     val rootController = LocalRootController.current
     val modalController = rootController.findModalController()
+    val isVisibleButton = rememberSaveable { mutableStateOf(true) }
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                if (available.y < -20) {
+                    isVisibleButton.value = false
+                }
+                if (available.y > 20) {
+                    isVisibleButton.value = true
+                }
+                return Offset.Zero
+            }
+        }
+    }
 
     StoredViewModel(factory = { CartViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
@@ -60,13 +86,13 @@ fun CartScreen() {
             } else {
                 if (viewState.value.cartItems.isNotEmpty()) {
                     Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.BottomCenter
+                        modifier = Modifier.fillMaxSize()
                     ) {
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(top = paddingValues.calculateTopPadding()),
+                                .padding(top = paddingValues.calculateTopPadding())
+                                .nestedScroll(nestedScrollConnection),
                             contentPadding = PaddingValues(
                                 start = 20.dp, top = 20.dp, end = 20.dp, bottom = 80.dp),
                             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -83,13 +109,28 @@ fun CartScreen() {
                                 }
                             }
                         }
-                        GradientButton(
-                            text = stringResource(id = R.string.place_order),
-                            modifier = Modifier
-                                .padding(horizontal = 20.dp)
-                                .padding(bottom = 30.dp)
+
+                        AnimatedVisibility(
+                            modifier = Modifier.align(Alignment.Center),
+                            visible = viewState.value.progress
                         ) {
-                            viewModel.obtainEvent(CartEvent.OpenPlaceOrder)
+                            CircularProgressIndicator(color = color.purple200)
+                        }
+
+                        AnimatedVisibility(
+                            modifier = Modifier.align(Alignment.BottomCenter),
+                            visible = isVisibleButton.value,
+                            enter = slideInVertically(initialOffsetY = { it }),
+                            exit = slideOutVertically(targetOffsetY = { it }),
+                        ) {
+                            GradientButton(
+                                text = stringResource(id = R.string.place_order),
+                                modifier = Modifier
+                                    .padding(horizontal = 20.dp)
+                                    .padding(bottom = 30.dp)
+                            ) {
+                                viewModel.obtainEvent(CartEvent.OpenPlaceOrder)
+                            }
                         }
                     }
                 } else {
