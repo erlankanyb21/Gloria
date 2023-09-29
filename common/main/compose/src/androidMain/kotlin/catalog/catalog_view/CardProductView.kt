@@ -1,8 +1,10 @@
 package catalog.catalog_view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import models.catalog.ResultsItem
 import org.tbm.gloria.core_compose.R
+import theme.gloriaGradient
 
 @Composable
 fun CardProductView(
@@ -82,6 +85,7 @@ fun CardProductView(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
+                    modifier = Modifier.fillMaxWidth(.7f),
                     text = item.name, style = TextStyle(
                         fontSize = 12.sp,
                         lineHeight = 12.27.sp,
@@ -131,33 +135,37 @@ fun CardProductView(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
                     modifier = Modifier
                         .width(98.dp)
                         .height(30.dp),
+                    onClick = { /*TODO*/ },
                     shape = RoundedCornerShape(40.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(
-                            0xFFE61A93
-                        )
-                    ),
+                    colors = ButtonDefaults.buttonColors(Color.Transparent),
                     contentPadding = PaddingValues(0.dp),
                 ) {
-                    Text(
-                        text = "В корзину", style = TextStyle(
-                            fontSize = 12.sp,
-                            lineHeight = 24.sp,
-                            fontWeight = FontWeight(700),
-                            color = Color(0xFFFFFFFF),
-                            textAlign = TextAlign.Center,
+                    Box(
+                        modifier = Modifier
+                            .background(gloriaGradient)
+                            .width(98.dp)
+                            .height(30.dp),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = "В корзину", style = TextStyle(
+                                fontSize = 12.sp,
+                                lineHeight = 24.sp,
+                                fontWeight = FontWeight(700),
+                                color = Color(0xFFFFFFFF),
+                                textAlign = TextAlign.Center,
+                            )
                         )
-                    )
+                    }
                 }
                 Image(
                     modifier = Modifier.clickable {
-                           isFavorite.value = !isFavorite.value
+                        isFavorite.value = !isFavorite.value
                     },
-                    painter = if (isFavorite.value)painterResource(id = org.tbm.gloria.main.compose.R.drawable.ic_infavorite) else painterResource(
+                    painter = if (isFavorite.value) painterResource(id = org.tbm.gloria.main.compose.R.drawable.ic_infavorite) else painterResource(
                         id = R.drawable.ic_favorite
                     ),
                     contentDescription = null
