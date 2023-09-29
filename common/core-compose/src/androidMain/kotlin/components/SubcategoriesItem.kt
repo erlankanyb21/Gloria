@@ -51,6 +51,7 @@ fun SubcategoriesItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
+                modifier = Modifier.fillMaxWidth(.7f),
                 text = text,
                 style = TextStyle(
                     fontSize = 16.sp,
