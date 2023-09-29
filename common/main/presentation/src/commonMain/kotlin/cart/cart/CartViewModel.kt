@@ -99,16 +99,22 @@ class CartViewModel : BaseSharedViewModel<CartViewState, CartAction, CartEvent>(
 
     fun fetchUserCart() {
         viewModelScope.launch {
+            viewState = viewState.copy(
+                progress = true,
+                cartItems = viewState.cartItems
+            )
             viewState = try {
                 val res = cartRepository.fetchUserCart()
                 viewState.copy(
                     loading = false,
+                    progress = false,
                     cartItems = res
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
                 viewState.copy(
                     loading = false,
+                    progress = false,
                     cartItems = emptyList()
                 )
             }
