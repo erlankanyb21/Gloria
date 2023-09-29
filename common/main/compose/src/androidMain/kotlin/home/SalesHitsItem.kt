@@ -3,6 +3,7 @@ package home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -29,7 +30,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -43,13 +46,7 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        val salesHits = listOf(
-            "https://media.bunches.co.uk/products/fblos-1.jpg",
-            "https://media.bunches.co.uk/products/fblos-1.jpg",
-            "https://media.bunches.co.uk/products/fblos-1.jpg",
-            "https://media.bunches.co.uk/products/fblos-1.jpg",
-        )
-        items(salesHits.size) {
+        items(viewState.salesHist.size) {
             Card(
                 modifier = Modifier
                     .width(155.dp)
@@ -64,8 +61,11 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                         .fillMaxSize()
                         .padding(start = 10.dp, end = 10.dp, top = 14.dp),
                 ) {
+                    val originLink = viewState.salesHist[it].productImages?.get(0)?.image
+                    val modifiedLink = originLink?.replace("http://", "https://")
+
                     AsyncImage(
-                        model = salesHits[it],
+                        model = modifiedLink,
                         contentDescription = null,
                         contentScale = ContentScale.FillBounds,
                         modifier = Modifier
@@ -78,17 +78,24 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        Text(
-                            text = stringResource(id = R.string.bouquet_of_tulips),
-                            style = TextStyle(
-                                fontSize = 12.sp,
-                                lineHeight = 12.27.sp,
-                                fontWeight = FontWeight(500),
-                                color = Color.Black
+                        Box(
+                            modifier = Modifier
+                                .width(66.dp)
+                                .height(25.dp)
+                        ) {
+                            Text(
+                                text = viewState.salesHist[it].name,
+                                overflow = TextOverflow.Ellipsis, fontSize = 12.sp,
+                                style = TextStyle(
+                                    fontSize = 12.sp,
+                                    lineHeight = 12.27.sp,
+                                    fontWeight = FontWeight(500),
+                                    color = Color.Black
+                                ),
                             )
-                        )
+                        }
                         Button(
                             onClick = { /*TODO*/ },
                             modifier = Modifier
@@ -114,7 +121,7 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                     }
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = "5500 сом",
+                        text = viewState.salesHist[it].price,
                         style = TextStyle(
                             fontSize = 14.sp,
                             lineHeight = 12.27.sp,
@@ -136,7 +143,7 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                             modifier = Modifier
                                 .width(98.dp)
                                 .height(30.dp),
-                            shape = RoundedCornerShape(40.dp)
+                            shape = RoundedCornerShape(40.dp),
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_favorite),

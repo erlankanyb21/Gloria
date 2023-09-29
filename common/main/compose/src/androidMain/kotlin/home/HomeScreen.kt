@@ -38,7 +38,6 @@ import home.models.HomeAction
 import home.models.HomeEvent
 import org.tbm.gloria.main.compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
-import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.gloriaGradient
 
@@ -157,7 +156,10 @@ fun HomeScreen() {
         }
         when (viewAction.value) {
             is HomeAction.OpenStoriesDetails -> {
-                rootController.present(screen = NavigationTree.Main.StoriesDetails.name)
+                rootController.present(
+                    screen = NavigationTree.Main.StoriesDetails.name,
+                    params = (viewAction.value as HomeAction.OpenStoriesDetails).id,
+                )
             }
 
             is HomeAction.OpenSalesHits -> {}

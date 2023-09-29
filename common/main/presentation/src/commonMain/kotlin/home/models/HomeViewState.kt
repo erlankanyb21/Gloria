@@ -1,12 +1,12 @@
 package home.models
 
-import models.advertisingBanner.AdvertisingBanner
-import models.favorite.Favorite
-import models.stories.Stories
+import models.catalog.ResultsItem
+import models.home.AdvertisingBanner
+import models.home.Stories
 
 data class HomeViewState(
     var stories: List<Stories> = emptyList(),
     val storiesDetails: String,
-    val salesHits: List<Favorite> = emptyList(),
-    val advertisingBanner: List<AdvertisingBanner> = emptyList()
+    val salesHist: List<ResultsItem> = emptyList(),
+    val advertisingBanner: List<AdvertisingBanner> = emptyList(),
 )

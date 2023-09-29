@@ -18,18 +18,21 @@ class HomeViewModel : BaseSharedViewModel<HomeViewState, HomeAction, HomeEvent>(
             is HomeEvent.SalesHitsClick -> showSalesHits()
             is HomeEvent.ContactsAndAddressesClick -> showContactsAndAddresses()
             is HomeEvent.AnswersAndQuestionsClick -> showFAQ()
+            is HomeEvent.StoriesDetailsDownload -> downloadStoriesDetails(viewEvent.imageId)
+        }
+    }
+
+    private fun downloadStoriesDetails(imageId: Int) {
+        withViewModelScope {
+            val image = homeRepository.fetchStoriesDetails(imageId).image
+            if (image.toString().isNotBlank()) {
+                viewState = viewState.copy(storiesDetails = image.toString())
+            }
         }
     }
 
     private fun showStoriesDetails(id: Int) {
-        withViewModelScope {
-            val response = homeRepository.fetchStoriesDetails(id)
-            if (response.image != null) {
-                val image = response.image!!.replace("http://", "https://")
-                viewState = viewState.copy(storiesDetails = image)
-                viewAction = HomeAction.OpenStoriesDetails
-            }
-        }
+        viewAction = HomeAction.OpenStoriesDetails(id)
     }
 
     private fun showSalesHits() {
@@ -48,6 +51,7 @@ class HomeViewModel : BaseSharedViewModel<HomeViewState, HomeAction, HomeEvent>(
         withViewModelScope {
             viewState = viewState.copy(
                 stories = homeRepository.fetchStories(),
+                salesHist = homeRepository.fetchSalesHist(),
                 advertisingBanner = homeRepository.fetchAdvertisingBanner(),
             )
         }

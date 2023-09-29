@@ -1,4 +1,4 @@
-package models.stories
+package models.home
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

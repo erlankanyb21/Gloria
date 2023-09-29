@@ -9,6 +9,7 @@ import catalog.CatalogScreen
 import catalog.SubcatalogScreen
 import home.HomeScreen
 import home.StoriesDetailsScreen
+import kotlinx.serialization.builtins.serializer
 import more.MoreScreen
 import more.contactAndAddress.ContactsAndAddressScreen
 import more.faq.FAQScreen
@@ -33,7 +34,7 @@ fun RootComposeBuilder.mainFlow() {
             }
 
             screen(name = NavigationTree.Main.StoriesDetails.name) {
-                StoriesDetailsScreen()
+                StoriesDetailsScreen(id = it as Int)
             }
 
             screen(name = NavigationTree.Main.FAQ.name) {

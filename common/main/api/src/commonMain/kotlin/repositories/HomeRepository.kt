@@ -1,13 +1,14 @@
 package repositories
 
-import models.advertisingBanner.AdvertisingBanner
-import models.favorite.Favorite
-import models.stories.Stories
+import models.catalog.ResultsItem
+import models.home.AdvertisingBanner
+import models.home.Stories
 
 interface HomeRepository {
 
     suspend fun fetchStories(): List<Stories>
 
     suspend fun fetchStoriesDetails(id: Int): Stories
+    suspend fun fetchSalesHist(): List<ResultsItem>
     suspend fun fetchAdvertisingBanner(): List<AdvertisingBanner>
 }

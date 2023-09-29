@@ -44,7 +44,11 @@ fun StoriesItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                         .drawBehind { drawCircle(Color(0xFFFFFFFF)) }
                         .padding(2.dp)
                         .clip(CircleShape)
-                        .clickable {}
+                        .clickable {
+                            id?.let {
+                                eventHandler(HomeEvent.StoriesDetailsClick(id))
+                            }
+                        }
                 )
             }
         }
