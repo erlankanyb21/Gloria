@@ -24,5 +24,5 @@ data class CartItems(
     val order: Int? = null,
     val product: Int,
     val user: Int,
-    val name: String? = null
+    val name: String
 )
