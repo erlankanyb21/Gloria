@@ -1,4 +1,4 @@
-package catalog.catalog_view
+package more.favorite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,21 +37,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import catalog.models.CatalogEvent
 import coil.compose.AsyncImage
-import models.catalog.ResultsItem
+import models.home.Favorite
 import org.tbm.gloria.core_compose.R
 import theme.gloriaGradient
 
 @Composable
-fun CardProductView(
-    item: ResultsItem,
-    eventHandler: (CatalogEvent) -> Unit,
-) {
+fun FavoriteItem(favorite: Favorite) {
     var isFavorite by remember {
         mutableStateOf(false)
     }
-    val image: String? = item.productImages?.get(0)?.image
+    val image: String? = favorite.productImage?.get(0)?.image
 
     val imageView = if (image != null && !image.contains("https")) {
         image.replace("http", "https")
@@ -89,7 +85,7 @@ fun CardProductView(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    modifier = Modifier.fillMaxWidth(.7f), text = item.name, style = TextStyle(
+                    modifier = Modifier.fillMaxWidth(.7f), text = favorite.name.toString(), style = TextStyle(
                         fontSize = 12.sp,
                         lineHeight = 12.27.sp,
                         fontWeight = FontWeight(500),
@@ -121,7 +117,7 @@ fun CardProductView(
             }
             Spacer(modifier = Modifier.height(15.dp))
             Text(
-                text = item.price,
+                text = favorite.price.toString(),
                 style = TextStyle(
                     fontSize = 14.sp,
                     lineHeight = 12.27.sp,
@@ -141,11 +137,7 @@ fun CardProductView(
                     modifier = Modifier
                         .width(98.dp)
                         .height(30.dp),
-                    onClick = {
-                        item.id?.let { id ->
-                            eventHandler(CatalogEvent.CartClick(id))
-                        }
-                    },
+                    onClick = {},
                     shape = RoundedCornerShape(40.dp),
                     colors = ButtonDefaults.buttonColors(Color.Transparent),
                     contentPadding = PaddingValues(0.dp),

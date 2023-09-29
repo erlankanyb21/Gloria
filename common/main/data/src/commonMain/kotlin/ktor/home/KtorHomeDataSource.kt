@@ -3,6 +3,7 @@ package ktor.home
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -11,12 +12,13 @@ import models.catalog.ProductResponse
 import models.catalog.ResultsItem
 import models.home.AdvertisingBanner
 import models.home.CartBody
+import models.home.Favorite
 import models.home.Stories
 import settings.SettingsAuthDataSource
 
 class KtorHomeDataSource(
     private val httpClient: HttpClient,
-    private val settingsAuthDataSource: SettingsAuthDataSource
+    private val settingsAuthDataSource: SettingsAuthDataSource,
 ) {
 
     suspend fun fetchStories(): List<Stories> {
@@ -48,9 +50,19 @@ class KtorHomeDataSource(
         return httpClient.post {
             url.path("cart-items/")
             bearerAuth(settingsAuthDataSource.fetchAccessToken())
-            setBody(CartBody(1, productId,settingsAuthDataSource.userId()))
+            setBody(CartBody(1, productId, settingsAuthDataSource.userId()))
         }.body()
     }
+
+    suspend fun fetchAddFavorite(productId: Int) {
+        return httpClient.post {
+            url.path("favorite/")
+            bearerAuth(settingsAuthDataSource.fetchAccessToken())
+            setBody(Favorite(user = settingsAuthDataSource.userId(), product = productId))
+        }.body()
+    }
+
+    suspend fun fetchDeleteFavorite(productId: Int) {}
 
     suspend fun fetchAdvertisingBanner(): List<AdvertisingBanner> {
         return httpClient.get {

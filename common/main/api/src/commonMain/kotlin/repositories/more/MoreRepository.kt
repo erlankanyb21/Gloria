@@ -1,5 +1,6 @@
 package repositories.more
 
+import models.home.Favorite
 import models.more.faq.FAQResponse
 import models.more.faq.WhatsAppResponse
 import models.more.profile.GetProfileResponse
@@ -18,4 +19,6 @@ interface MoreRepository {
     suspend fun uploadImage(editImage: ByteArray?): GetProfileResponse
 
     suspend fun deleteAccount(): Boolean
+
+    suspend fun fetchFavorite(): List<Favorite>
 }

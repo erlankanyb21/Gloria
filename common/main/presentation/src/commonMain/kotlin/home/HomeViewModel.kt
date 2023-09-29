@@ -20,6 +20,18 @@ class HomeViewModel : BaseSharedViewModel<HomeViewState, HomeAction, HomeEvent>(
             is HomeEvent.ContactsAndAddressesClick -> showContactsAndAddresses()
             is HomeEvent.AnswersAndQuestionsClick -> showFAQ()
             is HomeEvent.StoriesDetailsDownload -> downloadStoriesDetails(viewEvent.imageId)
+            is HomeEvent.InFavoriteClick -> addFavorite(viewEvent.productId)
+            is HomeEvent.FavoriteClick -> deleteFavorite(viewEvent.productId)
+        }
+    }
+
+    private fun deleteFavorite(productId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    private fun addFavorite(productId: Int) {
+        withViewModelScope {
+            homeRepository.fetchAddFavorite(productId)
         }
     }
 

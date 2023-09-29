@@ -1,13 +1,14 @@
 package repositories.more
 
 import ktor.more.MoreDataSource
+import models.home.Favorite
 import models.more.faq.FAQResponse
 import models.more.faq.WhatsAppResponse
 import models.more.profile.GetProfileResponse
 import models.more.profile.UpdateProfileBody
 
 class MoreRepositoryImpl(
-    private val moreDataSource: MoreDataSource
+    private val moreDataSource: MoreDataSource,
 ) : MoreRepository {
 
     override suspend fun getProfile(): GetProfileResponse =
@@ -26,4 +27,6 @@ class MoreRepositoryImpl(
         moreDataSource.editImage(editImage)
 
     override suspend fun deleteAccount(): Boolean = moreDataSource.deleteAccount()
+    override suspend fun fetchFavorite(): List<Favorite> = moreDataSource.fetchFavorite()
+
 }

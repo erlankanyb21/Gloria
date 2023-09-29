@@ -85,7 +85,7 @@ import more.more_views.NumberDefaults.MASK
 import more.profile.ProfileEvent
 import more.profile.ProfileViewModel
 import org.tbm.gloria.core_compose.R.drawable.empty_ava
-import org.tbm.gloria.main.compose.R
+import org.tbm.gloria.core_compose.R
 import theme.gloriaGradient
 import utils.MaskVisualTransformation
 import utils.compressBitmap
@@ -521,7 +521,7 @@ fun ExpandableCard(title: String) {
 private fun handlePermission(
     context: Context,
     imagePickLauncher: ManagedActivityResultLauncher<PickVisualMediaRequest, Uri?>,
-    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>
+    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
 ) {
     val permissionToCheck = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> Manifest.permission.READ_MEDIA_IMAGES
@@ -547,7 +547,7 @@ object NumberDefaults {
 fun SimpleExpandableCard(
     modifier: Modifier = Modifier,
     title: String,
-    content: (@Composable () -> Unit)
+    content: (@Composable () -> Unit),
 ) {
     var expanded by remember { mutableStateOf(false) }
     val rotateCardIcon by animateFloatAsState(targetValue = if (expanded) 180f else 0f)

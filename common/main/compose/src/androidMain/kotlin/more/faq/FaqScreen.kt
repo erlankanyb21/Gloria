@@ -41,7 +41,6 @@ import components.ToolBar
 import extensions.OnBackPress
 import more.more_views.SimpleExpandableCard
 import org.tbm.gloria.core_compose.R
-import org.tbm.gloria.main.compose.R.string.questions_answers
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -55,7 +54,7 @@ fun FAQScreen() {
         Scaffold(
             topBar = {
                 ToolBar(
-                    title = stringResource(id = questions_answers),
+                    title = stringResource(id = R.string.questions_answers),
                     backIcon = {
                         IconButton(
                             modifier = Modifier.size(50.dp),

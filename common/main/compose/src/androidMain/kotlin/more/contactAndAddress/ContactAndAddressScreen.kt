@@ -46,7 +46,7 @@ import components.ToolBar
 import extensions.OnBackPress
 import org.tbm.gloria.core_compose.R.drawable.ic_back_arrow
 import org.tbm.gloria.core_compose.R.drawable.location
-import org.tbm.gloria.main.compose.R
+import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

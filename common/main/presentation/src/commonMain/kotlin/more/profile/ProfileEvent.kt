@@ -6,4 +6,6 @@ sealed class ProfileEvent {
     object OpenFAQClick : ProfileEvent()
     object OpenQAClick : ProfileEvent()
     object DeleteAccount : ProfileEvent()
+
+    object OpenFavorite : ProfileEvent()
 }

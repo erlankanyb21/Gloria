@@ -13,6 +13,7 @@ import kotlinx.serialization.builtins.serializer
 import more.MoreScreen
 import more.contactAndAddress.ContactsAndAddressScreen
 import more.faq.FAQScreen
+import more.favorite.FavoriteScreen
 import navigation.tabs.BottomConfiguration
 import navigation.tabs.CartTab
 import navigation.tabs.CatalogTab
@@ -40,7 +41,7 @@ fun RootComposeBuilder.mainFlow() {
             screen(name = NavigationTree.Main.FAQ.name) {
                 FAQScreen()
             }
-           
+
             screen(name = NavigationTree.Main.ContactsAndAddress.name) {
                 ContactsAndAddressScreen()
             }
@@ -78,6 +79,10 @@ fun RootComposeBuilder.mainFlow() {
 
             screen(NavigationTree.Main.ContactsAndAddress.name) {
                 ContactsAndAddressScreen()
+            }
+
+            screen(NavigationTree.Main.Favorite.name) {
+                FavoriteScreen()
             }
         }
     }

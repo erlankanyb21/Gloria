@@ -18,7 +18,12 @@ class ProfileViewModel : BaseSharedViewModel<ProfileViewState, ProfileAction, Pr
             is ProfileEvent.UpdateData -> sendProfile()
             is ProfileEvent.UploadAvatar -> uploadAvatar()
             is ProfileEvent.DeleteAccount -> deleteAccount()
+            is ProfileEvent.OpenFavorite -> showFavorite()
         }
+    }
+
+    private fun showFavorite() {
+        viewAction = ProfileAction.OpenFavorite
     }
 
     init {

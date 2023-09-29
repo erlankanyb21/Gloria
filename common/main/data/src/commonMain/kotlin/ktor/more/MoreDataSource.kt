@@ -14,6 +14,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.path
 import io.ktor.util.InternalAPI
+import models.home.Favorite
 import models.more.faq.FAQResponse
 import models.more.faq.WhatsAppResponse
 import models.more.profile.GetProfileResponse
@@ -22,7 +23,7 @@ import settings.SettingsAuthDataSource
 
 class MoreDataSource(
     private val httpClient: HttpClient,
-    private val settingsAuthDataSource: SettingsAuthDataSource
+    private val settingsAuthDataSource: SettingsAuthDataSource,
 ) {
     suspend fun getProfile(): GetProfileResponse {
         return httpClient.get {
@@ -91,5 +92,12 @@ class MoreDataSource(
             HttpStatusCode.NoContent -> true
             else -> false
         }
+    }
+
+    suspend fun fetchFavorite(): List<Favorite> {
+        return httpClient.get {
+            url.path("favorite/")
+            bearerAuth(settingsAuthDataSource.fetchAccessToken())
+        }.body()
     }
 }

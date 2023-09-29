@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,14 +27,14 @@ fun StoriesItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(5.dp)
     ) {
-        items(viewState.stories.size) {
+        items(items = viewState.stories) {
             Row(
                 Modifier.animateItemPlacement(
                     tween(durationMillis = 250)
                 )
             ) {
-                val id = viewState.stories[it].id
-                val originLink = viewState.stories[it].image
+                val id = it.id
+                val originLink = it.image
                 val modifiedLink = originLink?.replace("http://", "https://")
                 AsyncImage(
                     model = modifiedLink,

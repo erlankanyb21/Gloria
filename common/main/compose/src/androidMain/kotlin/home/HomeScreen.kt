@@ -36,7 +36,7 @@ import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import home.models.HomeAction
 import home.models.HomeEvent
-import org.tbm.gloria.main.compose.R
+import org.tbm.gloria.core_compose.R
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.gloriaGradient

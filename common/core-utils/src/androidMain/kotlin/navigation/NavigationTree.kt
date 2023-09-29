@@ -26,5 +26,6 @@ object NavigationTree {
         CatalogDetailScreen,
         PlaceOrder,
         SuccessfulOrder,
+        Favorite
     }
 }

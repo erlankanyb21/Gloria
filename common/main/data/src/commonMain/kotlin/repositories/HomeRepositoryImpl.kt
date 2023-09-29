@@ -18,6 +18,14 @@ class HomeRepositoryImpl(private val ktorHomeDataSource: KtorHomeDataSource) : H
         return ktorHomeDataSource.fetchSalesHits()
     }
 
+    override suspend fun fetchAddFavorite(productId: Int) {
+        ktorHomeDataSource.fetchAddFavorite(productId)
+    }
+
+    override suspend fun fetchDeleteFavorite(productId: Int) {
+        ktorHomeDataSource
+    }
+
     override suspend fun fetchAddCart(productId: Int) {
         ktorHomeDataSource.fetchAddCart(productId)
     }

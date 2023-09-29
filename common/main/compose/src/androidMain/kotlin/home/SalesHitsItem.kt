@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,6 +23,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,14 +44,14 @@ import coil.compose.AsyncImage
 import components.GradientButton
 import home.models.HomeEvent
 import home.models.HomeViewState
-import org.tbm.gloria.main.compose.R
+import org.tbm.gloria.core_compose.R
 
 @Composable
 fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        items(viewState.salesHist.size) {
+        items(items = viewState.salesHist) {
             Card(
                 modifier = Modifier
                     .width(155.dp)
@@ -60,7 +66,7 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                         .fillMaxSize()
                         .padding(start = 10.dp, end = 10.dp, top = 14.dp),
                 ) {
-                    val originLink = viewState.salesHist[it].productImages?.get(0)?.image
+                    val originLink = it.productImages?.get(0)?.image
                     val modifiedLink = originLink?.replace("http://", "https://")
 
                     AsyncImage(
@@ -85,7 +91,7 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                                 .height(25.dp)
                         ) {
                             Text(
-                                text = viewState.salesHist[it].name,
+                                text = it.name,
                                 overflow = TextOverflow.Ellipsis, fontSize = 12.sp,
                                 style = TextStyle(
                                     fontSize = 12.sp,
@@ -120,7 +126,7 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                     }
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = viewState.salesHist[it].price,
+                        text = it.price,
                         style = TextStyle(
                             fontSize = 14.sp,
                             lineHeight = 12.27.sp,
@@ -143,15 +149,34 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                                 .height(30.dp),
                             shape = RoundedCornerShape(40.dp),
                             onClick = {
-                                viewState.salesHist[it].id?.let { id ->
+                                it.id?.let { id ->
                                     eventHandler(HomeEvent.CartClick(id))
                                 }
+                            })
+                        var isFavorite by rememberSaveable {
+                            mutableStateOf(false)
+                        }
+
+                        Image(
+                            painter = when (isFavorite) {
+                                true -> painterResource(id = R.drawable.ic_infavorite)
+                                false -> painterResource(id = R.drawable.ic_favorite)
+                            },
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                isFavorite = !isFavorite
                             }
                         )
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_favorite),
-                            contentDescription = null
-                        )
+
+                        it.id?.let { id ->
+                            when (isFavorite) {
+                                true -> {
+                                    eventHandler(HomeEvent.InFavoriteClick(id))
+                                }
+
+                                false -> {}
+                            }
+                        }
                     }
                 }
             }
