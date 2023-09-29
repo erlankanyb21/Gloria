@@ -1,6 +1,8 @@
 package cart.screens
 
-import NavigationTree
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -31,10 +33,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cart.cart_views.CartTextField
@@ -49,13 +53,13 @@ import components.BackIcon
 import components.GradientButton
 import components.ToolBar
 import org.tbm.gloria.core_compose.R
-import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
 
 @Composable
 fun PlaceOrderScreen() {
     val rootController = LocalRootController.current
+    val context = LocalContext.current
 
     StoredViewModel(factory = { PlaceOrderViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
@@ -108,7 +112,8 @@ fun PlaceOrderScreen() {
 
                     CartTextField(
                         value = viewState.value.fieldPhone,
-                        placeHolder = "Номер телефона"
+                        placeHolder = "Номер телефона",
+                        keyboardType = KeyboardType.Decimal
                     ) { text ->
                         viewModel.obtainEvent(PlaceOrderEvent.FieldPhoneNumberChanged(text))
                     }
@@ -272,7 +277,56 @@ fun PlaceOrderScreen() {
                         modifier = Modifier.padding(top = 60.dp, bottom = 32.dp),
                         text = "Оформить заказ", fontSize = 18.sp
                     ) {
-                        rootController.present(NavigationTree.Main.SuccessfulOrder.name)
+//                        rootController.present(NavigationTree.Main.SuccessfulOrder.name)
+                        val deliveryMethod = viewState.value.radioButtonsState.find { it.isChecked }?.text
+                        val userName = viewState.value.fieldName.ifEmpty {
+                            Toast.makeText(context, "Заполните имя", Toast.LENGTH_SHORT).show()
+                            return@GradientButton
+                        }
+                        val userNumber = viewState.value.fieldPhone.ifEmpty {
+                            Toast.makeText(context, "Заполните номер телефона", Toast.LENGTH_SHORT).show()
+                            return@GradientButton
+                        }
+                        val order = arrayListOf(
+                            "Заказ: ($deliveryMethod)\n",
+                            "Имя: $userName\n",
+                            "Номер телефона: $userNumber\n\n"
+                        )
+                        if (deliveryMethod == "Доставка") {
+                            val address = viewState.value.deliveryInfo.fieldAddress.ifEmpty {
+                                Toast.makeText(context, "Заполните поле \"Адресс\"", Toast.LENGTH_SHORT).show()
+                                return@GradientButton
+                            }
+                            val apartmentNumber = viewState.value.deliveryInfo.fieldApartmentNumber.ifEmpty {
+                                Toast.makeText(context, "Заполните номер \"Квартира / Офис\"", Toast.LENGTH_SHORT).show()
+                                return@GradientButton
+                            }
+                            val floorAndDoorCode = viewState.value.deliveryInfo.fieldFloorAndDoorCode.ifEmpty {
+                                Toast.makeText(context, "Заполните номер \"Этаж, код дври / домофона\"", Toast.LENGTH_SHORT).show()
+                                return@GradientButton
+                            }
+                            val moreInfo = viewState.value.deliveryInfo.fieldMoreInfo
+                            order.add("Адресс: $address\n")
+                            order.add("Квартира / Офис: $apartmentNumber\n")
+                            order.add("Этаж, код дври / домофона: $floorAndDoorCode\n")
+                            order.add("Дополнительно к заказу: $moreInfo\n")
+                        }
+                        viewState.value.cartItems.forEach { item ->
+                            order.add("${item.name}: ${item.quantity}шт \n")
+                        }
+                        order.add("\nОбщая стоимость: ${viewState.value.totalValue}c")
+                        context.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                    String.format(
+                                        "https://api.whatsapp.com/send?phone=%s&text=%s",
+                                        "+996708081003",
+                                        order.joinToString().replace(",", "")
+                                    )
+                                )
+                            )
+                        )
                     }
                 }
             }

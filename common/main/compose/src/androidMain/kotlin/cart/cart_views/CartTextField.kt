@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import theme.color
@@ -19,6 +20,7 @@ import theme.color
 fun CartTextField(
     value: String,
     placeHolder: String,
+    keyboardType: KeyboardType = KeyboardType.Text,
     onValueChanged: (String) -> Unit
 ) {
     OutlinedTextField(
@@ -32,8 +34,10 @@ fun CartTextField(
         },
         shape = CircleShape,
         singleLine = true,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            keyboardType = keyboardType),
         placeholder = { Text(text = placeHolder, fontSize = 12.sp) },
-        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = color.purple200)
+        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = color.purple200),
     )
 }
