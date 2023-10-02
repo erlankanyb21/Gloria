@@ -54,7 +54,7 @@ import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import components.ToolBarWithSearch
 import org.tbm.gloria.core_compose.R
-import ru.alexgladkov.odyssey.compose.extensions.push
+import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
 
@@ -68,11 +68,9 @@ fun CatalogScreen() {
         val viewAction = viewModel.viewActions().observeAsState()
 
 
-        Scaffold(
-            topBar = {
-                ToolBarWithSearch(title = stringResource(id = R.string.catalog))
-            }
-        ) {
+        Scaffold(topBar = {
+            ToolBarWithSearch(title = stringResource(id = R.string.catalog))
+        }) {
             if (viewState.value.loading) {
                 Box(
                     modifier = Modifier
@@ -100,37 +98,33 @@ fun CatalogScreen() {
                         contentPadding = PaddingValues(all = 5.dp)
                     ) {
                         items(items = viewState.value.catalogItem) { item ->
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .shimmerEffect()
-                                    .height(180.dp)
-                                    .clickable {
-                                        if (item.subcategories.isNullOrEmpty()) {
-                                            viewModel.obtainEvent(CatalogEvent.OpenProductClick)
-                                        } else {
-                                            viewModel.obtainEvent(
-                                                CatalogEvent.OpenSubCatalogClick(
-                                                    item.categorySlug
-                                                )
+                            Box(modifier = Modifier
+                                .fillMaxWidth()
+                                .shimmerEffect()
+                                .height(180.dp)
+                                .clickable {
+                                    if (item.subcategories.isNullOrEmpty()) {
+                                        viewModel.obtainEvent(CatalogEvent.OpenProductClick)
+                                    } else {
+                                        viewModel.obtainEvent(
+                                            CatalogEvent.OpenSubCatalogClick(
+                                                item.categorySlug
                                             )
-                                        }
+                                        )
                                     }
-                                    .clip(RoundedCornerShape(size = 4.dp)),
-                                contentAlignment = Alignment.BottomEnd
-                            ) {
+                                }
+                                .clip(RoundedCornerShape(size = 4.dp)),
+                                contentAlignment = Alignment.BottomEnd) {
                                 AsyncImage(
                                     modifier = Modifier.fillMaxSize(),
                                     model = ImageRequest.Builder(context = LocalContext.current)
-                                        .data(item.image?.replace("http", "https"))
-                                        .crossfade(true)
+                                        .data(item.image?.replace("http", "https")).crossfade(true)
                                         .build(),
                                     contentDescription = null,
                                     contentScale = ContentScale.Crop
                                 )
                                 Text(
-                                    modifier = Modifier
-                                        .padding(end = 10.dp, bottom = 10.dp),
+                                    modifier = Modifier.padding(end = 10.dp, bottom = 10.dp),
                                     text = item.name,
                                     style = TextStyle(
                                         Color.Black,
@@ -147,12 +141,16 @@ fun CatalogScreen() {
         }
         when (viewAction.value) {
             CatalogAction.OpenProduct -> {
-                rootController.push(NavigationTree.Main.CatalogDetailScreen.name)
+                rootController.findRootController().present(
+                    screen = NavigationTree.Main.MainFlow.name,
+                    startScreen = NavigationTree.Main.CatalogDetailScreen.name
+                )
             }
 
             is CatalogAction.OpenSubCatalog -> {
-                rootController.push(
-                    NavigationTree.Main.Subcatalog.name,
+                    rootController.findRootController().present(
+                    screen = NavigationTree.Main.MainFlow.name,
+                    startScreen = NavigationTree.Main.Subcatalog.name,
                     params = (viewAction.value as CatalogAction.OpenSubCatalog).slag
                 )
             }
@@ -172,20 +170,18 @@ fun Modifier.shimmerEffect(): Modifier = composed {
         targetValue = 2 * size.width.toFloat(),
         animationSpec = infiniteRepeatable(
             animation = tween(1000)
-        ), label = ""
+        ),
+        label = ""
     )
     background(
         brush = Brush.linearGradient(
             colors = listOf(
-                Color(0xFFF1EFEF),
-                Color(0xFFFFFFFF),
-                Color(0xFFF1EFEF)
+                Color(0xFFF1EFEF), Color(0xFFFFFFFF), Color(0xFFF1EFEF)
             ),
             start = Offset(startOffsetX, 0f),
-            end = Offset(startOffsetX + size.width.toFloat() , size.height.toFloat())
+            end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())
         )
-    )
-        .onGloballyPositioned {
-            size = it.size
-        }
+    ).onGloballyPositioned {
+        size = it.size
+    }
 }

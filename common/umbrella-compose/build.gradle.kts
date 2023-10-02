@@ -12,6 +12,7 @@ kotlin {
                 implementation(project(":common:core-utils"))
                 implementation(project(":common:main:compose"))
                 implementation(project(":common:auth:compose"))
+                implementation(project(":common:auth:data"))
 
                 implementation(Dependencies.Other.ViewModel.core)
                 implementation(Dependencies.Other.ViewModel.compose)

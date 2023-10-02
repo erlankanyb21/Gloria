@@ -20,7 +20,6 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -50,13 +49,11 @@ fun MoreScreen() {
         val viewAction = viewModel.viewActions().observeAsState()
         when (viewState.value.getProfileResponse?.fullname.toString().isNotEmpty()) {
             true -> {
-                Scaffold(
-                    topBar = {
-                        ToolBar(
-                            title = stringResource(id = R.string.profile)
-                        )
-                    }
-                ) {
+                Scaffold(topBar = {
+                    ToolBar(
+                        title = stringResource(id = R.string.profile)
+                    )
+                }) {
                     Column(
                         modifier = Modifier
                             .padding(it)
@@ -84,9 +81,21 @@ fun MoreScreen() {
         }
 
         when (viewAction.value) {
-            ProfileAction.OpenFAQ -> rootController.present(NavigationTree.Main.FAQ.name)
-            ProfileAction.OpenQA -> rootController.present(NavigationTree.Main.ContactsAndAddress.name)
-            ProfileAction.OpenFavorite -> rootController.present(NavigationTree.Main.Favorite.name)
+            ProfileAction.OpenFAQ -> rootController.findRootController().present(
+                screen = NavigationTree.Main.MainFlow.name,
+                startScreen = NavigationTree.Main.FAQ.name
+            )
+
+            ProfileAction.OpenQA -> rootController.findRootController().present(
+                screen = NavigationTree.Main.MainFlow.name,
+                startScreen = NavigationTree.Main.ContactsAndAddress.name
+            )
+
+            ProfileAction.OpenFavorite -> rootController.findRootController().present(
+                screen = NavigationTree.Main.MainFlow.name,
+                startScreen = NavigationTree.Main.Favorite.name
+            )
+
             else -> {}
         }
     }
@@ -94,15 +103,13 @@ fun MoreScreen() {
 
 @Composable
 private fun OutlinedButtons(eventHandler: (ProfileEvent) -> Unit) {
-    OutlinedButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 7.dp)
-            .height(50.dp)
-            .border(2.dp, gloriaGradient, RoundedCornerShape(28.dp)),
+    OutlinedButton(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 20.dp, vertical = 7.dp)
+        .height(50.dp)
+        .border(2.dp, gloriaGradient, RoundedCornerShape(28.dp)),
         shape = RoundedCornerShape(28.dp),
-        onClick = { /*TODO*/ }
-    ) {
+        onClick = { /*TODO*/ }) {
         Text(
             text = stringResource(R.string.change_password),
             color = Color.Black,
@@ -111,15 +118,13 @@ private fun OutlinedButtons(eventHandler: (ProfileEvent) -> Unit) {
         )
     }
 
-    OutlinedButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 7.dp)
-            .height(50.dp)
-            .border(2.dp, gloriaGradient, RoundedCornerShape(28.dp)),
+    OutlinedButton(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 20.dp, vertical = 7.dp)
+        .height(50.dp)
+        .border(2.dp, gloriaGradient, RoundedCornerShape(28.dp)),
         shape = RoundedCornerShape(28.dp),
-        onClick = { /*TODO*/ }
-    ) {
+        onClick = { /*TODO*/ }) {
         Text(
             text = stringResource(R.string.order_history),
             color = Color.Black,
@@ -128,15 +133,13 @@ private fun OutlinedButtons(eventHandler: (ProfileEvent) -> Unit) {
         )
     }
 
-    OutlinedButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 7.dp)
-            .height(50.dp)
-            .border(2.dp, gloriaGradient, RoundedCornerShape(28.dp)),
+    OutlinedButton(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 20.dp, vertical = 7.dp)
+        .height(50.dp)
+        .border(2.dp, gloriaGradient, RoundedCornerShape(28.dp)),
         shape = RoundedCornerShape(28.dp),
-        onClick = { eventHandler(ProfileEvent.OpenFavorite) }
-    ) {
+        onClick = { eventHandler(ProfileEvent.OpenFavorite) }) {
         Text(
             text = stringResource(R.string.favorites),
             color = Color.Black,
@@ -172,11 +175,9 @@ fun FilledButtons(eventHandler: (ProfileEvent) -> Unit) {
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 7.dp)
             .clip(RoundedCornerShape(40.dp))
-            .background(gloriaGradient),
-        onClick = {
+            .background(gloriaGradient), onClick = {
             eventHandler(ProfileEvent.OpenFAQClick)
-        },
-        colors = ButtonDefaults.buttonColors(
+        }, colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent
         )
     ) {

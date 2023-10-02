@@ -33,6 +33,7 @@ import components.SubcategoriesItem
 import components.ToolBarWithSearch
 import extensions.OnBackPress
 import org.tbm.gloria.core_compose.R
+import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import theme.color
@@ -113,7 +114,10 @@ fun SubcatalogScreen(slug: String) {
                 }
 
                 CatalogAction.OpenProduct -> {
-                    rootController.push(NavigationTree.Main.CatalogDetailScreen.name)
+                    rootController.findRootController().present(
+                        screen = NavigationTree.Main.MainFlow.name,
+                        startScreen = NavigationTree.Main.CatalogDetailScreen.name,
+                    )
                 }
 
                 else -> {}

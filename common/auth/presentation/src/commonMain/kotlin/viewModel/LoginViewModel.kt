@@ -12,9 +12,9 @@ class LoginViewModel: BaseSharedViewModel<LoginViewState, LoginAction, LoginEven
     initialState = LoginViewState(phone_number = "", password = "")
 ){
     private val authRepository: AuthRepository = Inject.instance()
-    init {
+    /*init {
         checkUserLoggedIn()
-    }
+    }*/
 
 
     override fun obtainEvent(viewEvent: LoginEvent) {

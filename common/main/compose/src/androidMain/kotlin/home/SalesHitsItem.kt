@@ -66,11 +66,9 @@ fun SalesHitsItem(viewState: HomeViewState, eventHandler: (HomeEvent) -> Unit) {
                         .fillMaxSize()
                         .padding(start = 10.dp, end = 10.dp, top = 14.dp),
                 ) {
-                    val originLink = it.productImages?.get(0)?.image
-                    val modifiedLink = originLink?.replace("http://", "https://")
 
                     AsyncImage(
-                        model = modifiedLink,
+                        model = it.productImages?.get(0)?.image?.replace("http://", "https://"),
                         contentDescription = null,
                         contentScale = ContentScale.FillBounds,
                         modifier = Modifier

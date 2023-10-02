@@ -156,19 +156,26 @@ fun HomeScreen() {
         }
         when (viewAction.value) {
             is HomeAction.OpenStoriesDetails -> {
-                rootController.present(
-                    screen = NavigationTree.Main.StoriesDetails.name,
-                    params = (viewAction.value as HomeAction.OpenStoriesDetails).id,
+                rootController.findRootController().present(
+                    screen = NavigationTree.Main.MainFlow.name,
+                    startScreen = NavigationTree.Main.MainFlow.name,
+                    params = (viewAction.value as HomeAction.OpenStoriesDetails).id
                 )
             }
 
             is HomeAction.OpenSalesHits -> {}
             is HomeAction.OpenContactsAndAddresses -> {
-                rootController.present(screen = NavigationTree.Main.ContactsAndAddress.name)
+                rootController.findRootController().present(
+                    screen = NavigationTree.Main.MainFlow.name,
+                    startScreen = NavigationTree.Main.ContactsAndAddress.name
+                )
             }
 
             is HomeAction.OpenFAQ -> {
-                rootController.present(screen = NavigationTree.Main.FAQ.name)
+                rootController.findRootController().present(
+                    screen = NavigationTree.Main.MainFlow.name,
+                    startScreen = NavigationTree.Main.FAQ.name
+                )
             }
 
             else -> {}

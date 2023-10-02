@@ -4,16 +4,9 @@ import NavigationTree
 import cart.screens.CartScreen
 import cart.screens.PlaceOrderScreen
 import cart.screens.SuccessfulOrderScreen
-import catalog.CatalogDetailScreen
 import catalog.CatalogScreen
-import catalog.SubcatalogScreen
 import home.HomeScreen
-import home.StoriesDetailsScreen
-import kotlinx.serialization.builtins.serializer
 import more.MoreScreen
-import more.contactAndAddress.ContactsAndAddressScreen
-import more.faq.FAQScreen
-import more.favorite.FavoriteScreen
 import navigation.tabs.BottomConfiguration
 import navigation.tabs.CartTab
 import navigation.tabs.CatalogTab
@@ -33,28 +26,10 @@ fun RootComposeBuilder.mainFlow() {
             screen(name = NavigationTree.Main.MainScreen.name) {
                 HomeScreen()
             }
-
-            screen(name = NavigationTree.Main.StoriesDetails.name) {
-                StoriesDetailsScreen(id = it as Int)
-            }
-
-            screen(name = NavigationTree.Main.FAQ.name) {
-                FAQScreen()
-            }
-
-            screen(name = NavigationTree.Main.ContactsAndAddress.name) {
-                ContactsAndAddressScreen()
-            }
         }
         tab(CatalogTab()) {
             screen(name = NavigationTree.Main.Catalog.name) {
                 CatalogScreen()
-            }
-            screen(name = NavigationTree.Main.Subcatalog.name) {
-                SubcatalogScreen(slug = it as String)
-            }
-            screen(name = NavigationTree.Main.CatalogDetailScreen.name) {
-                CatalogDetailScreen()
             }
         }
         tab(CartTab()) {
@@ -71,18 +46,6 @@ fun RootComposeBuilder.mainFlow() {
         tab(MoreTab()) {
             screen(name = NavigationTree.Main.More.name) {
                 MoreScreen()
-            }
-
-            screen(NavigationTree.Main.FAQ.name) {
-                FAQScreen()
-            }
-
-            screen(NavigationTree.Main.ContactsAndAddress.name) {
-                ContactsAndAddressScreen()
-            }
-
-            screen(NavigationTree.Main.Favorite.name) {
-                FavoriteScreen()
             }
         }
     }

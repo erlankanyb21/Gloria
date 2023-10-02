@@ -9,18 +9,19 @@ import coil.compose.AsyncImage
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import extensions.OnBackPress
-import home.models.HomeEvent
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import storiesDetails.StoriesDetailsViewModel
+import storiesDetails.models.StoriesDetailsEvent
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun StoriesDetailsScreen(id: Int) {
     val rootController = LocalRootController.current
     OnBackPress { rootController.popBackStack() }
-    StoredViewModel(factory = { HomeViewModel() }) { viewModel ->
-        viewModel.obtainEvent(HomeEvent.StoriesDetailsDownload(id))
+    StoredViewModel(factory = { StoriesDetailsViewModel() }) { viewModel ->
+        viewModel.obtainEvent(StoriesDetailsEvent.DownloadStories(id))
         val viewState = viewModel.viewStates().observeAsState()
-        val modifiedLink = viewState.value.storiesDetails.replace("http://", "https://")
+        val modifiedLink = viewState.value.storiesDetails?.replace("http://", "https://")
         AsyncImage(
             model = modifiedLink,
             contentDescription = null,

@@ -5,6 +5,7 @@ object NavigationTree {
     }
 
     enum class Auth {
+        AuthFlow,
         SignIn,
         SignUp,
         NumberConfirmation,
@@ -14,8 +15,8 @@ object NavigationTree {
     }
 
     enum class Main {
+        MainFlow,
         MainScreen,
-        Main,
         Catalog,
         Cart,
         More,

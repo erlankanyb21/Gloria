@@ -56,7 +56,7 @@ fun FavoriteScreen() {
         LazyVerticalGrid(
             modifier = Modifier
                 .padding(it)
-                .fillMaxSize(),
+                .fillMaxSize().padding(horizontal = 20.dp),
             columns = GridCells.Fixed(count = 2),
             verticalArrangement = Arrangement.spacedBy(space = 5.dp),
             horizontalArrangement = Arrangement.spacedBy(space = 5.dp),

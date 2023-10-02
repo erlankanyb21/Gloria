@@ -35,6 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -57,8 +58,9 @@ fun FavoriteItem(favorite: Favorite) {
 
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(256.dp),
+            .width(155.dp)
+            .height(256.dp)
+            .clickable {},
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFFFF))
@@ -84,14 +86,22 @@ fun FavoriteItem(favorite: Favorite) {
                     .wrapContentHeight(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(.7f), text = favorite.name.toString(), style = TextStyle(
-                        fontSize = 12.sp,
-                        lineHeight = 12.27.sp,
-                        fontWeight = FontWeight(500),
-                        color = Color.Black
+                Box(
+                    modifier = Modifier
+                        .width(66.dp)
+                        .height(25.dp)
+                ) {
+                    Text(
+                        text = favorite.name.toString(),
+                        overflow = TextOverflow.Ellipsis, fontSize = 12.sp,
+                        style = TextStyle(
+                            fontSize = 12.sp,
+                            lineHeight = 12.27.sp,
+                            fontWeight = FontWeight(500),
+                            color = Color.Black
+                        ),
                     )
-                )
+                }
                 Button(
                     onClick = {},
                     modifier = Modifier
